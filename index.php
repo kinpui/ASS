@@ -1,17 +1,15 @@
 <?php
 //入口
-header("Content-type: text/html; charset=utf-8"); //设置编码
 
-/*
- *引入function 方法
- **/
-require_once("function.php");
+//设置编码
+header("Content-type: text/html; charset=utf-8"); 
 
-//对浏览器传递来的字符串进行转义
-$c = @$_GET['c'] ? filter($_GET['c']) : 'index';	
-$m = @$_GET['m'] ? filter($_GET['m']) : 'index';
+//引入配置文件
+//引入框架
 
-//实例化smarty
-$smarty = ORG('Smarty/Smarty.class.php', 'Smarty', $viewconfig);
+require_once( 'config.php' );
+require_once( 'frame/ass_run.php');
 
-C($c,$m);
+//运行参数传入配置文件中的配置
+ass::run( $config );
+
