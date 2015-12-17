@@ -5,8 +5,12 @@
 class indexView
 {
 	public function display($data){
-		echo $data.'<br>';
-		echo '欢迎来到mvc';
+    //全局化变量smarty
+    global $smarty;
+    
+    $smarty->assign( 'index','首页' );
+    $smarty->display( 'index.html' );
+
 	}
 }
 
