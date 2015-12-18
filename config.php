@@ -40,5 +40,4 @@ $config = array(
     'db_prefix'  => 'ass_',
     'db_charset' => 'utf8'
   ) 
-
 );
