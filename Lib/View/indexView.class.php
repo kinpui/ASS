@@ -6,10 +6,9 @@ class indexView
 {
 	public function display($data){
     //全局化变量smarty
-    global $smarty;
     
-    $smarty->assign( 'index','首页' );
-    $smarty->display( 'index.html' );
+    VIEW::assign( 'index','首页' );
+    VIEW::display( 'index.html' );
 
 	}
 }

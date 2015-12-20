@@ -5,15 +5,8 @@
 class indexController
 {
 	public function index(){
-		global $view;
-
-		//访问数据模型
-		$indexData = M('index');
-		$data = $indexData->show('用户误闯入');
-
-		//调用视图模型进行渲染
-		$view = V('index');
-		$view->display($data);
-	}
+			VIEW::assign(array('title'=>'快乐的一天', 'author'=>'开心的一天'));
+			VIEW::display('index.html');
+  }
 }
 

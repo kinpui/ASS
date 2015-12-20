@@ -22,6 +22,7 @@ class mysql{
 
   function connect( $config ){
 
+
     //extract(array,extract_rules,prefix)
     //提取数组
     extract( $config );
@@ -30,7 +31,7 @@ class mysql{
      * 数据库连接符返回到$con 
      * 连接失败则报错
      **/
-    if( !($con = mysql_connect( $dbhost,$dbuser,$dbpsw )) ){
+    if( !($con = mysql_connect( $db_host,$db_user,$db_pwd )) ){
       $this->e();
     }
 
@@ -38,12 +39,13 @@ class mysql{
      * 选择数据表
      * 连接失败报错
      **/
-    if( !mysql_select_db( $dbname,$con ) ){
+    if( !mysql_select_db( $db_name,$con ) ){
       $this->e();
     }
 
     //设置编码
-    mysql_query( "set names ".$dbcharset );
+    mysql_query( "set names ".$db_charset );
+     
   }
 
   /**
@@ -51,7 +53,7 @@ class mysql{
    * 数据库操作错误提示
    *
    **/
-  function e( $error_msg ){
+  function e(){
     
     //制止运行并输出
     die( '操作有误:'. mysql_error() );

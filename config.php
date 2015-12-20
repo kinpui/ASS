@@ -5,18 +5,23 @@ $config = array(
 
   /**
    *
-   * 定义smarty 初始化配置选项
-   * 定义了smarty 的 left_delimiter(左定界符)   为  {
-   * 定义了smarty 的 right_delimiter(右定界符)  为 }
-   * 定义了smarty 的 template_dir(模板目录)     为 template
-   * 定义了smarty 的 compile_dir(模板缓存)      为 template_cecha
+   * view_type   定义视图引擎名称和初始化配置选项
+   * view_config 定义了引擎的配置选项
+   *
+   *    定义了引擎 的 left_delimiter(左定界符)   为  {
+   *    定义了引擎 的 right_delimiter(右定界符)  为 }
+   *    定义了引擎 的 template_dir(模板目录)     为 template
+   *    定义了引擎 的 compile_dir(模板缓存)      为 template_cecha
    *
    **/
-  'viewconfig' => array(
-    'left_delimiter'  => '{', 
-    'right_delimiter' => '}', 
-    'template_dir'    => 'template', 
-    'compile_dir'     => 'data/template_cecha'
+  'view_config' => array(
+    'view_type'   => 'Smarty',
+    'view_config' => array(
+      'left_delimiter'  => '{', 
+      'right_delimiter' => '}', 
+      'template_dir'    => 'template', 
+      'compile_dir'     => 'data/template_cecha'
+    )
   ),
 
   /**
@@ -31,12 +36,12 @@ $config = array(
    * db_charset   定义  数据库字符集
    *
    **/
-  'dbconfig'  => array(
+  'db_config'  => array(
     'db_type'    => 'mysql',
     'db_host'    => 'localhost',
     'db_user'    => 'root',
     'db_pwd'     => '123456',
-    'db_name'    => 'ASS',
+    'db_name'    => 'ass',
     'db_prefix'  => 'ass_',
     'db_charset' => 'utf8'
   ) 

@@ -10,7 +10,7 @@ $current_dir = dirname( __FILE__ );
 
 //引入文件列表
 //该文件中存在一个需要引入的文件列表。在一个paths array 里
-include_once( $current_dir.'/include_list.php' );
+include_once( $current_dir.'/libs/include_list.php' );
 
 //将paths 中的path 逐一引入
 foreach( $paths as $path ){
@@ -29,31 +29,39 @@ class ass{
 
   //初始化数据库
   private static  function init_db(){
-    DB::init( self::$config['dbconfig'] );
+    D::init( self::$config['db_config'] );
   }
 
   //初始化视图模型
   private static  function init_view(){
-    VIEW::init( self::$config['viewconfig'] );
+    V::init( self::$config['view_config'] );
   }
 
   //初始化控制器名称
   private static  function init_controller(){
-    self::$controller = isset( $_GET['c'] )?dsddslashes( $_GET['c'] ) : 'index';
+    self::$controller = isset( $_GET['c'] )?( $_GET['c'] ) : 'index';
   }
 
   //初始化模型名称
   private static  function init_method(){
-    self::$method     = isset( $_GET['m'] )?dsddslashes( $_GET['c'] ) : 'index';
+    self::$method     = isset( $_GET['m'] )?( $_GET['c'] ) : 'index';
   }
 
 
   //运行
   public static   function run( $config ){
     self::$config = $config;
+
+    //初始化数据库
     self::init_db();
+
+    //初始化视图引擎
     self::init_view();
+
+    //接收方法
     self::init_method();
+
+    //接收控制器
     self::init_controller();
 
     C( self::$controller,self::$method );

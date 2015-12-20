@@ -6,7 +6,7 @@
  *
  **/
 
-class VIEW{
+class V{
   
   public static $view;
 
@@ -15,12 +15,13 @@ class VIEW{
    * 实例化视图操作类库
    **/
 
-  public static function init( $viewtype , $config ){
+  public static function init( $config ){
 
+    extract( $config );
     //实例化视图类库
-    self::$view = new $viewtype;
+    self::$view = new $view_type;
 
-    foreach( $config as $key => $value ){
+    foreach( $view_config as $key => $value ){
       self::$view-> $key = $value;
     }
 
@@ -34,7 +35,7 @@ class VIEW{
 
   public static function assign($data){
     foreach( $data as $key=>$value ){
-      self::$view->display( $key,$value );
+      self::$view->assign( $key,$value );
     }
   }
 
