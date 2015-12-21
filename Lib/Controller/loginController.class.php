@@ -2,8 +2,8 @@
 class loginController{
 
   function login(){
-    $v =  V('login');
-    $v -> login(); 
+    V::assign ( array( 'login_title'=>'login' ) );
+    V::display( 'login.html' );
   }
 
 }

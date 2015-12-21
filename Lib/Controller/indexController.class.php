@@ -5,8 +5,8 @@
 class indexController
 {
 	public function index(){
-			VIEW::assign(array('title'=>'快乐的一天', 'author'=>'开心的一天'));
-			VIEW::display('index.html');
+			V::assign ( array( 'title'=>'快乐的一天', 'author'=>'开心的一天' ) );
+			V::display( 'index.html' );
   }
 }
 

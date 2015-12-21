@@ -44,7 +44,7 @@ class ass{
 
   //初始化模型名称
   private static  function init_method(){
-    self::$method     = isset( $_GET['m'] )?( $_GET['c'] ) : 'index';
+    self::$method     = isset( $_GET['m'] )?( $_GET['m'] ) : 'index';
   }
 
 
