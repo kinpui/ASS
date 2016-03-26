@@ -375,10 +375,10 @@
 	</div>
 	<!--main end-->
 	<!--end js load--> 
-  <script src="<?php echo base_url('static/js/jquery-1.9.1.min.js'?>"></script> 
-  <script src="<?php echo base_url('static/js/bootstrap.min.js'?>"></script> 
-  <script src="<?php echo base_url('static/js/highcharts.js'?>"></script> 
-  <script src="<?php echo base_url('static/js/common.js'?>"></script>
+  <script src="<?php echo base_url('static/js/jquery-1.9.1.min.js'); ?>"></script> 
+  <script src="<?php echo base_url('static/js/bootstrap.min.js'); ?>"></script> 
+  <script src="<?php echo base_url('static/js/highcharts.js'); ?>"></script> 
+  <script src="<?php echo base_url('static/js/common.js'); ?>"></script>
 	<script type="text/javascript">
 	$(function () {
 		$('#chart-container').highcharts({

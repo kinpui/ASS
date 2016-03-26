@@ -56,7 +56,32 @@ class Login extends CI_Controller {
       $this->load->view('login/index');
     }else{
 
-      echo '登陆成功';
+      /* session 记录信息 */
+      $this->session->set_userdata(array(
+        'username'  => $this->user_info[0]['username'],
+        'userid'    => $this->user_info[0]['id'],
+        'usertype'  => $this->user_info[0]['usertype'],
+      ));
+
+      /* 根据 usertype 跳转页面 */
+      switch($this->session->userdata('usertype')){
+        case '1':  
+          /* 总管理员 */
+          redirect('admin');
+          break;
+        case '2':
+          /* 总仓管理员 */
+          redirect('warehouse');
+          break;
+        case '3':
+          /* 门店管理员 */
+          redirect('store');
+          break;
+        case '4':
+          /* 客服人员 */
+          redirect('service');
+          break;
+      }
     }
   }
 
