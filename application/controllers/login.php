@@ -58,6 +58,7 @@ class Login extends CI_Controller {
 
       /* session 记录信息 */
       $this->session->set_userdata(array(
+        'nickname'  => $this->user_info[0]['nickname'],
         'username'  => $this->user_info[0]['username'],
         'userid'    => $this->user_info[0]['id'],
         'usertype'  => $this->user_info[0]['usertype'],
@@ -83,6 +84,18 @@ class Login extends CI_Controller {
           break;
       }
     }
+  }
+
+  /**
+   *
+   * 退出系统
+   * 销毁session
+   * 回到登录页面
+   *
+   **/
+  public function loginout(){
+    $this->session->unset_userdata(array('nickname','username','userid','usertype'));
+    redirect('login');
   }
 
   /**

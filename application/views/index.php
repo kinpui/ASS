@@ -1,21 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-
-	<!-- Bootstrap -->
-  <link href="<?php echo base_url('static/css/bootstrap.min.css') ?>" rel="stylesheet" media="screen">
-  <link href="<?php echo base_url('static/css/font-awesome.min.css') ?>" rel="stylesheet" media="screen">
-  <link href="<?php echo base_url('static/css/style.css') ?>" rel="stylesheet" type="text/css">
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-    <script src="<?php echo base_url('static/js/html5shiv.js') ?>"></script>
-    <script src="<?php echo base_url('static/js/respond.min.js') ?>"></script>
-    <![endif]-->
-</head>
+<?php $this->load->view('header.php',array('title',$title))?>
 <body>
 	<!-- HTML start-->
 	<!--side start-->
@@ -369,76 +352,5 @@
 				</div>
 			</div>
 			<!--sales-list end-->
-
-		</div>
-		<div class="copy">2014 © Metronic by keenthemes. Purchase Metronic!</div>
-	</div>
-	<!--main end-->
-	<!--end js load--> 
-  <script src="<?php echo base_url('static/js/jquery-1.9.1.min.js'); ?>"></script> 
-  <script src="<?php echo base_url('static/js/bootstrap.min.js'); ?>"></script> 
-  <script src="<?php echo base_url('static/js/highcharts.js'); ?>"></script> 
-  <script src="<?php echo base_url('static/js/common.js'); ?>"></script>
-	<script type="text/javascript">
-	$(function () {
-		$('#chart-container').highcharts({
-			chart: {
-				type: 'area',
-				spacingBottom: 30
-			},
-			title: {
-				text: ''
-			},
-			subtitle: {
-				text: '',
-				floating: true,
-				align: 'right',
-				verticalAlign: 'bottom',
-				y: 15
-			},
-			legend: {
-				layout: 'vertical',
-				align: 'left',
-				verticalAlign: 'top',
-				x: 150,
-				y: 100,
-				floating: true,
-				borderWidth: 1,
-				backgroundColor: '#FFFFFF'
-			},
-			xAxis: {
-				categories: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
-			},
-			yAxis: {
-				title: {
-					text: 'Y-Axis'
-				},
-				labels: {
-					formatter: function() {
-						return this.value;
-					}
-				}
-			},
-			tooltip: {
-				formatter: function() {
-					return '<b>'+ this.series.name +'</b><br/>'+
-					this.x +': '+ this.y;
-				}
-			},
-			plotOptions: {
-				area: {
-					fillOpacity: 0.5
-				}
-			},
-			credits: {
-				enabled: false
-			},
-			series: [{
-				name: 'John',
-				data: [2000,4200, 3010, 1200, 5000, 3400, 3120, 7000,3400, 3120, 2000, 7000]
-			}]
-		});
-	});				
-</script>
-</body>
-</html>
+</div>
+<?php $this->load->view('footer.php'); ?>

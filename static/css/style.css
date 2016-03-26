@@ -448,7 +448,12 @@ a.color9:hover{color:#717171}
 .col4{width:25%}
 .col5{width:20%}
 
+/* 添加送修表样式 start */
+.container.padding-top {
+  padding-top: 30px;
+}
 
+/* 添加送修表样式 end */
 
 
 
