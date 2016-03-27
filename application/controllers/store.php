@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Warehouse extends CI_controller {
+class Store extends CI_controller {
 
   public function __construct()
   {
@@ -15,7 +15,7 @@ class Warehouse extends CI_controller {
   {
     $data = array();
     $data = $this->get_user_info($data);
-    $this->load->view('warehouse/index',$data);
+    $this->load->view('store/index',$data);
   }
 
   /**
@@ -28,7 +28,7 @@ class Warehouse extends CI_controller {
     $this->load->helper('form');
     $data = array();
     $data = $this->get_user_info($data);
-    $this->load->view('warehouse/add.php',$data);
+    $this->load->view('store/add.php',$data);
   
   }
 
@@ -41,7 +41,7 @@ class Warehouse extends CI_controller {
   {
     $data = array();
     $data = $this->get_user_info($data);
-    $this->load->view('warehouse/table.php',$data);
+    $this->load->view('store/table.php',$data);
   }
 
   /**
@@ -53,7 +53,7 @@ class Warehouse extends CI_controller {
   {
     $data = array();
     $data = $this->get_user_info($data);
-    $this->load->view('warehouse/wait.php',$data);
+    $this->load->view('store/wait.php',$data);
   }
 
   /**

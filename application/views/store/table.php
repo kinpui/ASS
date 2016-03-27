@@ -1,10 +1,12 @@
-<?php $this->load->view('header.php',array('title'=>'待处理的信息')); ?>
+<?php $this->load->view('header.php',array('title'=>'我的送修信息')); ?>
 <body>
 	<!-- HTML start-->
 	<!--side start-->
 	<div class="side">
 		<div class="logo">创宇数码售后</div>
-    <?php $this->load->view('warehouse/menu'); ?>
+    <!-- 插入导航 start -->
+    <?php $this->load->view('store/menu'); ?>
+    <!-- 插入导航 end -->
 	</div>
 	<!--side end -->
 	<!--header start-->
@@ -143,5 +145,4 @@
 	</div>
 </div>
 
-		</div>
-<?php $this->load->view('footer'); ?>
+<?php $this->load->view('footer');?>

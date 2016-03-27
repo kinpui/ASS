@@ -4,7 +4,7 @@
 	<!--side start-->
 	<div class="side">
 		<div class="logo">创宇数码售后</div>
-    <?php $this->load->view('warehouse/menu'); ?>
+    <?php $this->load->view('store/menu'); ?>
 	</div>
 	<!--side end -->
 	<!--header start-->
