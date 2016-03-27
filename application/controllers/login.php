@@ -62,6 +62,7 @@ class Login extends CI_Controller {
         'username'  => $this->user_info[0]['username'],
         'userid'    => $this->user_info[0]['id'],
         'usertype'  => $this->user_info[0]['usertype'],
+        'sector'    => $this->user_info[0]['sector']
       ));
 
       /* 根据 usertype 跳转页面 */

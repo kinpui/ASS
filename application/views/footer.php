@@ -1,4 +1,4 @@
-<div class="copy">5014 © Metronic by keenthemes. Purchase Metronic!</div>
+<div class="copy">2016 © Metronic by keenthemes. Purchase Metronic!</div>
 	</div>
 	<!--main end-->
 	<!--srart js load--> 
