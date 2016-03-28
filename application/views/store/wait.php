@@ -54,7 +54,7 @@
 						</td>
 
             <td>
-              <a href="details/<?php echo $val->id; ?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
+              <a href="<?php echo base_url('index.php/details/show/'.$val->id.'/store') ?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
               <a href="receive/<?php echo $val->id; ?>" class="btn btn-success btn-xs active" role="button">接收</a>
 						</td>
 

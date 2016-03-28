@@ -1,3 +1,5 @@
+</div>
+<!-- include footer-->
 <div class="copy">2016 © Metronic by keenthemes. Purchase Metronic!</div>
 	</div>
 	<!--main end-->

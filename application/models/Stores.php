@@ -1,5 +1,4 @@
 <?php
-
 class Stores extends CI_Model
 {
 
@@ -39,19 +38,6 @@ records r,state_code s WHERE r.from_s = "'.$this->session->userdata('sector').'"
 
 
   /**
-   * 获取指定ID的数码详细信息
-   * @param string $id 指定ID
-   * return array
-   **/
-  public function get_details($id)
-  {
-    $sql    = 'SELECT r.*,s.state_msg FROM records r,state_code s WHERE r.from_s = "12分店" AND r.state = s.state_code AND r.id = '.$id;
-    $query  = $this->db->query($sql);
-    return $query->result(); 
-  }
-
-
-  /**
    * 更改指定ID的数码状态
    * @param string $id 指定ID
    * return bool
@@ -60,11 +46,13 @@ records r,state_code s WHERE r.from_s = "'.$this->session->userdata('sector').'"
   {
     $sql    = "UPDATE records SET state='6',w_s_d='". date('Y-m-d')."' WHERE from_s = '".$this->session->userdata('sector')."' AND state = 5 AND id=$id";
     $query  = $this->db->query($sql);
-    /************here**********/
-    if(mysql_affected_rows() !== 0){
-      return true;
-    }else{
+    /* 获取执行结果 */
+    $result = $this->db->affected_rows();
+
+    if($result == 0){
       return false;
+    }else{
+      return true;
     } 
   }
 

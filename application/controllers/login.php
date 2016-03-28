@@ -73,7 +73,7 @@ class Login extends CI_Controller {
           break;
         case '2':
           /* 总仓管理员 */
-          redirect('warehouse');
+          redirect('ware');
           break;
         case '3':
           /* 门店管理员 */

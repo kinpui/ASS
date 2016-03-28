@@ -7,8 +7,10 @@ class Store extends CI_controller {
   {
     parent::__construct();
 
-    $this->load->helper('url');
+    $this->load->helper(array('url','login'));
     $this->load->library('session');
+
+    check_login();
 
     /* 加载模型器 */
     $this->load->model('Stores');
@@ -18,6 +20,17 @@ class Store extends CI_controller {
   {
     $data = array();
     $data = $this->get_user_info($data);
+
+    $this->load->view(
+      'header',
+      array(
+        'title'     =>'门店售后员',
+        'page_title'=>'门店售后员主页',
+        'nickname'  =>$data['nickname'],
+        'menu_type' => 'store'
+      )
+    );
+
     $this->load->view('store/index',$data);
   }
 
@@ -33,9 +46,18 @@ class Store extends CI_controller {
     $data = $this->get_user_info($data);
 
     /* 视图 */
-    $this->load->view('store/header',array('title'=>'添加送修表','page_title'=>'填写送修表','nickname'=>$data['nickname']));
+    $this->load->view(
+      'header',
+      array(
+        'title'     =>'添加送修表',
+        'page_title'=>'填写送修表',
+        'nickname'  =>$data['nickname'],
+        'menu_type' => 'store'
+      )
+    );
+
     $this->load->view('store/add',$data);
-    $this->load->view('store/footer');
+    $this->load->view('footer');
   
   }
 
@@ -53,14 +75,15 @@ class Store extends CI_controller {
     $header_data = array(
       'title'       => '送修列表',
       'page_title'  => '我的送修记录',
+      'menu_type'   => 'store'
     );
 
     $data['table'] = $this->Stores->get_store_table();
 
     /* 视图 */
-    $this->load->view('store/header',$header_data);
+    $this->load->view('header',$header_data);
     $this->load->view('store/table.php',$data);
-    $this->load->view('store/footer');
+    $this->load->view('footer');
   }
 
   /**
@@ -77,6 +100,7 @@ class Store extends CI_controller {
     $header_data = array(
       'title'       => '待处理列表',
       'page_title'  => '待处理记录',
+      'menu_type'   => 'store'
     );
 
     /* 查询待接收 */
@@ -92,40 +116,9 @@ class Store extends CI_controller {
     }
 
     /* 视图 */
-    $this->load->view('store/header',$header_data);
+    $this->load->view('header',$header_data);
     $this->load->view('store/wait.php',$data);
-    $this->load->view('store/footer');
-  }
-
-
-  /**
-   *
-   * 查看详细信息
-   *
-   **/
-  public function details()
-  {
-    $id = empty($this->uri->segment(3))?'':$this->uri->segment(3);
-    if($id)
-    {
-
-      /* 查询对于ID的信息信息 */
-      $detales = $this->Stores->get_details($id);
-
-      /* header 信息 */
-      $header_data = array(
-        'title'       => '送修详细信息',
-        'page_title'  => $detales[0]->customer_name.'的'.$detales[0]->brand.'送修情况'
-      );
-
-      $this->load->view('store/header',$header_data);
-      $this->load->view('store/details',array('data'=>$detales[0]));
-      $this->load->view('store/footer');
-
-    }else{
-      /* 跳转到首页 */
-      redirect('store/index');
-    }
+    $this->load->view('footer');
   }
 
   /**

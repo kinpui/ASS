@@ -22,7 +22,7 @@
 	<div class="side">
 		<div class="logo">创宇数码售后</div>
     <!-- 插入导航 start -->
-    <?php $this->load->view('store/menu'); ?>
+    <?php $this->load->view($menu_type.'/menu'); ?>
     <!-- 插入导航 end -->
 	</div>
 	<!--side end -->
@@ -36,12 +36,12 @@
 		<div class="dropdown right head-dropdown">
 			<a href="javascript:;" class="under-n head-droplink" id="dropdownMenu1" data-toggle="dropdown" >
 				<span class="avtar"><img src="<?php echo base_url('static/images/img/avtar.jpg')?>" ></span>
-        <?php echo $nickname; ?>
+        <?php echo $this->session->userdata('nickname'); ?>
 				<i class="fa fa-chevron-down"></i> 
 			</a>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 				<span class="fa fa-angle-up"></span>
-				<li><a href="login/loginout">退出系统</a></li>
+        <li><a href="../login/loginout">退出系统</a></li>
 			</ul>
 		</div>
 
@@ -58,3 +58,6 @@
 	<!--header end -->
 	<!--main start-->
 	<div class="main">
+  <div class='pad20'>
+  <h1 style='font-size:30px;' class='pad20'><?php echo $page_title;?></h1>
+    <hr>
