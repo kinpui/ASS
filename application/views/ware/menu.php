@@ -31,13 +31,13 @@
 					</a>
         </li>
 				<li>
-          <a href="<?php echo base_url('index.php/ware/7day_table'); ?>">
+          <a href="<?php echo base_url('index.php/ware/day_7_table'); ?>">
 						<i class="ico i-nav4"></i>
 						<p>7天未返回</p>
 					</a>
         </li>
 				<li>
-          <a href="<?php echo base_url('index.php/ware/15day_table'); ?>">
+          <a href="<?php echo base_url('index.php/ware/day_15_table'); ?>">
 						<i class="ico i-nav4"></i>
 						<p>15天未返回</p>
 					</a>

@@ -461,6 +461,12 @@ a.color9:hover{color:#717171}
 /* 查看送修详细样式 end*/
 
 
+/**/
+span.page_title {
+    color: #777;
+    font-size: 25px;
+    line-height: 55px;
+}
 
 
 

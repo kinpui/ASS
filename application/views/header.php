@@ -28,10 +28,7 @@
 	<!--side end -->
 	<!--header start-->
 	<div class="header clear">
-		<div class="date-cont1 left">
-			<span class="time">17:36</span>
-			<p class="date">2015-09-02</p>
-		</div>
+  <span class='page_title'><?php echo $page_title;?></span>
 
 		<div class="dropdown right head-dropdown">
 			<a href="javascript:;" class="under-n head-droplink" id="dropdownMenu1" data-toggle="dropdown" >
@@ -59,5 +56,4 @@
 	<!--main start-->
 	<div class="main">
   <div class='pad20'>
-  <h1 style='font-size:30px;' class='pad20'><?php echo $page_title;?></h1>
     <hr>

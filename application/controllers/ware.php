@@ -67,6 +67,16 @@ class Ware extends CI_Controller{
    **/
   public function post_m()
   {
+    $data['header'] = $this->page_header(
+      '仓库送修到厂家',
+      '仓库中所有待维修产品'
+    );
+
+    $data['table'] = $this->Wares->post_m();
+
+    $this->load->view('header',$data['header']);
+    $this->load->view('ware/post_m',$data);
+    $this->load->view('footer');
   }
 
 
@@ -78,6 +88,16 @@ class Ware extends CI_Controller{
    **/
   public function get_m()
   {
+    $data['header'] = $this->page_header(
+      '厂家返回仓库',
+      '所有厂家待返回的产品'
+    );
+
+    $data['table'] = $this->Wares->get_m();
+
+    $this->load->view('header',$data['header']);
+    $this->load->view('ware/get_m',$data);
+    $this->load->view('footer');
   }
 
 
@@ -89,6 +109,16 @@ class Ware extends CI_Controller{
    */
   public function post_s()
   {
+    $data['header'] = $this->page_header(
+      '仓库返回门店',
+      '仓库中可返回门店的产品'
+    );
+
+    $data['table'] = $this->Wares->post_s();
+
+    $this->load->view('header',$data['header']);
+    $this->load->view('ware/post_s',$data);
+    $this->load->view('footer');
   }
 
   /**
@@ -97,6 +127,16 @@ class Ware extends CI_Controller{
    **/
   public function all_table()
   {
+    $data['header'] = $this->page_header(
+      '所有送修记录',
+      '查看所有维修产品'
+    );
+
+    $data['table'] = $this->Wares->all_table();
+
+    $this->load->view('header',$data['header']);
+    $this->load->view('ware/all_table',array('table'=>$data['table']));
+    $this->load->view('footer');
   }
 
   /**
@@ -104,13 +144,33 @@ class Ware extends CI_Controller{
    **/
   public function day_7_table()
   {
+    $data['header'] = $this->page_header(
+      '7天为返回的送修记录',
+      '查看所有7天内未维修完成的产品'
+    );
+
+    $data['table'] = $this->Wares->day_get(7);
+
+    $this->load->view('header',$data['header']);
+    $this->load->view('ware/all_table',array('table'=>$data['table']));
+    $this->load->view('footer');
   }
     
   /**
-   * 显示16天厂家没有返回的设备
+   * 显示15天厂家没有返回的设备
    **/
   public function day_15_table()
   {
+    $data['header'] = $this->page_header(
+      '7天为返回的送修记录',
+      '查看所有7天内未维修完成的产品'
+    );
+
+    $data['table'] = $this->Wares->day_get(15);
+
+    $this->load->view('header',$data['header']);
+    $this->load->view('ware/all_table',array('table'=>$data['table']));
+    $this->load->view('footer');
   }
 
   /**
@@ -125,5 +185,79 @@ class Ware extends CI_Controller{
       'nickname'  => $this->session->userdata('nickname'),
       'menu_type' => 'ware'
     );
+  }
+
+  /**
+   * 送修厂家
+   **/
+  public function repair(){
+    $id    = empty($this->uri->segment(3))?"":$this->uri->segment(3);
+    $userid= $this->session->userdata('userid');
+
+    if($id !== '' && $userid !== '')
+    {
+
+      $date = date('Y-m-d');
+
+      if($this->Wares->repair($id,$userid,$date)){
+
+        echo "送修厂家成功";
+
+      }else{
+        
+        echo '送修厂家失败';
+      }
+    }else{
+
+      echo '非法操作';
+    }
+  }
+
+  /**
+   * 厂家返回给仓库
+   **/
+  public function return_w()
+  {
+    $id    = empty($this->uri->segment(3))?"":$this->uri->segment(3);
+    $userid= $this->session->userdata('userid');
+
+    if($id !== '' && $userid !== '')
+    {
+      $date = date('Y-m-d');
+
+      /* 操作数据库 */
+      if($this->Wares->return_w($id,$userid,$date)){
+        echo '成功返回仓库';
+        echo '<a href="'.base_url('ware/post_s').'" >';
+      }else{
+        echo '无法返回仓库.请重试';
+      }
+    }else{
+      echo '非法操作';
+    }
+  }
+
+  /**
+   * 仓库返回门店
+   **/
+  public function return_s()
+  {
+    $id    = empty($this->uri->segment(3))?"":$this->uri->segment(3);
+    $userid= $this->session->userdata('userid');
+
+    if($id !== '' && $userid !== '')
+    {
+      $date = date('Y-m-d');
+
+      /* 操作数据库 */
+      if($this->Wares->return_s($id,$userid,$date)){
+        echo '成功返回门店';
+        echo '<a href="'.base_url('ware/post_s').'" >';
+      }else{
+        echo '无法返回门店.请重试';
+      }
+    }else{
+      echo '非法操作';
+    }
   }
 }
