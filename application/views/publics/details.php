@@ -100,3 +100,4 @@
 
     </fieldset>
     </form>
+<?php $this->load->view('publics/progress')?>
