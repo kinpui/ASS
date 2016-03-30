@@ -49,6 +49,7 @@ class Admin extends CI_Controller
    **/
   public function edit()
   {
+    $this->load->helper('form');
     $id = $this->uri->segment(3);
     if(!empty($id))
     {
@@ -58,7 +59,12 @@ class Admin extends CI_Controller
         '编辑用户信息',
         $this->menu
       ));
-      $this->load->view('admin/edit',array('table'=>$this->Admins->get_id_info($id)));
+
+      $this->load->view('admin/edit',array(
+        'table'     => $this->Admins->get_id_info($id)[0],
+        'usertypes'  => $this->Admins->get_user_type(),
+        'sectors'   => $this->Admins->get_sector()
+      ));
       $this->load->view('footer');
     }else{
       echo '非法操作';
@@ -106,16 +112,27 @@ class Admin extends CI_Controller
       //sleep(3);
       //redirect('admin/add');
     }else{
-      /* 提交模型处理器处理 */
-      if($this->Admins->add_user_handle())
-      {
-        echo '添加用户成功';
-        //sleep(3);
-        //redirect('admin/index');
+
+      if($this->uri->segment(3) == 'edit'){
+        //编辑操作
+        if($this->Admins->edit_user_handle()){
+          echo '编辑用户信息成功';
+        }else{
+          echo '编辑用户信息过程中出错，请检查无误后重试';
+        }
       }else{
-        echo '添加用户过程中出错;请重试';
-        //sleep(3);
-        //redirect('admin/add1');
+        //新增操作
+        /* 提交模型处理器处理 */
+        if($this->Admins->add_user_handle())
+        {
+          echo '添加用户成功';
+          //sleep(3);
+          //redirect('admin/index');
+        }else{
+          echo '添加用户过程中出错;请重试';
+          //sleep(3);
+          //redirect('admin/add1');
+        }
       }
     }
   }

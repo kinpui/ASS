@@ -51,6 +51,9 @@ class Admins extends CI_Model
     return $this->db->query($sql)->result();
   }
 
+  /**
+   * 添加用户信息处理
+   **/
   public function add_user_handle()
   {
 
@@ -64,6 +67,29 @@ class Admins extends CI_Model
     );
 
     if(@$this->db->insert('user',$data)){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  
+  /**
+   * 编辑用户信息处理
+   **/
+  public function edit_user_handle()
+  {
+
+    $username  = $this->input->post('username');
+    /* 获取数据*/
+    $data = array(
+      'nickname'  => $this->input->post('nickname'),
+      'password'  => $this->input->post('password'),
+      'usertype'  => $this->input->post('usertype'),
+      'sector'    => $this->input->post('sector')
+    );
+
+    $where = ' username='.$username;
+    if(@$this->db->update('user',$data,$where)){
       return true;
     }else{
       return false;
