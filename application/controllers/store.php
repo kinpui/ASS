@@ -3,11 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Store extends CI_controller {
 
+  public $menu = 'store';
   public function __construct()
   {
     parent::__construct();
 
-    $this->load->helper(array('url','login'));
+    $this->load->helper(array('url','login','header'));
     $this->load->library('session');
 
     check_login();
@@ -21,16 +22,11 @@ class Store extends CI_controller {
     $data = array();
     $data = $this->get_user_info($data);
 
-    $this->load->view(
-      'header',
-      array(
-        'title'     =>'门店售后员',
-        'page_title'=>'门店售后员主页',
-        'nickname'  =>$data['nickname'],
-        'menu_type' => 'store'
-      )
-    );
-
+    $this->load->view('header',page_header(
+      '门店售后员',
+      '门店售后员主页',
+      $this->menu
+    ));
     $this->load->view('store/index',$data);
   }
 
@@ -46,15 +42,11 @@ class Store extends CI_controller {
     $data = $this->get_user_info($data);
 
     /* 视图 */
-    $this->load->view(
-      'header',
-      array(
-        'title'     =>'添加送修表',
-        'page_title'=>'填写送修表',
-        'nickname'  =>$data['nickname'],
-        'menu_type' => 'store'
-      )
-    );
+    $this->load->view('header',page_header(
+      '添加送修表',
+      '送修表填写',
+      $this->menu
+    ));
 
     $this->load->view('store/add',$data);
     $this->load->view('footer');
@@ -71,17 +63,15 @@ class Store extends CI_controller {
     $data = array();
     $data = $this->get_user_info($data);
 
-    /* 获取header  data */
-    $header_data = array(
-      'title'       => '送修列表',
-      'page_title'  => '我的送修记录',
-      'menu_type'   => 'store'
-    );
+    $this->load->view('header',page_header(
+      '送修列表',
+      '我的送修记录',
+      $this->menu
+    ));
 
     $data['table'] = $this->Stores->get_store_table();
 
     /* 视图 */
-    $this->load->view('header',$header_data);
     $this->load->view('store/table.php',$data);
     $this->load->view('footer');
   }
@@ -96,13 +86,6 @@ class Store extends CI_controller {
     $data = array();
     $data = $this->get_user_info($data);
 
-    /* 获取header  data */
-    $header_data = array(
-      'title'       => '待处理列表',
-      'page_title'  => '待处理记录',
-      'menu_type'   => 'store'
-    );
-
     /* 查询待接收 */
     $data['table'] = $this->Stores->get_wait_table();
   
@@ -116,7 +99,12 @@ class Store extends CI_controller {
     }
 
     /* 视图 */
-    $this->load->view('header',$header_data);
+    $this->load->view('header',page_header(
+      '待处理列表',
+      '待处理记录',
+      $this->menu
+    ));
+    
     $this->load->view('store/wait.php',$data);
     $this->load->view('footer');
   }
@@ -237,7 +225,5 @@ class Store extends CI_controller {
     }else{
       return true;
     }
-    
   }
-
 }

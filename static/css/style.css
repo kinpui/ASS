@@ -468,5 +468,12 @@ span.page_title {
     line-height: 55px;
 }
 
+/* 添加用户信息 start */
+
+.add-user{
+  margin-left:20px;
+}
+
+/* 添加用户信息 end */
 
 
