@@ -7,9 +7,9 @@
 					</a>
 				</li>
 				<li>
-          <a href="<?php echo base_url('index.php/ware/post_m'); ?>">
+          <a href="<?php echo base_url('index.php/admin/store'); ?>">
 						<i class="ico i-nav7"></i>
-						<p>送修厂家</p>
+						<p>门店管理</p>
 					</a>
 				</li>
 				<li>
