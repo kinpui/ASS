@@ -1,7 +1,7 @@
 <!-- 生成form -->
-<?php echo form_open('admin/edit_store_h',array('class'=>'form-horizontal')); ?>
+<?php echo form_open('admin/add_store_h/edit',array('class'=>'form-horizontal')); ?>
     <fieldset>
-      <input type='hidden' value='<?php echo $table->id; ?>' >
+      <input type='hidden' name='id' value='<?php echo $table->id; ?>' >
 
     <div class="form-group">
       <!-- text input 门店名称 -->
@@ -17,10 +17,9 @@
       <div class="col-sm-4">
           <select class="form-control input-xlarge" name='region'>
           <?php 
-var_dump($regions);return false;
             foreach($regions as $region){
 
-              if($region->reigon == $table->region){
+              if($region->region == $table->region){
                 echo "<option value='$region->id' selected='selected'>$region->region</option>";
               }else{
                 echo "<option value='$region->id'>$region->region</option>";

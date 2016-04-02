@@ -141,17 +141,19 @@ class Admins extends CI_Model
   public function edit_store_handle()
   {
 
-    $username  = $this->input->post('username');
+    $id  = $this->input->post('id');
+    if(empty($id)){
+      return false;
+    }
     /* 获取数据*/
     $data = array(
-      'nickname'  => $this->input->post('nickname'),
-      'password'  => $this->input->post('password'),
-      'usertype'  => $this->input->post('usertype'),
-      'sector'    => $this->input->post('sector')
+      'name'  => $this->input->post('storename'),
+      'region'  => $this->input->post('region'),
     );
 
-    $where = ' username='.$username;
-    if(@$this->db->update('user',$data,$where)){
+
+    $where = ' id='.$id;
+    if(@$this->db->update('sector',$data,$where)){
       return true;
     }else{
       return false;
@@ -173,5 +175,129 @@ class Admins extends CI_Model
     }
   }
 
+
+  /**
+   * 获取所有数据
+   **/
+  public function get_all_table()
+  {
+    
+    $sql = 'SELECT r.id, r.buy_date,r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state = s.state_code';
+    return $this->db->query($sql)->result();
+  }
+
+  /**
+   * 获取所有颜色
+   **/
+  public function get_colors()
+  {
+    $sql = 'SELECT * FROM color;';
+    return $this->db->query($sql)->result();
+  }
+
+  /**
+   * 删除颜色
+   **/
+  public function del_color($id)
+  {
+    $this->db->query('DELETE FROM `color` WHERE `id`='.$id);
+    if($this->db->affected_rows()){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  /**
+   * 添加颜色
+   **/
+  public function add_color()
+  {
+    $color = $this->input->post('color');
+
+    if(empty($color))
+    {
+      return false;
+    }
+
+    $data = array('value'=>$color);
+
+    if($this->db->insert('color',$data)){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  /* 厂家管理 */
+  /**
+   * 获取所有厂家
+   **/
+  public function get_factory()
+  {
+    $sql = 'SELECT * FROM factory;';
+    return $this->db->query($sql)->result();
+  }
+
+  /**
+   * 删除颜色
+   **/
+  public function del_factory($id)
+  {
+    $this->db->query('DELETE FROM `factory` WHERE `id`='.$id);
+    if($this->db->affected_rows()){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  /**
+   * 添加颜色
+   **/
+  public function add_factory()
+  {
+    $factory = $this->input->post('factory');
+
+    if(empty($factory))
+    {
+      return false;
+    }
+
+    $data = array('value'=>$factory);
+
+    if($this->db->insert('factory',$data)){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  /**
+   * 获取条款信息
+   **/
+  public function get_clause()
+  {
+    return $this->db->query('SELECT * FROM clause')->result();
+  }
+
+  /**
+   * 编辑条款
+   **/
+  public function edit_clause()
+  {
+    $clause = $this->input->post('clause');
+    if(empty($clause)){
+      return false;
+    }
+
+    $data = array('clause'=>$clause);
+
+    if($this->db->update('clause',$data)){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
 }

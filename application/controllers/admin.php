@@ -191,7 +191,7 @@ class Admin extends CI_Controller
 
       if($this->uri->segment(3) == 'edit'){
         //编辑操作
-        if($this->Admins->edit_user_handle()){
+        if($this->Admins->edit_store_handle()){
           echo '编辑门店信息成功';
         }else{
           echo '编辑门店信息过程中出错，请检查无误后重试';
@@ -201,6 +201,7 @@ class Admin extends CI_Controller
         /* 提交模型处理器处理 */
         if($this->Admins->add_store_handle())
         {
+          //echo $this->db->affected_rows();
           echo '添加门店成功';
         }else{
           echo '添加门店过程中出错;请重试';
@@ -248,6 +249,233 @@ class Admin extends CI_Controller
       return false;
     }else{
       return true;
+    }
+  }
+
+
+  /**
+   * 显示7天厂家没有返回的设备
+   **/
+  public function day_7_table()
+  {
+    $this->load->model('Wares');
+    $data['table'] = $this->Wares->day_get(7);
+
+    $this->load->view('header',page_header(
+      '7天为返回的送修记录',
+      '查看所有7天内未维修完成的产品',
+      $this->menu
+    ));
+    $this->load->view('ware/all_table',array('table'=>$data['table']));
+    $this->load->view('footer');
+  }
+
+   
+  /**
+   * 显示15天厂家没有返回的设备
+   **/
+  public function day_15_table()
+  {
+    $this->load->model('Wares');
+    $data['table'] = $this->Wares->day_get(15);
+    $this->load->view('header',page_header(
+      '7天为返回的送修记录',
+      '查看所有7天内未维修完成的产品',
+      $this->menu
+    ));
+    $this->load->view('ware/all_table',array('table'=>$data['table']));
+    $this->load->view('footer');
+  }
+
+  /**
+   * 所有产生的记录
+   **/
+  public function all_table()
+  {
+
+    $this->load->view('header',page_header(
+      '所有送修记录',
+      '送修记录表',
+      $this->menu
+    ));
+
+    $data['table'] = $this->Admins->get_all_table();
+    $this->load->view('store/table',$data);
+    $this->load->view('footer');
+  }
+
+  /**
+   * 其他选项
+   **/
+  public function option()
+  {
+    $this->load->helper('form');
+    $this->load->view('header',page_header(
+      '常用选项',
+      '设置系统各项参数',
+      $this->menu
+    ));
+
+    $this->load->view('admin/option');
+    $this->load->view('footer');
+  }
+
+
+  /**
+   * 查看所有颜色
+   **/
+  public function show_color()
+  {
+    $this->load->view('header',page_header(
+      '查看颜色设置',
+      '所有颜色列表',
+      $this->menu
+    ));
+
+    $data['table'] = $this->Admins->get_colors();
+
+    $this->load->view('admin/color',$data);
+    $this->load->view('footer');
+  }
+
+  /**
+   * 添加颜色
+   **/
+  public function add_color()
+  {
+    /* 加载表单处理程序  */
+    $this->load->library('form_validation');
+
+    /* 验证数据不为空，且合法 */
+    $this->form_validation->set_rules('color','Color','callback_check_null');
+
+    if($this->form_validation->run() == FALSE)
+    {
+      echo '无法正确添加颜色';
+    }else{
+
+      if($this->Admins->add_color()){
+        echo '颜色添加成功';
+      }else{
+        echo '无法正确添加颜色,请重试';
+      }
+    }
+    
+  }
+
+  /**
+   * 删除颜色
+   **/
+  public function del_color()
+  {
+    $id   = $this->uri->segment(3);
+    $user = $this->session->userdata('userid');
+
+    if(!empty($id) && !empty($user)){
+      if($this->Admins->del_color($id))
+      {
+        echo '成功删除颜色';
+      }else{
+        echo '无法删除颜色,请重试';
+      }
+    }else{
+      echo '非法操作';
+      exit;
+    }
+  }
+
+  /* 厂家管理 */
+
+  /**
+   * 查看所有厂家
+   **/
+  public function show_factory()
+  {
+    $this->load->view('header',page_header(
+      '查看厂家信息',
+      '所有厂家列表',
+      $this->menu
+    ));
+
+    $data['table'] = $this->Admins->get_factory();
+
+    $this->load->view('admin/factory',$data);
+    $this->load->view('footer');
+  }
+
+  /**
+   * 添加颜色
+   **/
+  public function add_factory()
+  {
+    /* 加载表单处理程序  */
+    $this->load->library('form_validation');
+
+    /* 验证数据不为空，且合法 */
+    $this->form_validation->set_rules('factory','Factory','callback_check_null');
+
+    if($this->form_validation->run() == FALSE)
+    {
+      echo '无法正确添加颜色';
+    }else{
+
+      if($this->Admins->add_factory()){
+        echo '厂家添加成功';
+      }else{
+        echo '无法正确添加厂家,请重试';
+      }
+    }
+    
+  }
+
+  /**
+   * 删除颜色
+   **/
+  public function del_factory()
+  {
+    $id   = $this->uri->segment(3);
+    $user = $this->session->userdata('userid');
+
+    if(!empty($id) && !empty($user)){
+      if($this->Admins->del_factory($id))
+      {
+        echo '成功删除厂家';
+      }else{
+        echo '无法删除厂家,请重试';
+      }
+    }else{
+      echo '非法操作';
+      exit;
+    }
+  }
+
+  /**
+   * 查看条款
+   **/
+  public function clause()
+  {
+    $this->load->helper('form');
+    $this->load->view('header',page_header(
+      '售后条款',
+      '查看或编辑条款',
+      $this->menu
+    ));
+    $data['clause'] = $this->Admins->get_clause();
+    $this->load->view('admin/clause',$data);
+    $this->load->view('footer');
+  }
+
+  /**
+   * 编辑条款
+   **/
+  public function edit_clause()
+  {
+    if(!empty($this->session->userdata('userid'))){
+      if($this->Admins->edit_clause()){
+        echo '编辑条款成功';
+      }else{
+        echo '编辑条款失败';
+      }
     }
   }
 }

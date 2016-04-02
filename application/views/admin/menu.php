@@ -13,31 +13,25 @@
 					</a>
 				</li>
 				<li>
-          <a href="<?php echo base_url('index.php/ware/get_m'); ?>">
+          <a href="<?php echo base_url('index.php/admin/option'); ?>">
 						<i class="ico i-nav2"></i>
-						<p>接收厂家返回</p>
+						<p>选项管理</p>
 					</a>
 				</li>
 				<li>
-          <a href="<?php echo base_url('index.php/ware/post_s'); ?>">
-						<i class="ico i-nav2"></i>
-						<p>返回门店</p>
-					</a>
-				</li>
-				<li>
-          <a href="<?php echo base_url('index.php/ware/all_table'); ?>">
+          <a href="<?php echo base_url('index.php/admin/all_table'); ?>">
 						<i class="ico i-nav8"></i>
-						<p>送修记录</p>
+						<p>所有记录</p>
 					</a>
         </li>
 				<li>
-          <a href="<?php echo base_url('index.php/ware/day_7_table'); ?>">
+          <a href="<?php echo base_url('index.php/admin/day_7_table'); ?>">
 						<i class="ico i-nav4"></i>
 						<p>7天未返回</p>
 					</a>
         </li>
 				<li>
-          <a href="<?php echo base_url('index.php/ware/day_15_table'); ?>">
+          <a href="<?php echo base_url('index.php/admin/day_15_table'); ?>">
 						<i class="ico i-nav4"></i>
 						<p>15天未返回</p>
 					</a>
