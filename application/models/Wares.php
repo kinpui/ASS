@@ -138,12 +138,19 @@ class Wares extends CI_Model
 
   /**
    * 查询7天内没有返回的送修产品
+   * @param   num   $day    逾期日期
+   * @param   num   $start  开始日期
+   * @param   num   $end    结束日期
    **/
-  public function day_get($day)
+  public function day_get($day,$start,$end)
   {
+    if($day == '' && $start == '' && $end == ''){
+      return false;
+    }
     $time = $day*60*60*24;
-    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state = s.state_code AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(start_date) >= '.$time;
-    $query = $this->db->query($sql);
+    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state = s.state_code AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(start_date) >= "%s" LIMIT %s,%s';
+
+    $query = $this->db->query(sprintf($sql,$time,$start,$end));
     return $query->result();
   }
 

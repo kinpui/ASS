@@ -64,3 +64,4 @@
 		</div>
 	</div>
 </div>
+<?php echo $page;?>

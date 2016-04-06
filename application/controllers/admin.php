@@ -9,7 +9,7 @@ class Admin extends CI_Controller
 
     parent::__construct();
     $this->load->library('session');
-    $this->load->helper(array('url','login','header'));
+    $this->load->helper(array('url','login','header','page'));
     $this->load->model('Admins');
 
     check_login();
@@ -259,14 +259,20 @@ class Admin extends CI_Controller
   public function day_7_table()
   {
     $this->load->model('Wares');
-    $data['table'] = $this->Wares->day_get(7);
 
+    /* 分页 */
+    $total_rows   = $this->Admins->get_table_num(7)[0]['COUNT(id)'];
+    $url          = site_url('admin/day_7_table');
+    $page_config  = set_page($url,$total_rows);
+    $data['page']   = $this->pagination->create_links();
+
+    $data['table'] = $this->Wares->day_get(7,$page_config['nowindex'],$page_config['per_page']);
     $this->load->view('header',page_header(
       '7天为返回的送修记录',
       '查看所有7天内未维修完成的产品',
       $this->menu
     ));
-    $this->load->view('ware/all_table',array('table'=>$data['table']));
+    $this->load->view('ware/all_table',$data);
     $this->load->view('footer');
   }
 
@@ -277,13 +283,19 @@ class Admin extends CI_Controller
   public function day_15_table()
   {
     $this->load->model('Wares');
-    $data['table'] = $this->Wares->day_get(15);
+    /* 分页 */
+    $total_rows   = $this->Admins->get_table_num(15)[0]['COUNT(id)'];
+    $url          = site_url('admin/day_15_table');
+    $page_config  = set_page($url,$total_rows);
+    $data['page']   = $this->pagination->create_links();
+
+    $data['table'] = $this->Wares->day_get(15,$page_config['nowindex'],$page_config['per_page']);
     $this->load->view('header',page_header(
       '7天为返回的送修记录',
       '查看所有7天内未维修完成的产品',
       $this->menu
     ));
-    $this->load->view('ware/all_table',array('table'=>$data['table']));
+    $this->load->view('ware/all_table',$data);
     $this->load->view('footer');
   }
 
@@ -292,6 +304,12 @@ class Admin extends CI_Controller
    **/
   public function all_table()
   {
+    /* 分页 */
+    $total_rows   = $this->Admins->get_table_num()[0]['COUNT(id)'];
+    $url          = site_url('admin/all_table');
+    $page_config  = set_page($url,$total_rows);
+    $data['page']   = $this->pagination->create_links();
+
 
     $this->load->view('header',page_header(
       '所有送修记录',
@@ -299,7 +317,8 @@ class Admin extends CI_Controller
       $this->menu
     ));
 
-    $data['table'] = $this->Admins->get_all_table();
+    $data['table'] = $this->Admins->get_all_table($page_config['nowindex'],$page_config['per_page']);
+
     $this->load->view('store/table',$data);
     $this->load->view('footer');
   }
@@ -404,7 +423,7 @@ class Admin extends CI_Controller
   }
 
   /**
-   * 添加颜色
+   * 添加厂家
    **/
   public function add_factory()
   {
@@ -429,7 +448,7 @@ class Admin extends CI_Controller
   }
 
   /**
-   * 删除颜色
+   * 删除厂家
    **/
   public function del_factory()
   {
@@ -478,4 +497,71 @@ class Admin extends CI_Controller
       }
     }
   }
+
+  /* 数码类型管理 */
+
+  /**
+   * 查看所有数码类型
+   **/
+  public function show_digital()
+  {
+    $this->load->view('header',page_header(
+      '查看数码类型',
+      '所有数码列表',
+      $this->menu
+    ));
+
+    $data['table'] = $this->Admins->get_digital();
+
+    $this->load->view('admin/digital',$data);
+    $this->load->view('footer');
+  }
+
+  /**
+   * 添加数码类型
+   **/
+  public function add_digital()
+  {
+    /* 加载表单处理程序  */
+    $this->load->library('form_validation');
+
+    /* 验证数据不为空，且合法 */
+    $this->form_validation->set_rules('digital','Digital','callback_check_null');
+
+    if($this->form_validation->run() == FALSE)
+    {
+      echo '无法正确添加数码类型';
+    }else{
+
+      if($this->Admins->add_digital()){
+        echo '数码类型添加成功';
+      }else{
+        echo '无法正确添加数码类型,请重试';
+      }
+    }
+    
+  }
+
+  /**
+   * 删除数码类型
+   **/
+  public function del_digital()
+  {
+    $id   = $this->uri->segment(3);
+    $user = $this->session->userdata('userid');
+
+    if(!empty($id) && !empty($user)){
+      if($this->Admins->del_digital($id))
+      {
+        echo '成功删除数码类型';
+      }else{
+        echo '无法删除数码类型,请重试';
+      }
+    }else{
+      echo '非法操作';
+      exit;
+    }
+  }
+
+
 }

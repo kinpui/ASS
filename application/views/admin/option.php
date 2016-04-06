@@ -48,6 +48,33 @@
 <!-- 颜色管理 end  -->
 </form>
 
+
+<!-- 数码类型管理 -->
+<?php echo form_open('admin/add_digital'); ?>
+<!-- 厂家管理 start  -->
+<div class="panel panel-warning">
+  <div class="panel-heading">
+    <h3 class="panel-title">数码类型</h3>
+  </div>
+ <div class="row">
+
+  <div class="col-lg-4 pad20">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="输入数码类型名称" name='digital'>
+        <span class="input-group-btn">
+          <input class="btn btn-default add_color" type="submit" value='添加数码类型' />
+        </span>
+      </div>
+  </div>
+  <div class="col-lg-4 pad20">
+     <a href="show_digital" class="btn btn-success" role="button">查看所有数码类型</a> 
+  </div>
+  </div> 
+</div>
+<!-- 颜色管理 end  -->
+</form>
+
+
 <!-- 条款 -->
 <div class="col-lg-4 pad20">
   <a href="clause" class="btn btn-success" role="button">编辑查看条款</a> 

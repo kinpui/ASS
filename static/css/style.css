@@ -476,4 +476,31 @@ span.page_title {
 
 /* 添加用户信息 end */
 
+/* 分页样式 start */
+.pagination.pad20 > a {
+  background: #14b9d6 none repeat scroll 0 0;
+  border-radius: 30px;
+  color: #fff;
+  display: block;
+  float: left;
+  height: 30px;
+  line-height: 30px;
+  margin-right: 10px;
+  text-align: center;
+  width: 30px;
+  text-decoration:none;
 
+  transition:all 0.5s ease;
+  -moz-transition:all 0.5s ease;
+  -webkit-transition:all 0.5s ease;
+  -ms-transition:all 0.5s ease;
+}
+
+.pagination.pad20 > a:hover {
+  background: #14b990 none repeat scroll 0 0;
+}
+
+a.current {
+  background: #4d5b69 none repeat scroll 0 0 !important;
+}
+/* 分页样式 end */

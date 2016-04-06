@@ -202,14 +202,14 @@ class CI_Pagination {
 	 *
 	 * @var	string
 	 */
-	protected $cur_tag_open = '<strong>';
+	protected $cur_tag_open = '<a class="current"><strong>';
 
 	/**
 	 * Current tag close
 	 *
 	 * @var	string
 	 */
-	protected $cur_tag_close = '</strong>';
+	protected $cur_tag_close = '</strong></a>';
 
 	/**
 	 * Next tag open

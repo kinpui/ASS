@@ -179,10 +179,12 @@ class Admins extends CI_Model
   /**
    * 获取所有数据
    **/
-  public function get_all_table()
+  public function get_all_table($start,$end)
   {
     
-    $sql = 'SELECT r.id, r.buy_date,r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state = s.state_code';
+    $sql = 'SELECT r.id, r.buy_date,r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state = s.state_code ORDER BY r.start_date DESC LIMIT %s,%s ';
+
+    $sql = sprintf($sql,$start,$end);
     return $this->db->query($sql)->result();
   }
 
@@ -240,7 +242,7 @@ class Admins extends CI_Model
   }
 
   /**
-   * 删除颜色
+   * 删除厂家
    **/
   public function del_factory($id)
   {
@@ -253,7 +255,7 @@ class Admins extends CI_Model
   }
 
   /**
-   * 添加颜色
+   * 添加厂家
    **/
   public function add_factory()
   {
@@ -299,5 +301,70 @@ class Admins extends CI_Model
       return false;
     }
   }
+
+
+  /* 数码类型管理 */
+  /**
+   * 获取所有数码类型
+   **/
+  public function get_digital()
+  {
+    $sql = 'SELECT * FROM digital_type;';
+    return $this->db->query($sql)->result();
+  }
+
+  /**
+   * 删除数码类型
+   **/
+  public function del_digital($id)
+  {
+    $this->db->query('DELETE FROM `digital_type` WHERE `id`='.$id);
+    if($this->db->affected_rows()){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  /**
+   * 添加厂家
+   **/
+  public function add_digital()
+  {
+    $digital = $this->input->post('digital');
+
+    if(empty($digital))
+    {
+      return false;
+    }
+
+    $data = array('value'=>$digital);
+
+    if($this->db->insert('digital_type',$data)){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  /**
+   * 获取所有记录总数
+   * 包括逾期记录
+   *
+   * @param number $day 逾期天数
+   **/
+  public function get_table_num($day = '')
+  {
+    $sql = 'SELECT COUNT(id) FROM records ';
+    if($day !== ''){
+      $time = $day*60*60*24;
+      $sql .= ' WHERE UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(start_date) >= '.$time;
+    }
+
+
+    return $this->db->query($sql)->result_array();
+  
+  }
+  
 
 }
