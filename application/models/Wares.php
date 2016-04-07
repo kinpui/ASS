@@ -13,13 +13,17 @@ class Wares extends CI_Model
 
   /**
    * 获取门店用户送修记录
+   * @param   number  $start  分页开始
+   * @param   number  $end    分页结束
+   *
    * return array
    **/
-  public function get_s()
+  public function get_s($start,$end)
   {
+    if($end==''){return false;}
     /* 根据门店进行查询 */
-    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state=1 AND r.state = s.state_code';
-    $query = $this->db->query($sql);
+    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state=1 AND r.state = s.state_code LIMIT %s,%s';
+    $query = $this->db->query(sprintf($sql,$start,$end));
     return $query->result();
   }
 
@@ -27,11 +31,12 @@ class Wares extends CI_Model
    * 仓库中所有可送修到厂家的产品
    * return array
    **/
-  public function post_m()
+  public function post_m($start,$end)
   {
+    if($end == '' ){return false;}
     /* 根据门店进行查询 */
-    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state=2 AND r.state = s.state_code';
-    $query = $this->db->query($sql);
+    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state=2 AND r.state = s.state_code LIMIT %s,%s';
+    $query = $this->db->query(sprintf($sql,$start,$end));
     return $query->result();
   }
 
@@ -60,33 +65,48 @@ class Wares extends CI_Model
 
   /**
    * 显示所有送修产品
+   * @param   number  $start  分页开始
+   * @param   number  $end    分页结束
+   *
+   * return 执行sql结果
    **/
-  public function all_table()
+  public function all_table($start,$end)
   {
+    if($end == ''){return false;}
 
-    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state = s.state_code';
-    $query  = $this->db->query($sql);
+    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state = s.state_code LIMIT %s,%s';
+    $query  = $this->db->query(sprintf($sql,$start,$end));
     return $query->result();
   }
 
   /**
    * 显示所有厂家返回门店的产品
+   * @param   number  $start  分页开始
+   * @param   number  $end    分页结束
+   *
+   * return 执行sql结果
    **/
-  public function get_m()
+  public function get_m($start,$end)
   {
+    if($end == ''){return false;}
 
-    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state=3 AND r.state = s.state_code';
-    $query = $this->db->query($sql);
+    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state=3 AND r.state = s.state_code LIMIT %s,%s';
+    $query = $this->db->query(sprintf($sql,$start,$end));
     return $query->result();
   } 
 
   /**
    *查询所有的可以返回门店的信息
+   * @param   number  $start  分页开始
+   * @param   number  $end    分页结束
+   *
+   * return 执行sql结果
    **/
-  public function post_s()
+  public function post_s($start,$end)
   {
-    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state=4 AND r.state = s.state_code';
-    $query = $this->db->query($sql);
+    if($end == ''){return false;}
+    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state=4 AND r.state = s.state_code LIMIT %s,%s';
+    $query = $this->db->query(sprintf($sql,$start,$end));
     return $query->result();
   }
 
@@ -142,7 +162,7 @@ class Wares extends CI_Model
    * @param   num   $start  开始日期
    * @param   num   $end    结束日期
    **/
-  public function day_get($day,$start,$end)
+  public function day_get($day,$start = '',$end = '')
   {
     if($day == '' && $start == '' && $end == ''){
       return false;
@@ -154,10 +174,30 @@ class Wares extends CI_Model
     return $query->result();
   }
 
+  /**
+   * 查询门店送修的总数
+   **/
+  public function get_num($state = '')
+  {
+    if($state == ''){
+      $sql =  'SELECT COUNT(id) FROM records';
+    }else{
+      $sql =  'SELECT COUNT(id) FROM records WHERE state ='.$state;
+    }
+    return $this->db->query($sql)->result_array();
+  }
 
   /**
-   * 返回15天内没有返回的送修产品
+   * 查询指定天数的数据集合
+   * @param   number  $day  指定天数
    **/
-
+  public function get_day_num($day)
+  {
+    if($day == ''){return false;}
+    
+    $time = $day*60*60*24;
+    $sql = 'SELECT count(id) FROM records WHERE state <> 6 AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(start_date) >= "%s"';
+    $this->db->query(sprintf($sql,$time))->result_array();
+  }
 
 }

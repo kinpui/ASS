@@ -12,7 +12,7 @@ class Ware extends CI_Controller{
   public function __construct()
   {
     parent::__construct();
-    $this->load->helper(array('url','login','header'));
+    $this->load->helper(array('url','login','header','page'));
     $this->load->library('session');
 
     /* 检测登录状态 */
@@ -43,7 +43,12 @@ class Ware extends CI_Controller{
    **/
   public function get_s()
   {
-    $data['table'] = $this->Wares->get_s();
+    /* 分页 */
+    $total_rows   = $this->Wares->get_num(1)[0]['COUNT(id)'];
+    $url          = site_url('ware/get_s');
+    $page_config  = set_page($url,$total_rows);
+    $data['page'] = $this->pagination->create_links();
+    $data['table'] = $this->Wares->get_s($page_config['nowindex'],$page_config['per_page']);
     /* views */
     $this->load->view('header', page_header(
       '接收门店送修设备',
@@ -64,7 +69,12 @@ class Ware extends CI_Controller{
   public function post_m()
   {
 
-    $data['table'] = $this->Wares->post_m();
+    /* 分页 */
+    $total_rows   = $this->Wares->get_num(2)[0]['COUNT(id)'];
+    $url          = site_url('ware/post_m');
+    $page_config  = set_page($url,$total_rows);
+    $data['page'] = $this->pagination->create_links();
+    $data['table'] = $this->Wares->post_m($page_config['nowindex'],$page_config['per_page']);
 
     $this->load->view('header',page_header(
       '仓库送修到厂家',
@@ -85,7 +95,12 @@ class Ware extends CI_Controller{
   public function get_m()
   {
 
-    $data['table'] = $this->Wares->get_m();
+    /* 分页 */
+    $total_rows   = $this->Wares->get_num(3)[0]['COUNT(id)'];
+    $url          = site_url('ware/get_m');
+    $page_config  = set_page($url,$total_rows);
+    $data['page'] = $this->pagination->create_links();
+    $data['table'] = $this->Wares->get_m($page_config['nowindex'],$page_config['per_page']);
 
     $this->load->view('header',page_header(
       '厂家返回仓库',
@@ -106,7 +121,12 @@ class Ware extends CI_Controller{
   public function post_s()
   {
 
-    $data['table'] = $this->Wares->post_s();
+    /* 分页 */
+    $total_rows   = $this->Wares->get_num(4)[0]['COUNT(id)'];
+    $url          = site_url('ware/post_s');
+    $page_config  = set_page($url,$total_rows);
+    $data['page'] = $this->pagination->create_links();
+    $data['table'] = $this->Wares->post_s($page_config['nowindex'],$page_config['per_page']);
 
     $this->load->view('header',page_header(
       '仓库返回门店',
@@ -124,14 +144,19 @@ class Ware extends CI_Controller{
   public function all_table()
   {
 
-    $data['table'] = $this->Wares->all_table();
+    /* 分页 */
+    $total_rows   = $this->Wares->get_num()[0]['COUNT(id)'];
+    $url          = site_url('ware/all_table');
+    $page_config  = set_page($url,$total_rows);
+    $data['page'] = $this->pagination->create_links();
+    $data['table'] = $this->Wares->all_table($page_config['nowindex'],$page_config['per_page']);
 
     $this->load->view('header',page_header(
       '所有送修记录',
       '查看所有维修产品',
       $this->menu
     ));
-    $this->load->view('ware/all_table',array('table'=>$data['table']));
+    $this->load->view('ware/all_table',$data);
     $this->load->view('footer');
   }
 
@@ -141,14 +166,19 @@ class Ware extends CI_Controller{
   public function day_7_table()
   {
 
-    $data['table'] = $this->Wares->day_get(7);
+    /* 分页 */
+    $total_rows   = $this->Wares->get_day_num(7)[0]['COUNT(id)'];
+    $url          = site_url('ware/day_7_table');
+    $page_config  = set_page($url,$total_rows);
+    $data['page'] = $this->pagination->create_links();
+    $data['table'] = $this->Wares->day_get(7,$page_config['nowindex'],$page_config['per_page']);
 
     $this->load->view('header',page_header(
       '7天为返回的送修记录',
       '查看所有7天内未维修完成的产品',
       $this->menu
     ));
-    $this->load->view('ware/all_table',array('table'=>$data['table']));
+    $this->load->view('ware/all_table',$data);
     $this->load->view('footer');
   }
     
@@ -158,13 +188,18 @@ class Ware extends CI_Controller{
   public function day_15_table()
   {
 
-    $data['table'] = $this->Wares->day_get(15);
+    /* 分页 */
+    $total_rows   = $this->Wares->get_day_num(15)[0]['COUNT(id)'];
+    $url          = site_url('ware/day_15_table');
+    $page_config  = set_page($url,$total_rows);
+    $data['page'] = $this->pagination->create_links();
+    $data['table'] = $this->Wares->day_get(15,$page_config['nowindex'],$page_config['per_page']);
     $this->load->view('header',page_header(
       '7天为返回的送修记录',
       '查看所有7天内未维修完成的产品',
       $this->menu
     ));
-    $this->load->view('ware/all_table',array('table'=>$data['table']));
+    $this->load->view('ware/all_table',$data);
     $this->load->view('footer');
   }
 

@@ -33,13 +33,18 @@ class Admin extends CI_Controller
    **/
   public function users()
   {
+    /* 分页 */
+    $total_rows   = $this->Admins->get_user_num()[0]['COUNT(id)'];
+    $url          = site_url('admin/users');
+    $page_config  = set_page($url,$total_rows);
+    $data['page'] = $this->pagination->create_links();
+    $data['table'] = $this->Admins->get_user_info($page_config['nowindex'],$page_config['per_page']);
     $this->load->view('header',page_header(
       '用户信息',
       '所有用户',
       $this->menu
     ));
 
-    $data['table'] = $this->Admins->get_user_info();
     $this->load->view('admin/users',$data);
     $this->load->view('footer');
   }
@@ -142,6 +147,12 @@ class Admin extends CI_Controller
    **/
   public function store()
   {
+    /* 分页 */
+    $total_rows   = $this->Admins->get_store_num()[0]['COUNT(id)'];
+    $url          = site_url('admin/store');
+    $page_config  = set_page($url,$total_rows);
+    $data['page'] = $this->pagination->create_links();
+    $data['table']= $this->Admins->get_store($page_config['nowindex'],$page_config['per_page']);
 
     $this->load->view('header',page_header(
       '门店管理',
@@ -149,7 +160,7 @@ class Admin extends CI_Controller
       $this->menu
     ));
 
-    $this->load->view('admin/store',array('table'=>$this->Admins->get_store()));
+    $this->load->view('admin/store',$data);
     $this->load->view('footer');
   }
 

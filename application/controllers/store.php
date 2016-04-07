@@ -69,7 +69,14 @@ class Store extends CI_controller {
       $this->menu
     ));
 
-    $data['table'] = $this->Stores->get_store_table();
+    $this->load->helper('page');
+    /* 分页 */
+    $total_rows   = $this->Stores->get_table_num()[0]['COUNT(id)'];
+    $url          = site_url('store/table');
+    $page_config  = set_page($url,$total_rows);
+    $data['page'] = $this->pagination->create_links();
+
+    $data['table']= $this->Stores->get_store_table($page_config['nowindex'],$page_config['per_page']);
 
     /* 视图 */
     $this->load->view('store/table.php',$data);

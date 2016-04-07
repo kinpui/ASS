@@ -13,13 +13,16 @@ class Stores extends CI_Model
 
   /**
    * 获取门店用户送修记录
+   * @param number  $start  分页开始
+   * @param number  $end    分页显示页数
    * return array
+   *
    **/
-  public function get_store_table()
+  public function get_store_table($start,$end)
   {
     /* 根据门店进行查询 */
-    $sql = 'SELECT r.id, r.buy_date,r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.from_s = "'.$this->session->userdata('sector').'" AND r.state = s.state_code';
-    $query = $this->db->query($sql);
+    $sql = 'SELECT r.id, r.buy_date,r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.from_s = "%s" AND r.state = s.state_code LIMIT %s,%s';
+    $query = $this->db->query(sprintf($sql,$this->session->userdata('sector'),$start,$end));
     return $query->result();
   }
 
@@ -56,4 +59,12 @@ records r,state_code s WHERE r.from_s = "'.$this->session->userdata('sector').'"
     } 
   }
 
+  /**
+   * 统计送修记录条数
+   *
+   **/
+  public function get_table_num()
+  {
+    return $this->db->query(sprintf('SELECT COUNT(id) FROM records WHERE from_s = "%s"',$this->session->userdata('sector')))->result_array();
+  }
 }

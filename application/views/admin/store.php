@@ -29,7 +29,7 @@
 						</td>
 
             <td>
-            <a class="btn btn-success btn-xs active" role="button" href='edit_store/<?php echo $val->id?>'>修改门店信息</a>
+            <a class="btn btn-success btn-xs active" role="button" href='<?php echo site_url('admin/edit_store/'.$val->id); ?>'>修改门店信息</a>
             </td>
 					</tr>
           <?php endforeach; ?>
@@ -38,3 +38,4 @@
 		</div>
 	</div>
 </div>
+<?=$page?>
