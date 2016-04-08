@@ -233,4 +233,33 @@ class Store extends CI_controller {
       return true;
     }
   }
+
+  /**
+   * 删除用户送修记录
+   **/
+  public function del()
+  {
+
+    $id = empty($this->uri->segment(3))?'':$this->uri->segment(3);
+
+    if($id == ''){
+      echo '非法操作';
+      return false;
+    }else{
+      /* 获取该记录转态。如果大于等于2。则失败  */
+      if($this->Stores->get_record_status($id))
+      {
+        if($this->Stores->del_record($id))
+        {
+          echo '已经删除';
+        }else{
+          echo '删除不成功';
+        }
+      }else{
+        echo '已经送出。无法删除';
+      }
+    }
+  }
+
+
 }

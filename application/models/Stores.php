@@ -67,4 +67,41 @@ records r,state_code s WHERE r.from_s = "'.$this->session->userdata('sector').'"
   {
     return $this->db->query(sprintf('SELECT COUNT(id) FROM records WHERE from_s = "%s"',$this->session->userdata('sector')))->result_array();
   }
+
+  /**
+   * 获取用户送修记录状态如果小于2；则返回true。
+   * @param   number  id 删除的id号  
+   * return bool
+   **/
+  public function get_record_status($id)
+  {
+
+    if($id == '' || !is_numeric($id)){return false;}
+
+    $sql = sprintf('SELECT id FROM records WHERE from_s="%s" AND state < 2 AND id =%s',$this->session->userdata('sector'),$id);
+
+    return $this->db->query($sql)->result_array();
+  }
+
+  /**
+   * 删除用户送修记录
+   * @param   number  id 删除的id号  
+   * return bool
+   **/
+  public function del_record($id)
+  {
+    if($id == '' || !is_numeric($id)){return false;}
+    
+    if($this->db->delete(
+      'records',
+      'id='.$id.' AND from_s = "'.$this->session->userdata('sector').'"'
+    ))
+    {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+
 }
