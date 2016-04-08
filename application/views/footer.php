@@ -8,6 +8,7 @@
   <script src="<?php echo base_url('static/js/bootstrap.min.js'); ?>"></script> 
   <script src="<?php echo base_url('static/js/highcharts.js'); ?>"></script> 
   <script src="<?php echo base_url('static/js/common.js'); ?>"></script>
+  <script src="<?php echo base_url('static/js/printing.js'); ?>"></script>
 	<script type="text/javascript">
 	$(function () {
 		$('#chart-container').highcharts({

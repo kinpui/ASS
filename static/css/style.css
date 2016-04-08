@@ -504,3 +504,19 @@ a.current {
   background: #4d5b69 none repeat scroll 0 0 !important;
 }
 /* 分页样式 end */
+
+/* 打印样式 start*/
+.print-table{
+  margin-left:15px;
+}
+.print-table a{
+  text-decoration:none;
+}
+@media print {
+  /* 设置打印的样式 */
+
+  .no-print{
+    display:none;
+  }
+}
+/* 打印样式 end*/

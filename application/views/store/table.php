@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" id='printing'>
 	<div class="row-fluid">
 		<div class="span12">
 			<table class="table table-bordered table-hover table-striped">
@@ -22,7 +22,7 @@
             <th>
               位置
             </th>
-            <th>
+            <th class='no-print'>
               操作
             </th>
 					</tr>
@@ -53,7 +53,7 @@
               <?php echo $val->state_msg; ?>
 						</td>
 
-            <td>
+            <td class='no-print'>
               <a href="<?php echo base_url('index.php/details/show/'.$val->id.'/store') ?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
               <a href="<?=base_url('index.php/store/del/'.$val->id)?>" class="btn btn-danger btn-xs active" role="button">删除</a>
 						</td>
@@ -65,4 +65,9 @@
 		</div>
 	</div>
 </div>
+<div class='btn btn-default print-table'>
+  <a href="javascript:printing()" target="_self">打印表格</a>
+</div>
 <?php echo $page;?>
+
+
