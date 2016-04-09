@@ -269,7 +269,15 @@ class Admin extends CI_Controller
    **/
   public function day_7_table()
   {
+    $this->load->helper(array('form','search'));
     $this->load->model('Wares');
+
+    $header       = page_header(
+        '7天为返回的送修记录',
+        '查看所有7天内未维修完成的产品',
+        $this->menu
+      );
+    $header['css']= get_search_css();
 
     /* 分页 */
     $total_rows   = $this->Admins->get_table_num(7)[0]['COUNT(id)'];
@@ -278,13 +286,12 @@ class Admin extends CI_Controller
     $data['page']   = $this->pagination->create_links();
 
     $data['table'] = $this->Wares->day_get(7,$page_config['nowindex'],$page_config['per_page']);
-    $this->load->view('header',page_header(
-      '7天为返回的送修记录',
-      '查看所有7天内未维修完成的产品',
-      $this->menu
-    ));
+    $this->load->view('header',$header);
+    $search = get_search_data();
+    $search['action'] = 'admin/search';
+    $this->load->view('publics/search',$search);
     $this->load->view('ware/all_table',$data);
-    $this->load->view('footer');
+    $this->load->view('footer',get_search_js());
   }
 
    
@@ -293,6 +300,7 @@ class Admin extends CI_Controller
    **/
   public function day_15_table()
   {
+    $this->load->helper(array('form','search'));
     $this->load->model('Wares');
     /* 分页 */
     $total_rows   = $this->Admins->get_table_num(15)[0]['COUNT(id)'];
@@ -301,13 +309,18 @@ class Admin extends CI_Controller
     $data['page']   = $this->pagination->create_links();
 
     $data['table'] = $this->Wares->day_get(15,$page_config['nowindex'],$page_config['per_page']);
-    $this->load->view('header',page_header(
+    $header = page_header(
       '7天为返回的送修记录',
       '查看所有7天内未维修完成的产品',
       $this->menu
-    ));
+    );
+    $header['css'] = get_search_css();
+    $this->load->view('header',$header);
+    $search = get_search_data();
+    $search['action'] = 'admin/search';
+    $this->load->view('publics/search',$search);
     $this->load->view('ware/all_table',$data);
-    $this->load->view('footer');
+    $this->load->view('footer',get_search_js());
   }
 
   /**
@@ -315,23 +328,31 @@ class Admin extends CI_Controller
    **/
   public function all_table()
   {
+    $this->load->helper(array('form','search'));
     /* 分页 */
     $total_rows   = $this->Admins->get_table_num()[0]['COUNT(id)'];
     $url          = site_url('admin/all_table');
     $page_config  = set_page($url,$total_rows);
-    $data['page']   = $this->pagination->create_links();
+    $data['page'] = $this->pagination->create_links();
 
+    $header       = page_header(
+                      '所有送修记录',
+                      '送修记录表',
+                      $this->menu
+                    );
+    $header['css'] = get_search_css();
 
-    $this->load->view('header',page_header(
-      '所有送修记录',
-      '送修记录表',
-      $this->menu
-    ));
+    $this->load->view('header',$header);
+
+    /* 搜索框start */
+    $search = get_search_data();
+    $search['action'] = 'admin/search';
+    $this->load->view('publics/search',$search);
+    /* 搜索框end */
 
     $data['table'] = $this->Admins->get_all_table($page_config['nowindex'],$page_config['per_page']);
-
     $this->load->view('store/table',$data);
-    $this->load->view('footer');
+    $this->load->view('footer',get_search_js());
   }
 
   /**
@@ -574,5 +595,47 @@ class Admin extends CI_Controller
     }
   }
 
+  public function search()
+  {
+
+    /* 加载表单处理程序*/
+    $this->load->library('form_validation');
+
+    $result = $this->Admins->search();
+    if($result){
+
+      /* 筛选结果页 */
+
+      $this->load->helper(array('form','search'));
+      /* 分页 */
+      $total_rows   = $this->Admins->get_table_num()[0]['COUNT(id)'];
+      $url          = site_url('admin/all_table');
+      $page_config  = set_page($url,$total_rows);
+      $data['page'] = $this->pagination->create_links();
+
+      $header       = page_header(
+                        '筛选结果',
+                        '筛选结果记录',
+                        $this->menu
+                      );
+      $header['css'] = get_search_css();
+
+      $this->load->view('header',$header);
+
+      /* 搜索框start */
+      $search = get_search_data();
+      $search['action'] = 'admin/search';
+      $this->load->view('publics/search',$search);
+      /* 搜索框end */
+
+      //$data['table'] = $this->Admins->get_all_table($page_config['nowindex'],$page_config['per_page']);
+      $data['table']  = $result;
+      $this->load->view('store/table',$data);
+      $this->load->view('footer',get_search_js());
+
+    }else{
+      redirect('admin/');
+    }
+  }
 
 }

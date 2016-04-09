@@ -15,6 +15,24 @@
     <script src="<?php echo base_url('static/js/html5shiv.js') ?>"></script>
     <script src="<?php echo base_url('static/js/respond.min.js') ?>"></script>
     <![endif]-->
+
+  <!--加入css自定义样式start-->
+  <?php if(!empty($css)):?>
+  <link href="<?=base_url('static/css/'.$css)?>" media='screen' type='text/css' rel='stylesheet'>
+  <?php endif;?>
+  <!--加入css自定义样式end-->
+
+  <!--加入一组css自定义样式start-->
+  <?php 
+    if(!empty($css_array)):
+    foreach($css_array as $css):
+  ?>
+  <link href="<?=base_url('static/css/'.$css)?>" media='screen' type='text/css' rel='stylesheet'>
+  <?php
+    endforeach; 
+    endif;
+  ?>
+  <!--加入一组css自定义样式end-->
 </head>
 <body>
 	<!-- HTML start-->

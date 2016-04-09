@@ -391,5 +391,32 @@ class Admins extends CI_Model
     return $this->db->query('SELECT COUNT(id) FROM user;')->result_array();
   }
 
+  public function search()
+  {
+    $digital_type = $this->input->post('digital_type');
+    $state        = $this->input->post('state');
+    $region       = $this->input->post('region');
+    $start_time   = $this->input->post('start_time');
+    $end_time     = $this->input->post('end_time');
 
+    $sql = 'SELECT r.buy_date,r.customer_name,r.customer_phone,r.brand,d.`value`,s.state_msg FROM records r, state_code s, digital_type d WHERE s.state_code = r.state AND r.digital_type = d.id ';
+    /* 设置了数码类型 */
+    if(!empty($digital_type) && is_numeric($digital_type)){
+      $sql .=  ' AND r.digital_type = '.$digital_type;
+    }
+
+    /* 设置了送修状态 */
+    if(!empty($state) && is_numeric($state)){
+      $sql .= ' AND r.state = '.$state;
+    }
+
+    /* 设置了区域划分 */
+    if(!empty($region) && is_numeric($region)){
+      $sql .= ' AND r.region = '.$region;
+    }
+
+    echo $sql;
+    return true;
+
+  }
 }

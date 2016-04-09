@@ -520,3 +520,11 @@ a.current {
   }
 }
 /* 打印样式 end*/
+
+/* 筛选start */
+.selection{
+
+  margin:15px;
+}
+
+/* 筛选end */

@@ -8,7 +8,24 @@
   <script src="<?php echo base_url('static/js/bootstrap.min.js'); ?>"></script> 
   <script src="<?php echo base_url('static/js/highcharts.js'); ?>"></script> 
   <script src="<?php echo base_url('static/js/common.js'); ?>"></script>
-  <script src="<?php echo base_url('static/js/printing.js'); ?>"></script>
+
+<!--加载单一js start-->
+<?php if(!empty($js)):?>
+  <script src="<?php echo base_url('static/js/'.$js); ?>"></script>
+<?php endif; ?>
+
+<!--加载单一js end-->
+<?php
+  if(!empty($js_array)):
+  foreach($js_array as $js):
+?>
+  <script src="<?php echo base_url('static/js/'.$js); ?>"></script>
+<?php
+  endforeach;
+  endif;
+?>
+
+
 	<script type="text/javascript">
 	$(function () {
 		$('#chart-container').highcharts({

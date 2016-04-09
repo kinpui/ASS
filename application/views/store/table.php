@@ -1,4 +1,5 @@
-<div class="container-fluid" id='printing'>
+<!-- 表格 -->
+<div class="container-fluid" id='table'>
 	<div class="row-fluid">
 		<div class="span12">
 			<table class="table table-bordered table-hover table-striped">
@@ -67,6 +68,9 @@
 </div>
 <div class='btn btn-default print-table'>
   <a href="javascript:printing()" target="_self">打印表格</a>
+</div>
+<div class='btn btn-default print-table'>
+<a class='toExcel' href="<?php echo base_url('index.php/export/condition/store');?>" target="_self">导出表格</a>
 </div>
 <?php echo $page;?>
 

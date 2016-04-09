@@ -60,16 +60,19 @@ class Store extends CI_controller {
    **/
   public function table()
   {
+    $this->load->helper(array('page','form','search'));
     $data = array();
     $data = $this->get_user_info($data);
 
-    $this->load->view('header',page_header(
+    $header = page_header(
       '送修列表',
       '我的送修记录',
       $this->menu
-    ));
+    );
+    $header['css'] = get_search_css();
 
-    $this->load->helper('page');
+    $this->load->view('header',$header);
+
     /* 分页 */
     $total_rows   = $this->Stores->get_table_num()[0]['COUNT(id)'];
     $url          = site_url('store/table');
@@ -77,10 +80,12 @@ class Store extends CI_controller {
     $data['page'] = $this->pagination->create_links();
 
     $data['table']= $this->Stores->get_store_table($page_config['nowindex'],$page_config['per_page']);
-
+    
     /* 视图 */
+    $search       = get_search_data();
+    $this->load->view('publics/search',$search);
     $this->load->view('store/table.php',$data);
-    $this->load->view('footer');
+    $this->load->view('footer',get_search_js());
   }
 
   /**
