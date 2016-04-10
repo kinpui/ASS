@@ -399,7 +399,7 @@ class Admins extends CI_Model
     $start_time   = $this->input->post('start_time');
     $end_time     = $this->input->post('end_time');
 
-    $sql = 'SELECT r.buy_date,r.customer_name,r.customer_phone,r.brand,d.`value`,s.state_msg FROM records r, state_code s, digital_type d WHERE s.state_code = r.state AND r.digital_type = d.id ';
+    $sql = 'SELECT r.buy_date,r.customer_name,r.customer_phone,r.brand,d.`value`,s.state_msg FROM records r, state_code s,region re,sector se,digital_type d WHERE  d.id = r.digital_type AND  re.id = se.region AND se.`name` = r.from_s AND r.state = s.state_code ';
     /* 设置了数码类型 */
     if(!empty($digital_type) && is_numeric($digital_type)){
       $sql .=  ' AND r.digital_type = '.$digital_type;
@@ -412,7 +412,7 @@ class Admins extends CI_Model
 
     /* 设置了区域划分 */
     if(!empty($region) && is_numeric($region)){
-      $sql .= ' AND r.region = '.$region;
+      $sql .= ' AND re.id = '.$region;
     }
 
     echo $sql;
