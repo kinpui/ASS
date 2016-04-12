@@ -5,10 +5,7 @@
 				<thead>
 					<tr>
 						<th>
-						  送修时间
-						</th>
-						<th>
-						  送修门店
+							送修时间
 						</th>
 						<th>
 							顾客姓名
@@ -23,9 +20,6 @@
               数码类型
             </th>
             <th>
-              设备串码
-            </th>
-            <th>
               位置
             </th>
             <th>
@@ -37,10 +31,6 @@
           <?php foreach($table as $val): ?>
 						<td>
               <?php echo $val->start_date; ?>
-						</td>
-
-						<td>
-              <?php echo $val->from_s; ?>
 						</td>
 
 						<td>
@@ -60,19 +50,14 @@
 						</td>
 
             <td>
-              <?php echo $val->string_code; ?>
-						</td>
-
-            <td>
               <?php echo $val->state_msg; ?>
 						</td>
 
             <td>
-            <a href='<?php echo base_url('index.php/ware/return_w/'.$val->id.'/3'); ?>' class="btn btn-success btn-xs active" role="button">接收</a>
-              <a href="<?php echo base_url('index.php/details/show/'.$val->id.'/ware');?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
-              <a href="<?php echo base_url('index.php/ware/newstring/'.$val->id);?>" class="btn btn-info btn-xs active" role="button">更新串码</a>
-              <a href="<?php echo base_url('index.php/ware/offer/'.$val->id);?>" class="btn btn-info btn-xs active" role="button">报价</a>
+              <a href="take_h/<?php echo $val->id; ?>" class="btn btn-success btn-xs active" role="button">客户取机</a>
+              <a href="<?php echo base_url('index.php/details/show/'.$val->id.'/store') ?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
 						</td>
+
 					</tr>
           <?php endforeach; ?>
 				</tbody>
@@ -80,4 +65,3 @@
 		</div>
 	</div>
 </div>
-<?=$page?>

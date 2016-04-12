@@ -20,6 +20,7 @@ class Details extends CI_Controller
     $id = empty($this->uri->segment(3))?'':$this->uri->segment(3);
     if($id)
     {
+      $this->load->helper('nick');
       $menu = empty($this->uri->segment(4))?'publics':$this->uri->segment(4);
       $this->load->model('Publics');
       /* 查询对于ID的信息信息 */

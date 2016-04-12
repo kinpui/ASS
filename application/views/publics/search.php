@@ -1,6 +1,6 @@
 <!-- 筛选start -->
-<div class='selection'>
 <?php echo form_open($action,array('class'=>'selection-form')); ?>
+<div class='selection'>
 <!-- 数码类型划分start -->
 <div class='btn-group' role="group" >
 <select class="form-control" name='digital_type'>
@@ -36,11 +36,12 @@
 </div>
 <!--区域划分end-->
 
+<?php if(empty($no_date)):?>
 <!-- 时间段搜索start -->
     <!--开始--> 
 <div class='btn-group' role="group" >
    <div class="input-group date form_date col-md-12" data-date="" data-date-format="yyyy MM dd" data-link-field="start_time" data-link-format="yyyy-mm-dd">
-        <input class="form-control" size="16" type="text" value="开始日期" readonly>
+        <input class="form-control" size="16" type="text" value="" placeholder='开始时间' readonly>
         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
     </div>
     <input type="hidden" id="start_time" name='start_time' value="" />
@@ -48,13 +49,13 @@
 <div class='btn-group' role="group" >
     <!--结束-->
     <div class="input-group date form_date col-md-12" data-date="" data-date-format="yyyy MM dd" data-link-field="end_time" data-link-format="yyyy-mm-dd">
-      <input class="form-control" size="16" type="text" value="截止日期" readonly>
+      <input class="form-control" size="16" type="text" value='' placeholder="截止日期" readonly>
         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
     </div>
     <input type="hidden" id="end_time" name='end_time' value="" />
 </div>
 <!-- 时间段搜索end -->
-
+<?php endif;?>
 
 <!-- 关键词搜索start -->
 <div class='btn-group' role='group'>

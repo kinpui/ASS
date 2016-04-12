@@ -9,7 +9,13 @@
 				<li>
           <a href="<?php echo base_url('index.php/store/wait'); ?>">
 						<i class="ico i-nav1"></i>
-						<p>待接收设备</p>
+						<p>仓库返回</p>
+					</a>
+				</li>
+				<li>
+          <a href="<?php echo base_url('index.php/store/take'); ?>">
+						<i class="ico i-nav1"></i>
+						<p>客户取机</p>
 					</a>
 				</li>
 				<li>

@@ -11,6 +11,22 @@
     </div>
 
     <div class="form-group">
+      <!-- text input 门店电话 -->
+      <label class="col-sm-1 control-label" for="input01">门店电话</label>
+      <div class="col-sm-4">
+        <input type="text" placeholder="输入门店电话" class="input-xlarge  form-control" name='tel' required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <!-- text input 门店地址 -->
+      <label class="col-sm-1 control-label" for="input01">门店地址</label>
+      <div class="col-sm-4">
+        <input type="text" placeholder="输入门店地址" class="input-xlarge  form-control" name='addr' required>
+      </div>
+    </div>
+
+    <div class="form-group">
       <!-- text input 所属区域 -->
       <label class="col-sm-1 control-label" for="input01">所属区域</label>
       <div class="col-sm-4">

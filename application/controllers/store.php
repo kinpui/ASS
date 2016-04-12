@@ -83,6 +83,7 @@ class Store extends CI_controller {
     
     /* 视图 */
     $search       = get_search_data();
+    $search['action']='store/search'; 
     $this->load->view('publics/search',$search);
     $this->load->view('store/table.php',$data);
     $this->load->view('footer',get_search_js());
@@ -121,6 +122,29 @@ class Store extends CI_controller {
     $this->load->view('footer');
   }
 
+
+  /**
+   * 显示客户可取回的设备
+   **/
+  public function take()
+  {
+    $data = array();
+    $data = $this->get_user_info($data);
+
+    /* 查询待接收 */
+    $data['table'] = $this->Stores->get_take_table();
+
+    /* 视图 */
+    $this->load->view('header',page_header(
+      '待处理列表',
+      '待处理记录',
+      $this->menu
+    ));
+    
+    $this->load->view('store/take.php',$data);
+    $this->load->view('footer');
+  }
+
   /**
    *  确认接收仓库返回的手机
    **/
@@ -138,8 +162,27 @@ class Store extends CI_controller {
     }else{
       echo '非法操作';
     }
-  
   }
+
+  /**
+   *  确认接收仓库返回的手机
+   **/
+  public function take_h(){
+
+   $id = empty($this->uri->segment(3))?'':$this->uri->segment(3);
+   if($id)
+   {
+     $result = $this->Stores->take_h($id);
+     if($result){
+       echo '接收成功';
+     }else{
+       echo '取机失败,请重试';
+     }
+   }else{
+     echo '非法操作';
+   }
+  }
+
 
   /**
    *

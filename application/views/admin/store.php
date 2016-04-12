@@ -9,6 +9,12 @@
 						<th>
               门店名称
             </th>
+            <th>
+              门店电话
+            </th>
+            <th>
+              门店地址
+            </th>
 						<th>
 						  所属区域
 						</th>
@@ -23,6 +29,14 @@
 						<td>
               <?php echo $val->name; ?>
 						</td>
+
+						<td>
+              <?php echo $val->tel; ?>
+						</td>
+
+            <td>
+              <?php echo $val->addr; ?>
+            </td>
 
 						<td>
               <?php echo $val->region; ?>

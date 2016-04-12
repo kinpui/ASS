@@ -47,5 +47,72 @@ class Publics extends CI_Model
   {
     return $this->db->query('SELECT * FROM region')->result_array();
   }
+
+
+  /**
+   * 搜索
+   * 可定制条件搜索
+   * @export 7 | 15
+   * 查询7天 或 15天未返回的
+   * @param   number  $day
+   **/
+  public function search($day='')
+  {
+    $digital_type = $this->input->post('digital_type');
+    $state        = $this->input->post('state');
+    $region       = $this->input->post('region');
+    $start_time   = $this->input->post('start_time');
+    $end_time     = $this->input->post('end_time');
+    $key_word     = $this->input->post('key');
+
+
+    $sql = 'SELECT r.id,r.buy_date,r.customer_name,r.customer_phone,r.brand,d.`value`,s.state_msg FROM records r, state_code s,region re,sector se,digital_type d WHERE  d.id = r.digital_type AND  re.id = se.region AND se.`name` = r.from_s AND r.state = s.state_code ';
+
+    if(!empty($day))
+    {
+      $time = $day*60*60*24;
+      $sql .= ' AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(r.start_date) >= '.$time;
+    }
+
+    /* 设置了数码类型 */
+    if(!empty($digital_type) && is_numeric($digital_type)){
+      $sql .=  ' AND r.digital_type = '.$digital_type;
+    }
+
+    /* 设置了送修状态 */
+    if(!empty($state) && is_numeric($state)){
+      $sql .= ' AND r.state = '.$state;
+    }
+
+    /* 设置了区域划分 */
+    if(!empty($region) && is_numeric($region)){
+      $sql .= ' AND re.id = '.$region;
+    }
+
+    if(!empty($start_time) && !empty($end_time)){
+      /* 如果有开始和结束的时间 */
+      $sql .= " AND UNIX_TIMESTAMP('$start_time') <=  UNIX_TIMESTAMP(r.start_date) AND UNIX_TIMESTAMP('$end_time')   >=  UNIX_TIMESTAMP(r.start_date)";
+    
+    }else if(!empty($start_time)){
+      /* 如果只有开始的时间 */
+      $sql .= " AND UNIX_TIMESTAMP('$start_time') <=  UNIX_TIMESTAMP(r.start_date)";
+    
+    }else if(!empty($end_time)){
+      /* 如果只有结束的时间 */
+      $sql .= " AND UNIX_TIMESTAMP('$end_time')   >=  UNIX_TIMESTAMP(r.start_date)";
+    }
+
+    if(!empty($key_word)){
+      /* 如果有关键字 */
+      $sql .= " AND (    r.brand         LIKE '%$key_word%'
+                    OR	r.customer_name LIKE '%$key_word%'
+                    OR	r.fault         LIKE '%$key_word%'
+                    OR	r.from_s        LIKE '%$key_word%'
+                    )";
+    }
+
+    return $this->db->query($sql)->result_array();
+
+  }
 }
 

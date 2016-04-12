@@ -168,7 +168,7 @@ class Wares extends CI_Model
       return false;
     }
     $time = $day*60*60*24;
-    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state = s.state_code AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(start_date) >= "%s" LIMIT %s,%s';
+    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,d.`value`,s.state_msg FROM records r,state_code s,digital_type d WHERE r.state = s.state_code AND r.digital_type = d.id AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(start_date) >= "%s" LIMIT %s,%s';
 
     $query = $this->db->query(sprintf($sql,$time,$start,$end));
     return $query->result();
@@ -198,6 +198,48 @@ class Wares extends CI_Model
     $time = $day*60*60*24;
     $sql = 'SELECT count(id) FROM records WHERE state <> 6 AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(start_date) >= "%s"';
     $this->db->query(sprintf($sql,$time))->result_array();
+  }
+
+
+  /**
+   * 换新串码处理
+   **/
+  public function newstring()
+  {
+    $newstring  = $this->input->post('newstring');
+    $explain    = $this->input->post('explain');
+    $id         = $this->input->post('id');
+
+    if($newstring !== '' && $explain !== '' && $id !== '')
+    {
+      if($this->db->update('records',array('new_string'=>$newstring,'new_string_explain'=>$explain),'id = '.$id)){
+        return true;
+      }else{
+        return false;
+      }
+    }else{
+      return false;
+    }
+  }
+  /**
+   * 维修报价处理
+   **/
+  public function offer()
+  {
+    $offer  = $this->input->post('offer');
+    $reason = $this->input->post('reason');
+    $id     = $this->input->post('id');
+
+    if($offer !== '' && $reason !== '' && $id !== '')
+    {
+      if($this->db->update('records',array('offer'=>$offer,'reason'=>$reason),'id = '.$id)){
+        return true;
+      }else{
+        return false;
+      }
+    }else{
+      return false;
+    }
   }
 
 }

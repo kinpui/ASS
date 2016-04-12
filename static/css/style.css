@@ -172,8 +172,6 @@ body { font-family: "Helvetica Neue",\5FAE\8F6F\96C5\9ED1,Tohoma;background: #f1
 .txt-green{color: #2eae3c;}
 .txt-yellow{ color: #f4a016;}
 .txt-black{ color: #000;}
-
-
 .fa{margin-right: 5px;}
 .line{border-bottom:#e6e6e7 1px solid;}
 .under-n,.under-n:hover,.under-n:focus{text-decoration: none;}
@@ -215,7 +213,6 @@ a,a:focus{outline:none}
 .fz24{font-size:24px}
 .fz30{font-size:30px}
 .fz36{font-size:36px}
-
 .bggreen{background:#65bd77;color:#fff}
 .bggreen2,.bggreen2 a{background:#00b998;color:#fff!important}
 .bggrey{background:#ddd}
@@ -454,6 +451,7 @@ a.color9:hover{color:#717171}
 }
 
 /* 添加送修表样式 end */
+
 /* 查看送修详细样式 start*/
 .details label {
   line-height: 34px;
@@ -513,7 +511,7 @@ a.current {
   text-decoration:none;
 }
 @media print {
-  /* 设置打印的样式 */
+/* 设置打印的样式 */
 
   .no-print{
     display:none;
@@ -528,3 +526,58 @@ a.current {
 }
 
 /* 筛选end */
+
+/* 维修处理进度条start */
+.progress-bar-dim{
+  background:#ccc;
+}
+
+.progress div{ 
+  position:relative;
+}
+
+.b_time,
+.b_user,
+.a_time,
+.a_user{
+
+  position:absolute;
+  width:100px;
+  color:#888;
+}
+
+.b_time,.b_user{
+
+  left:0;
+}
+.b_user,
+.b_time{
+  width: 150px;
+  text-align: left;
+  padding-left: 5px;
+  border-left: 1px solid #ccc;
+}
+.b_time {
+  margin-top: 20px;
+}
+
+.b_user {
+  margin-top: 40px;
+}
+
+.a_time,
+.a_user{
+  padding-right: 5px;
+  border-right: solid 1px #ccc;
+  right: 0;
+  text-align: right;
+  width: 150px;
+}
+.a_time{
+  margin-top: 20px;
+}
+.a_user{
+  margin-top: 40px;
+}
+  
+/* 维修处理进度条end */

@@ -194,6 +194,8 @@ class Admin extends CI_Controller
     /* 验证数据不为空，且合法 */
     $this->form_validation->set_rules('storename','Storename','callback_check_null');
     $this->form_validation->set_rules('region','Region','callback_check_null');
+    $this->form_validation->set_rules('addr','Addr','callback_check_null');
+    $this->form_validation->set_rules('tel','Tel','callback_check_null');
 
     if($this->form_validation->run() == FALSE)
     {
@@ -288,7 +290,8 @@ class Admin extends CI_Controller
     $data['table'] = $this->Wares->day_get(7,$page_config['nowindex'],$page_config['per_page']);
     $this->load->view('header',$header);
     $search = get_search_data();
-    $search['action'] = 'admin/search';
+    $search['no_date']  = 'true';
+    $search['action']   = 'admin/search/7';
     $this->load->view('publics/search',$search);
     $this->load->view('ware/all_table',$data);
     $this->load->view('footer',get_search_js());
@@ -316,8 +319,9 @@ class Admin extends CI_Controller
     );
     $header['css'] = get_search_css();
     $this->load->view('header',$header);
-    $search = get_search_data();
-    $search['action'] = 'admin/search';
+    $search             = get_search_data();
+    $search['no_date']  = 'true'; /* 没有日期的 */
+    $search['action']   = 'admin/search/15';
     $this->load->view('publics/search',$search);
     $this->load->view('ware/all_table',$data);
     $this->load->view('footer',get_search_js());
@@ -598,20 +602,22 @@ class Admin extends CI_Controller
   public function search()
   {
 
+    $param = $this->uri->segment(3);
+    
     /* 加载表单处理程序*/
     $this->load->library('form_validation');
-
-    $result = $this->Admins->search();
+    $this->load->model('Publics');
+    if(!empty($param))
+    {
+      $result = $this->Publics->search($param);
+    }else{
+      $result = $this->Publics->search();
+    }
     if($result){
 
       /* 筛选结果页 */
 
       $this->load->helper(array('form','search'));
-      /* 分页 */
-      $total_rows   = $this->Admins->get_table_num()[0]['COUNT(id)'];
-      $url          = site_url('admin/all_table');
-      $page_config  = set_page($url,$total_rows);
-      $data['page'] = $this->pagination->create_links();
 
       $header       = page_header(
                         '筛选结果',
@@ -627,10 +633,8 @@ class Admin extends CI_Controller
       $search['action'] = 'admin/search';
       $this->load->view('publics/search',$search);
       /* 搜索框end */
-
-      //$data['table'] = $this->Admins->get_all_table($page_config['nowindex'],$page_config['per_page']);
       $data['table']  = $result;
-      $this->load->view('store/table',$data);
+      $this->load->view('publics/search_result',$data);
       $this->load->view('footer',get_search_js());
 
     }else{

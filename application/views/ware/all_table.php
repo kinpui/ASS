@@ -56,7 +56,7 @@
 						</td>
 
             <td>
-              <?php echo $val->digital_type; ?>
+              <?php echo $val->value; ?>
 						</td>
 
             <td>

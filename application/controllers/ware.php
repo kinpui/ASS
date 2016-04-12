@@ -276,4 +276,135 @@ class Ware extends CI_Controller{
       echo '非法操作';
     }
   }
+
+
+  /**
+   * 更新串码
+   * 查看详细的URL 规范:
+   *  http://addr/index.php/ware/newstring/{id}
+   **/
+  public function newstring(){
+    $id = empty($this->uri->segment(3))?'':$this->uri->segment(3);
+    if($id)
+    {
+      $this->load->helper('form');
+      $this->load->model('Publics');
+      /* 查询对于ID的信息信息 */
+      $detales = $this->Publics->get_details($id);
+
+      /* header 信息 */
+      $header_data = array(
+        'title'       => '送修详细信息',
+        'page_title'  => '更改'.$detales[0]->customer_name.'的'.$detales[0]->brand.'串码信息',
+        'menu_type'   => 'ware'
+      );
+
+      $this->load->view('header',$header_data);
+      $this->load->view('ware/newstring',array('data'=>$detales[0]));
+      $this->load->view('footer');
+
+    }else{
+      echo '非法操作';
+    }
+  }
+
+  /**
+   * 跟换串码处理操作
+   **/
+  public function newstring_h()
+  {
+    
+    $this->load->library('form_validation');
+    $this->form_validation->set_rules('newstring','Newstring','callback_check_null');  //购买日期
+    $this->form_validation->set_rules('explain','Explain','callback_check_null');  //购买日期
+    $this->form_validation->set_rules('id','Id','callback_check_null');  //购买日期
+
+    if ($this->form_validation->run() == FALSE)
+    {
+      //redirect('ware/get_m');
+      echo '修改出错';
+    }else{
+      if($this->Wares->newstring())
+      {
+        echo '成功修改串码';
+      }else{
+        echo '修改串码失败';
+      }
+    }
+    
+  }
+
+
+  /**
+   * 报价
+   * 查看详细的URL 规范:
+   *  http://addr/index.php/ware/newstring/{id}
+   **/
+  public function offer(){
+    $id = empty($this->uri->segment(3))?'':$this->uri->segment(3);
+    if($id)
+    {
+      $this->load->helper('form');
+      $this->load->model('Publics');
+      /* 查询对于ID的信息信息 */
+      $detales = $this->Publics->get_details($id);
+
+      /* header 信息 */
+      $header_data = array(
+        'title'       => '添加维修报价',
+        'page_title'  => '为'.$detales[0]->customer_name.'的'.$detales[0]->brand.'设备添加报价',
+        'menu_type'   => 'ware'
+      );
+
+      $this->load->view('header',$header_data);
+      $this->load->view('ware/offer',array('data'=>$detales[0]));
+      $this->load->view('footer');
+
+    }else{
+      echo '非法操作';
+    }
+  }
+
+  /**
+   * 报价处理操作
+   **/
+  public function offer_h()
+  {
+    
+    $this->load->library('form_validation');
+    $this->form_validation->set_rules('offer','Offer','callback_check_null');  //购买日期
+    $this->form_validation->set_rules('reason','Reason','callback_check_null');  //购买日期
+    $this->form_validation->set_rules('id','Id','callback_check_null');  //购买日期
+
+    if ($this->form_validation->run() == FALSE)
+    {
+      echo '无法报价';
+    }else{
+      if($this->Wares->offer())
+      {
+        echo '成功报价';
+      }else{
+        echo '无法报价';
+      }
+    }
+    
+  }
+
+
+  /**
+   *
+   * 验证字符串不为空
+   *
+   **/
+  public function check_null($str)
+  {
+    if( $str == '' ){
+      $this->form_validation->set_message('customer_name','带*的为必填表单');
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+
 }

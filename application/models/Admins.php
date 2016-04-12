@@ -132,6 +132,8 @@ class Admins extends CI_Model
     /* 获取数据*/
     $data = array(
       'name'    => $this->input->post('storename'),
+      'addr'  => $this->input->post('addr'),
+      'tel'  => $this->input->post('tel'),
       'region'  => $this->input->post('region'),
     );
 
@@ -189,7 +191,7 @@ class Admins extends CI_Model
   public function get_all_table($start,$end)
   {
     
-    $sql = 'SELECT r.id, r.buy_date,r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state = s.state_code ORDER BY r.start_date DESC LIMIT %s,%s ';
+    $sql = 'SELECT r.id, r.buy_date,r.customer_name,r.customer_phone,r.brand,d.`value`,s.state_msg FROM records r,state_code s,digital_type d WHERE r.state = s.state_code AND d.id = r.digital_type ORDER BY r.start_date DESC LIMIT %s,%s ';
 
     $sql = sprintf($sql,$start,$end);
     return $this->db->query($sql)->result();
@@ -391,32 +393,4 @@ class Admins extends CI_Model
     return $this->db->query('SELECT COUNT(id) FROM user;')->result_array();
   }
 
-  public function search()
-  {
-    $digital_type = $this->input->post('digital_type');
-    $state        = $this->input->post('state');
-    $region       = $this->input->post('region');
-    $start_time   = $this->input->post('start_time');
-    $end_time     = $this->input->post('end_time');
-
-    $sql = 'SELECT r.buy_date,r.customer_name,r.customer_phone,r.brand,d.`value`,s.state_msg FROM records r, state_code s,region re,sector se,digital_type d WHERE  d.id = r.digital_type AND  re.id = se.region AND se.`name` = r.from_s AND r.state = s.state_code ';
-    /* 设置了数码类型 */
-    if(!empty($digital_type) && is_numeric($digital_type)){
-      $sql .=  ' AND r.digital_type = '.$digital_type;
-    }
-
-    /* 设置了送修状态 */
-    if(!empty($state) && is_numeric($state)){
-      $sql .= ' AND r.state = '.$state;
-    }
-
-    /* 设置了区域划分 */
-    if(!empty($region) && is_numeric($region)){
-      $sql .= ' AND re.id = '.$region;
-    }
-
-    echo $sql;
-    return true;
-
-  }
 }
