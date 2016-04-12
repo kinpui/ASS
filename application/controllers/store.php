@@ -47,6 +47,11 @@ class Store extends CI_controller {
       '送修表填写',
       $this->menu
     ));
+    /* 数码类型 */
+
+    $this->load->model('Publics');
+    $data['digital_type'] = $this->Publics->get_digital_type();
+    $data['color'] = $this->Publics->get_color();
 
     $this->load->view('store/add',$data);
     $this->load->view('footer');
@@ -58,7 +63,7 @@ class Store extends CI_controller {
    * 显示送修列表
    *
    **/
-  public function table()
+  public function table($table = '')
   {
     $this->load->helper(array('page','form','search'));
     $data = array();
@@ -79,8 +84,12 @@ class Store extends CI_controller {
     $page_config  = set_page($url,$total_rows);
     $data['page'] = $this->pagination->create_links();
 
-    $data['table']= $this->Stores->get_store_table($page_config['nowindex'],$page_config['per_page']);
-    
+    if($table){
+      $data['table']= $table;
+    }else{
+      $data['table']= $this->Stores->get_store_table($page_config['nowindex'],$page_config['per_page']);
+    }
+
     /* 视图 */
     $search       = get_search_data();
     $search['action']='store/search'; 
@@ -308,6 +317,46 @@ class Store extends CI_controller {
       }
     }
   }
+
+
+  /**
+   * 筛选
+   **/
+  public function search()
+  {
+
+    /* 加载表单处理程序*/
+    $this->load->library('form_validation');
+
+    /* 处理筛选数据 */
+    $result = $this->Stores->search();
+    if($result){
+      /* 筛选结果页 */
+
+      $this->load->helper(array('form','search'));
+
+      $header       = page_header(
+                        '筛选结果',
+                        '筛选结果记录',
+                        $this->menu
+                      );
+      $header['css'] = get_search_css();
+
+      $this->load->view('header',$header);
+
+      /* 搜索框start */
+      $search = get_search_data();
+      $search['action'] = 'store/search';
+      $this->load->view('publics/search',$search);
+      /* 搜索框end */
+      $data['table']  = $result;
+      $this->load->view('publics/search_result',$data);
+      $this->load->view('footer',get_search_js());
+    }else{
+      redirect('store/');
+    }
+  }
+
 
 
 }

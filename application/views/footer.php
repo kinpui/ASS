@@ -1,6 +1,6 @@
 </div>
 <!-- include footer-->
-<div class="copy">2016 © Metronic by keenthemes. Purchase Metronic!</div>
+<div class="copy">2016 © 惠州市创宇数码实业有限公司售后系统!</div>
 	</div>
 	<!--main end-->
 	<!--srart js load--> 

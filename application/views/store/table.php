@@ -31,32 +31,32 @@
 				<tbody>
           <?php foreach($table as $val): ?>
 						<td>
-              <?php echo $val->buy_date; ?>
+              <?php echo $val['buy_date']; ?>
 						</td>
 
 						<td>
-              <?php echo $val->customer_name; ?>
+              <?php echo $val['customer_name']; ?>
 						</td>
 
             <td>
-              <?php echo $val->customer_phone; ?>
+              <?php echo $val['customer_phone']; ?>
 						</td>
 
             <td>
-              <?php echo $val->brand; ?>
+              <?php echo $val['brand']; ?>
 						</td>
 
             <td>
-              <?php echo $val->value; ?>
+              <?php echo $val['value']; ?>
 						</td>
 
             <td>
-              <?php echo $val->state_msg; ?>
+              <?php echo $val['state_msg']; ?>
 						</td>
 
             <td class='no-print'>
-              <a href="<?php echo base_url('index.php/details/show/'.$val->id.'/store') ?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
-              <a href="<?=base_url('index.php/store/del/'.$val->id)?>" class="btn btn-danger btn-xs active" role="button">删除</a>
+              <a href="<?php echo base_url('index.php/details/show/'.$val['id'].'/store') ?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
+              <a href="<?=base_url('index.php/store/del/'.$val['id'])?>" class="btn btn-danger btn-xs active" role="button">删除</a>
 						</td>
 
 					</tr>

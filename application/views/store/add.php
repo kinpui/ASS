@@ -71,10 +71,9 @@
       <label class="col-sm-1 control-label">数码类型</label>
       <div class="col-sm-4">
         <select class="input-xlarge  form-control" name='digital_type'>
-          <option>手机</option>
-          <option>电脑</option>
-          <option>数码</option>
-          <option>配件</option>
+          <?php foreach($digital_type as $val):?>
+          <option name='<?=$val['id']?>'><?=$val['value']?></option>
+          <?php endforeach;?>
         </select>
       </div>
     </div>
@@ -84,9 +83,9 @@
       <label class="col-sm-1 control-label">颜 色: </label>
       <div class="col-sm-4">
         <select class="input-xlarge  form-control" name='digital_color'>
-          <option>红</option>
-          <option>白</option>
-          <option>蓝</option>
+          <?php foreach($color as $col): ?>
+          <option value='<?=$col['value']?>'><?=$col['value']?></option>
+          <?php endforeach; ?>
         </select>
       </div>
     </div>

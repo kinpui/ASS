@@ -275,7 +275,7 @@ class Admin extends CI_Controller
     $this->load->model('Wares');
 
     $header       = page_header(
-        '7天为返回的送修记录',
+        '7天未返回的送修记录',
         '查看所有7天内未维修完成的产品',
         $this->menu
       );
@@ -313,8 +313,8 @@ class Admin extends CI_Controller
 
     $data['table'] = $this->Wares->day_get(15,$page_config['nowindex'],$page_config['per_page']);
     $header = page_header(
-      '7天为返回的送修记录',
-      '查看所有7天内未维修完成的产品',
+      '15天未返回的送修记录',
+      '查看所有15天内未维修完成的产品',
       $this->menu
     );
     $header['css'] = get_search_css();
@@ -330,7 +330,7 @@ class Admin extends CI_Controller
   /**
    * 所有产生的记录
    **/
-  public function all_table()
+  public function all_table($table = '')
   {
     $this->load->helper(array('form','search'));
     /* 分页 */
@@ -354,7 +354,11 @@ class Admin extends CI_Controller
     $this->load->view('publics/search',$search);
     /* 搜索框end */
 
-    $data['table'] = $this->Admins->get_all_table($page_config['nowindex'],$page_config['per_page']);
+    if($table == ''){
+      $data['table'] = $this->Admins->get_all_table($page_config['nowindex'],$page_config['per_page']);
+    }else{
+      $data['table'] = $table;
+    }
     $this->load->view('store/table',$data);
     $this->load->view('footer',get_search_js());
   }
@@ -606,13 +610,13 @@ class Admin extends CI_Controller
     
     /* 加载表单处理程序*/
     $this->load->library('form_validation');
-    $this->load->model('Publics');
     if(!empty($param))
     {
-      $result = $this->Publics->search($param);
+      $result = $this->Admins->search($param);
     }else{
-      $result = $this->Publics->search();
+      $result = $this->Admins->search();
     }
+
     if($result){
 
       /* 筛选结果页 */
@@ -636,7 +640,7 @@ class Admin extends CI_Controller
       $data['table']  = $result;
       $this->load->view('publics/search_result',$data);
       $this->load->view('footer',get_search_js());
-
+      
     }else{
       redirect('admin/');
     }

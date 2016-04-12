@@ -48,15 +48,23 @@ class Publics extends CI_Model
     return $this->db->query('SELECT * FROM region')->result_array();
   }
 
+  /**
+   * 获取颜色
+   **/
+  public function get_color()
+  {
+    return $this->db->query('SELECT * FROM color')->result_array();
+  }
+
 
   /**
    * 搜索
    * 可定制条件搜索
    * @export 7 | 15
    * 查询7天 或 15天未返回的
-   * @param   number  $day
+   * @param   number  $additional 传入需要附加的sql
    **/
-  public function search($day='')
+  public function search($additional = '')
   {
     $digital_type = $this->input->post('digital_type');
     $state        = $this->input->post('state');
@@ -65,13 +73,12 @@ class Publics extends CI_Model
     $end_time     = $this->input->post('end_time');
     $key_word     = $this->input->post('key');
 
-
     $sql = 'SELECT r.id,r.buy_date,r.customer_name,r.customer_phone,r.brand,d.`value`,s.state_msg FROM records r, state_code s,region re,sector se,digital_type d WHERE  d.id = r.digital_type AND  re.id = se.region AND se.`name` = r.from_s AND r.state = s.state_code ';
 
-    if(!empty($day))
+    /* 如果存在需要附加的sql。第一时间加上 */
+    if(!empty($additional))
     {
-      $time = $day*60*60*24;
-      $sql .= ' AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(r.start_date) >= '.$time;
+      $sql .= $additional;
     }
 
     /* 设置了数码类型 */
@@ -111,6 +118,7 @@ class Publics extends CI_Model
                     )";
     }
 
+    echo $sql;
     return $this->db->query($sql)->result_array();
 
   }

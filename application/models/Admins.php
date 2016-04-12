@@ -194,7 +194,7 @@ class Admins extends CI_Model
     $sql = 'SELECT r.id, r.buy_date,r.customer_name,r.customer_phone,r.brand,d.`value`,s.state_msg FROM records r,state_code s,digital_type d WHERE r.state = s.state_code AND d.id = r.digital_type ORDER BY r.start_date DESC LIMIT %s,%s ';
 
     $sql = sprintf($sql,$start,$end);
-    return $this->db->query($sql)->result();
+    return $this->db->query($sql)->result_array();
   }
 
   /**
@@ -391,6 +391,25 @@ class Admins extends CI_Model
   {
 
     return $this->db->query('SELECT COUNT(id) FROM user;')->result_array();
+  }
+
+  /**
+   * search
+   * @param num $day 查询一定天数范围外的记录
+   **/
+  public function search( $day='' )
+  {
+    $sql = '';
+    if(!empty($day))
+    {
+      $time = $day*60*60*24;
+      $sql .= ' AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(r.start_date) >= '.$time;
+    }
+
+    /* 加载一个publics 模型 */
+    $this->load->model('Publics');
+    /* 运行模型中的基本search 方法 */
+    return $this->Publics->search($sql);
   }
 
 }

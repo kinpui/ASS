@@ -22,8 +22,9 @@ class Stores extends CI_Model
   {
     /* 根据门店进行查询 */
     $sql = 'SELECT r.id, r.buy_date,r.customer_name,r.customer_phone,r.brand,d.value,s.state_msg FROM records r,state_code s,digital_type d WHERE r.from_s = "%s" AND r.digital_type = d.id AND r.state = s.state_code LIMIT %s,%s';
-    $query = $this->db->query(sprintf($sql,$this->session->userdata('sector'),$start,$end));
-    return $query->result();
+    $sql = sprintf($sql,$this->session->userdata('sector'),$start,$end);
+    $query = $this->db->query($sql);
+    return $query->result_array();
   }
 
   /**
@@ -138,5 +139,17 @@ records r,state_code s WHERE r.from_s = "'.$this->session->userdata('sector').'"
     }
   }
 
+  /**
+   * 处理搜索
+   **/
+  public function search()
+  {
+    $from_s = $this->session->userdata('sector');
+    $sql = ' AND r.from_s = "'.$from_s.'" ';
+
+    /* 加载公共model */
+    $this->load->model('Publics');
+    return $this->Publics->search($sql);
+  }
 
 }
