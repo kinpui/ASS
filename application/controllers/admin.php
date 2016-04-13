@@ -9,7 +9,7 @@ class Admin extends CI_Controller
 
     parent::__construct();
     $this->load->library('session');
-    $this->load->helper(array('url','login','header','page','auth'));
+    $this->load->helper(array('url','publics','header','page'));
     $this->load->model('Admins');
 
     /* 检验登录 */
@@ -413,7 +413,7 @@ class Admin extends CI_Controller
 
     if($this->form_validation->run() == FALSE)
     {
-      echo '无法正确添加颜色';
+      tips('无法正确添加颜色');
     }else{
 
       if($this->Admins->add_color()){

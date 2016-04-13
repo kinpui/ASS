@@ -7,7 +7,7 @@ class Receive extends CI_Controller
   public function __construct(){
 
     parent::__construct();
-    $this->load->helper(array('url','login'));
+    $this->load->helper(array('url','publics'));
     $this->load->library('session');
     /* 判断 */
     check_login($this);
