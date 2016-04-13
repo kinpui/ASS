@@ -56,7 +56,7 @@
 			</a>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 				<span class="fa fa-angle-up"></span>
-        <li><a href="../login/loginout">退出系统</a></li>
+        <li><a href="<?=base_url('index.php/login/loginout')?>">退出系统</a></li>
 			</ul>
 		</div>
 

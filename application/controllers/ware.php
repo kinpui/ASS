@@ -12,11 +12,14 @@ class Ware extends CI_Controller{
   public function __construct()
   {
     parent::__construct();
-    $this->load->helper(array('url','login','header','page'));
+    $this->load->helper(array('url','login','header','page','auth'));
     $this->load->library('session');
 
     /* 检测登录状态 */
-    check_login();
+    check_login($this);
+
+    /* 访问控制 */
+    auth($this);
 
     /* 加载模型器 */
     $this->load->model('Wares');

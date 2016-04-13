@@ -9,10 +9,15 @@ class Admin extends CI_Controller
 
     parent::__construct();
     $this->load->library('session');
-    $this->load->helper(array('url','login','header','page'));
+    $this->load->helper(array('url','login','header','page','auth'));
     $this->load->model('Admins');
 
-    check_login();
+    /* 检验登录 */
+    check_login($this);
+
+    /* 检验访问控制权限 */
+    auth($this);
+
   }
 
   public function index()
@@ -311,6 +316,7 @@ class Admin extends CI_Controller
     $page_config  = set_page($url,$total_rows);
     $data['page']   = $this->pagination->create_links();
 
+    /* 获取数据 */
     $data['table'] = $this->Wares->day_get(15,$page_config['nowindex'],$page_config['per_page']);
     $header = page_header(
       '15天未返回的送修记录',
@@ -330,7 +336,7 @@ class Admin extends CI_Controller
   /**
    * 所有产生的记录
    **/
-  public function all_table($table = '')
+  public function all_table()
   {
     $this->load->helper(array('form','search'));
     /* 分页 */
@@ -354,11 +360,8 @@ class Admin extends CI_Controller
     $this->load->view('publics/search',$search);
     /* 搜索框end */
 
-    if($table == ''){
-      $data['table'] = $this->Admins->get_all_table($page_config['nowindex'],$page_config['per_page']);
-    }else{
-      $data['table'] = $table;
-    }
+    $data['table'] = $this->Admins->get_all_table($page_config['nowindex'],$page_config['per_page']);
+
     $this->load->view('store/table',$data);
     $this->load->view('footer',get_search_js());
   }

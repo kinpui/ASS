@@ -8,10 +8,14 @@ class Store extends CI_controller {
   {
     parent::__construct();
 
-    $this->load->helper(array('url','login','header'));
+    $this->load->helper(array('url','login','header','auth'));
     $this->load->library('session');
 
-    check_login();
+    /* 验证登陆 */
+    check_login($this);
+
+    /* 访问控制 */
+    auth($this);
 
     /* 加载模型器 */
     $this->load->model('Stores');

@@ -16,7 +16,7 @@ class Index extends CI_Controller
 	public function index()
 	{ 
     /* 检测是否登录 */
-    check_login();
+    check_login($this);
     $this->load->view('welcome');
   }
 

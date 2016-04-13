@@ -168,7 +168,9 @@ class Wares extends CI_Model
       return false;
     }
     $time = $day*60*60*24;
-    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,d.`value`,s.state_msg FROM records r,state_code s,digital_type d WHERE r.state = s.state_code AND r.digital_type = d.id AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(start_date) >= "%s" LIMIT %s,%s';
+    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,d.`value`,s.state_msg FROM records r,state_code s,digital_type d WHERE r.state = s.state_code AND r.digital_type = d.id AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(start_date) >= %s LIMIT %s,%s';
+
+    echo sprintf($sql,$time,$start,$end);
 
     $query = $this->db->query(sprintf($sql,$time,$start,$end));
     return $query->result_array();

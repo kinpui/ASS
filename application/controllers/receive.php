@@ -10,7 +10,7 @@ class Receive extends CI_Controller
     $this->load->helper(array('url','login'));
     $this->load->library('session');
     /* 判断 */
-    check_login();
+    check_login($this);
 
     /* 加载数据模型 */
     $this->load->model('Receives');
