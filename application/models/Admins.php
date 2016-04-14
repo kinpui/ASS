@@ -32,7 +32,7 @@ class Admins extends CI_Model
       $result = $this->db->query($sql)->result();
       return $result;
     }else{
-      echo "请正确操作";
+      tips("请正确操作");
       return false;
     }
   }
@@ -179,7 +179,7 @@ class Admins extends CI_Model
       $result = $this->db->query($sql)->result();
       return $result;
     }else{
-      echo "请正确操作";
+      tips("请正确操作");
       return false;
     }
   }

@@ -51,18 +51,26 @@ function auth($ci)
 /**
  * admin 操作出错提示方法
  * @param   $msg    错误信息
- * @param   $bak_url跳转页面
+ * @param   $status 提示状态: 空->失败；非空->成功
  */
-function tips($msg)
+function tips($msg,$status='')
 {
   $ci = & get_instance();
 
   $ci->load->view('header',page_header(
-    '操作出错',
-    '操作错误',
+    $status == ''?'操作出错':'操作成功',
+    $status == ''?'操作错误':'恭喜你！操作成功',
     $ci->uri->segment(1)
   ));
-  $ci->load->view('publics/error',array('msg'=>$msg));
+
+  $data = array('msg'=>$msg);
+
+  if(!empty($status))
+  {
+    $data['status'] = 'success';
+  }
+
+  $ci->load->view('publics/error',$data);
 
   $ci->load->view('footer');
 }

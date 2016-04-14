@@ -220,15 +220,15 @@ class Ware extends CI_Controller{
 
       if($this->Wares->repair($id,$userid,$date)){
 
-        echo "送修厂家成功";
+        tips("送修厂家成功",'1');
 
       }else{
         
-        echo '送修厂家失败';
+        tips('送修厂家失败');
       }
     }else{
 
-      echo '非法操作';
+      tips('非法操作');
     }
   }
 
@@ -246,13 +246,12 @@ class Ware extends CI_Controller{
 
       /* 操作数据库 */
       if($this->Wares->return_w($id,$userid,$date)){
-        echo '成功返回仓库';
-        echo '<a href="'.base_url('ware/post_s').'" >';
+        tips('成功返回仓库','1');
       }else{
-        echo '无法返回仓库.请重试';
+        tips('无法返回仓库.请重试');
       }
     }else{
-      echo '非法操作';
+      tips('非法操作');
     }
   }
 
@@ -270,13 +269,13 @@ class Ware extends CI_Controller{
 
       /* 操作数据库 */
       if($this->Wares->return_s($id,$userid,$date)){
-        echo '成功返回门店';
-        echo '<a href="'.base_url('ware/post_s').'" >';
+        tips('成功返回门店','1');
+      
       }else{
-        echo '无法返回门店.请重试';
+        tips('无法返回门店.请重试');
       }
     }else{
-      echo '非法操作';
+      tips('非法操作');
     }
   }
 
@@ -307,7 +306,7 @@ class Ware extends CI_Controller{
       $this->load->view('footer');
 
     }else{
-      echo '非法操作';
+      tips('非法操作');
     }
   }
 
@@ -325,13 +324,13 @@ class Ware extends CI_Controller{
     if ($this->form_validation->run() == FALSE)
     {
       //redirect('ware/get_m');
-      echo '修改出错';
+      tips('修改出错');
     }else{
       if($this->Wares->newstring())
       {
-        echo '成功修改串码';
+        tips('成功修改串码','1');
       }else{
-        echo '修改串码失败';
+        tips('修改串码失败');
       }
     }
     
@@ -364,7 +363,7 @@ class Ware extends CI_Controller{
       $this->load->view('footer');
 
     }else{
-      echo '非法操作';
+      tips('非法操作');
     }
   }
 
@@ -381,13 +380,13 @@ class Ware extends CI_Controller{
 
     if ($this->form_validation->run() == FALSE)
     {
-      echo '无法报价';
+      tips('无法报价');
     }else{
       if($this->Wares->offer())
       {
-        echo '成功报价';
+        tips('成功报价','1');
       }else{
-        echo '无法报价';
+        tips('无法报价');
       }
     }
     

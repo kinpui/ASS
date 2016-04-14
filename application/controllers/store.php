@@ -118,10 +118,10 @@ class Store extends CI_controller {
     
     if(empty($data['table']))
     {
-      echo '无待接收';
+      tips('无待接收');
       //return false;
     }else{
-      echo '有待接收';
+      tips('有待接收');
     }
 
     /* 视图 */
@@ -168,12 +168,12 @@ class Store extends CI_controller {
     {
       $result = $this->Stores->receive($id);
       if(!$result){
-        echo '接机失败,请重试';
+       tips('接机失败,请重试');
       }else{
-        echo '接收成功';
+       tips('接收成功','1');
       }
     }else{
-      echo '非法操作';
+      tips('非法操作');
     }
   }
 
@@ -187,12 +187,12 @@ class Store extends CI_controller {
    {
      $result = $this->Stores->take_h($id);
      if($result){
-       echo '接收成功';
+       tips('接收成功','1');
      }else{
-       echo '取机失败,请重试';
+       tips('取机失败,请重试');
      }
    }else{
-     echo '非法操作';
+     tips('非法操作');
    }
   }
 
@@ -304,7 +304,7 @@ class Store extends CI_controller {
     $id = empty($this->uri->segment(3))?'':$this->uri->segment(3);
 
     if($id == ''){
-      echo '非法操作';
+      tips('非法操作');
       return false;
     }else{
       /* 获取该记录转态。如果大于等于2。则失败  */
@@ -312,12 +312,12 @@ class Store extends CI_controller {
       {
         if($this->Stores->del_record($id))
         {
-          echo '已经删除';
+          tips('已经删除','1');
         }else{
-          echo '删除不成功';
+          tips('删除不成功');
         }
       }else{
-        echo '已经送出。无法删除';
+        tips('已经送出。无法删除');
       }
     }
   }

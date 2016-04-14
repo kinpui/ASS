@@ -7,9 +7,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <title>Error</title>
 </head>
 <body>
-<div class="panel panel-danger">
+<div class="panel panel-<?php echo empty($status)?'danger':$status;?>">
       <div class="panel-heading">
-        <h3 class="panel-title">出现错误</h3>
+      <h3 class="panel-title"><?php echo empty($status)?'出现错误':'操作成功';?></h3>
       </div>
       <div class="panel-body">
         <?=$msg?>

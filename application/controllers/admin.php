@@ -77,7 +77,7 @@ class Admin extends CI_Controller
       ));
       $this->load->view('footer');
     }else{
-      echo '非法操作';
+      tips('非法操作');
     }
   }
 
@@ -118,7 +118,7 @@ class Admin extends CI_Controller
     if($this->form_validation->run() == FALSE)
     {
       /* 添加用户不成功 */
-      echo '添加用户不成功';
+      tips('添加用户不成功');
       //sleep(3);
       //redirect('admin/add');
     }else{
@@ -126,20 +126,18 @@ class Admin extends CI_Controller
       if($this->uri->segment(3) == 'edit'){
         //编辑操作
         if($this->Admins->edit_user_handle()){
-          echo '编辑用户信息成功';
+          tips('编辑用户信息成功','1');
         }else{
-          echo '编辑用户信息过程中出错，请检查无误后重试';
+          tips('编辑用户信息过程中出错，请检查无误后重试');
         }
       }else{
         //新增操作
         /* 提交模型处理器处理 */
         if($this->Admins->add_user_handle())
         {
-          echo '添加用户成功';
-          //sleep(3);
-          //redirect('admin/index');
+          tips('添加用户成功','1');
         }else{
-          echo '添加用户过程中出错;请重试';
+          tips('添加用户过程中出错;请重试');
           //sleep(3);
           //redirect('admin/add1');
         }
@@ -204,25 +202,24 @@ class Admin extends CI_Controller
 
     if($this->form_validation->run() == FALSE)
     {
-      echo '添加门店信息不成功';
+      tips('添加门店信息不成功');
     }else{
 
       if($this->uri->segment(3) == 'edit'){
         //编辑操作
         if($this->Admins->edit_store_handle()){
-          echo '编辑门店信息成功';
+          tips('编辑门店信息成功','1');
         }else{
-          echo '编辑门店信息过程中出错，请检查无误后重试';
+          tips('编辑门店信息过程中出错，请检查无误后重试');
         }
       }else{
         //新增操作
         /* 提交模型处理器处理 */
         if($this->Admins->add_store_handle())
         {
-          //echo $this->db->affected_rows();
-          echo '添加门店成功';
+          tips('添加门店成功','1');
         }else{
-          echo '添加门店过程中出错;请重试';
+          tips('添加门店过程中出错;请重试');
         }
       }
     }
@@ -252,7 +249,7 @@ class Admin extends CI_Controller
       ));
       $this->load->view('footer');
     }else{
-      echo '非法操作';
+      tips('非法操作');
     }
   }
 
@@ -417,9 +414,9 @@ class Admin extends CI_Controller
     }else{
 
       if($this->Admins->add_color()){
-        echo '颜色添加成功';
+        tips('颜色添加成功','1');
       }else{
-        echo '无法正确添加颜色,请重试';
+        tips('无法正确添加颜色,请重试');
       }
     }
     
@@ -436,12 +433,12 @@ class Admin extends CI_Controller
     if(!empty($id) && !empty($user)){
       if($this->Admins->del_color($id))
       {
-        echo '成功删除颜色';
+        tips('成功删除颜色','1');
       }else{
-        echo '无法删除颜色,请重试';
+        tips('无法删除颜色,请重试');
       }
     }else{
-      echo '非法操作';
+      tips('非法操作');
       exit;
     }
   }
@@ -478,13 +475,13 @@ class Admin extends CI_Controller
 
     if($this->form_validation->run() == FALSE)
     {
-      echo '无法正确添加颜色';
+      tips('无法正确添加颜色');
     }else{
 
       if($this->Admins->add_factory()){
-        echo '厂家添加成功';
+        tips('厂家添加成功','1');
       }else{
-        echo '无法正确添加厂家,请重试';
+        tips('无法正确添加厂家,请重试');
       }
     }
     
@@ -501,12 +498,12 @@ class Admin extends CI_Controller
     if(!empty($id) && !empty($user)){
       if($this->Admins->del_factory($id))
       {
-        echo '成功删除厂家';
+        tips('成功删除厂家','1');
       }else{
-        echo '无法删除厂家,请重试';
+        tips('无法删除厂家,请重试');
       }
     }else{
-      echo '非法操作';
+      tips('非法操作');
       exit;
     }
   }
@@ -534,9 +531,9 @@ class Admin extends CI_Controller
   {
     if(!empty($this->session->userdata('userid'))){
       if($this->Admins->edit_clause()){
-        echo '编辑条款成功';
+        tips('编辑条款成功','1');
       }else{
-        echo '编辑条款失败';
+        tips('编辑条款失败');
       }
     }
   }
@@ -573,13 +570,13 @@ class Admin extends CI_Controller
 
     if($this->form_validation->run() == FALSE)
     {
-      echo '无法正确添加数码类型';
+      tips('无法正确添加数码类型');
     }else{
 
       if($this->Admins->add_digital()){
-        echo '数码类型添加成功';
+        tips('数码类型添加成功','1');
       }else{
-        echo '无法正确添加数码类型,请重试';
+        tips('无法正确添加数码类型,请重试');
       }
     }
     
@@ -596,12 +593,12 @@ class Admin extends CI_Controller
     if(!empty($id) && !empty($user)){
       if($this->Admins->del_digital($id))
       {
-        echo '成功删除数码类型';
+        tips('成功删除数码类型','1');
       }else{
-        echo '无法删除数码类型,请重试';
+        tips('无法删除数码类型,请重试');
       }
     }else{
-      echo '非法操作';
+      tips('非法操作');
       exit;
     }
   }

@@ -118,7 +118,6 @@ class Publics extends CI_Model
                     )";
     }
 
-    echo $sql;
     return $this->db->query($sql)->result_array();
 
   }

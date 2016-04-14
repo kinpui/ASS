@@ -46,13 +46,13 @@ class Receive extends CI_Controller
     {
       if($this->Receives->meet($id,$state,$user_id,$date)){
 
-        echo '接收成功';
-        echo '<a href="'.base_url('index.php/ware').'">继续接收</a>';
+        tips('接收成功','1');
+        tips( '<a href="'.base_url('index.php/ware').'">继续接收</a>');
       }else{
-        echo '接收不成功';
+        tips('接收不成功');
       }
     }else{
-      echo '无权或非法操作';
+      tips('无权或非法操作');
     }
 
   }
