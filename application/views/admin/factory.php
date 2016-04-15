@@ -19,7 +19,7 @@
 						</td>
 
             <td>
-              <a href="<?php echo base_url('index.php/admin/del_factory/'.$val->id);?>" class="btn btn-info btn-xs active" role="button">删除颜色</a>
+              <a href="<?php echo base_url('index.php/admin/del_factory/'.$val->id);?>" class="btn btn-info btn-xs active" role="button">删除厂家</a>
 						</td>
 
 					</tr>

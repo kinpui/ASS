@@ -72,7 +72,7 @@
       <div class="col-sm-4">
         <select class="input-xlarge  form-control" name='digital_type'>
           <?php foreach($digital_type as $val):?>
-          <option name='<?=$val['id']?>'><?=$val['value']?></option>
+          <option value='<?=$val['id']?>'><?=$val['value']?></option>
           <?php endforeach;?>
         </select>
       </div>

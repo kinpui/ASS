@@ -43,7 +43,7 @@
 						</td>
 
             <td>
-            <a class="btn btn-success btn-xs active" role="button" href='edit/<?php echo $val->id?>'>修改用户信息</a>
+            <a class="btn btn-success btn-xs active" role="button" href='<?php echo base_url('index.php/admin/edit/'.$val->id)?>'>修改用户信息</a>
             </td>
 					</tr>
           <?php endforeach; ?>

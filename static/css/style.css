@@ -581,3 +581,15 @@ a.current {
 }
   
 /* 维修处理进度条end */
+/* 新报价 或 新串码提示 */
+.change-callout{
+  border-left:solid 5px red;
+  padding:0;
+  margin-top:10px;
+}
+.explain {
+  color: #666;
+  font-size: 12px;
+  padding-top: 10px;
+}
+

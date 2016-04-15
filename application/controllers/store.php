@@ -67,7 +67,7 @@ class Store extends CI_controller {
    * 显示送修列表
    *
    **/
-  public function table($table = '')
+  public function table()
   {
     $this->load->helper(array('page','form','search'));
     $data = array();
@@ -88,11 +88,7 @@ class Store extends CI_controller {
     $page_config  = set_page($url,$total_rows);
     $data['page'] = $this->pagination->create_links();
 
-    if($table){
-      $data['table']= $table;
-    }else{
-      $data['table']= $this->Stores->get_store_table($page_config['nowindex'],$page_config['per_page']);
-    }
+    $data['table']= $this->Stores->get_store_table($page_config['nowindex'],$page_config['per_page']);
 
     /* 视图 */
     $search       = get_search_data();
@@ -116,14 +112,6 @@ class Store extends CI_controller {
     $data['table'] = $this->Stores->get_wait_table();
   
     
-    if(empty($data['table']))
-    {
-      tips('无待接收');
-      //return false;
-    }else{
-      tips('有待接收');
-    }
-
     /* 视图 */
     $this->load->view('header',page_header(
       '待处理列表',
@@ -221,7 +209,6 @@ class Store extends CI_controller {
   public function submit_form()
   {
     $this->load->library('form_validation');
-    $this->load->database();/* 初始化数据库连接 */
 
     /* 验证部分字段不为空 */
 
@@ -269,10 +256,7 @@ class Store extends CI_controller {
 
       /* 插入数据库 */
       if($this->db->insert('records', $data)){
-        $data = array(
-          'tips'=>'插入成功'
-        );
-        $this->load->view('store/add_success',$data);
+        tips('送修成功,请持续关注维修状态。给顾客最满意的服务','1');
       }else{
         $this->load->view('store/add_fail');
       }

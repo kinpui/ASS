@@ -14,7 +14,7 @@
       <!-- text input 用户名 -->
       <label class="col-sm-1 control-label" for="input01">用户名</label>
       <div class="col-sm-4">
-        <input type="text" placeholder="输入用户工号" class="input-xlarge  form-control" name='nickname' required>
+        <input type="text" placeholder="输入用户姓名" class="input-xlarge  form-control" name='nickname' required>
       </div>
     </div>
 

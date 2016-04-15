@@ -12,10 +12,10 @@
     <div class="progress-bar progress-bar-success" style="width: 25%">
       <span>总售后处理<?php if(!empty($data->s_w_d) && !empty($data->w_m_d)){echo '(完成)';}?></span>
       <span class='b_time'>仓库接收：<?=$data->s_w_d?></span>
-      <span class='b_user'>处理人员：<?=get_nick($this,$data->s_w_u)?></span>
+      <span class='b_user'>处理人员：<?=get_nick($data->s_w_u)?></span>
       <?php if(!empty($data->w_m_d)): ?>
       <span class='a_time'>送修厂家：<?=$data->w_m_d?></span>
-      <span class='a_user'>处理人员：<?=get_nick($this,$data->w_m_u)?></span>
+      <span class='a_user'>处理人员：<?=get_nick($data->w_m_u)?></span>
       <?php endif;?>
     </div>
     <?php
@@ -27,10 +27,10 @@
     <div class="progress-bar progress-bar-success" style="width: 25%">
       <span>厂家返回总售后<?php if(!empty($data->m_w_d) && !empty($data->w_s_d)){echo '(完成)';}?></span>
       <span class='b_time'>厂家返回：<?=$data->m_w_d?></span>
-      <span class='b_user'>处理人员：<?=get_nick($this,$data->m_w_u)?></span>
+      <span class='b_user'>处理人员：<?=get_nick($data->m_w_u)?></span>
       <?php if(!empty($data->w_s_d)): ?>
       <span class='a_time'>返回门店：<?=$data->w_s_d?></span>
-      <span class='a_user'>处理人员：<?=get_nick($this,$data->w_s_u)?></span>
+      <span class='a_user'>处理人员：<?=get_nick($data->w_s_u)?></span>
       <?php endif;?>
     </div>
     <?php

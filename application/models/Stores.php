@@ -21,7 +21,7 @@ class Stores extends CI_Model
   public function get_store_table($start,$end)
   {
     /* 根据门店进行查询 */
-    $sql = 'SELECT r.id, r.buy_date,r.customer_name,r.customer_phone,r.brand,d.value,s.state_msg FROM records r,state_code s,digital_type d WHERE r.from_s = "%s" AND r.digital_type = d.id AND r.state = s.state_code LIMIT %s,%s';
+    $sql = 'SELECT r.*,d.value,s.state_msg FROM records r,state_code s,digital_type d WHERE r.from_s = "%s" AND r.digital_type = d.id AND r.state = s.state_code LIMIT %s,%s';
     $sql = sprintf($sql,$this->session->userdata('sector'),$start,$end);
     $query = $this->db->query($sql);
     return $query->result_array();

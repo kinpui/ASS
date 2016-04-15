@@ -64,6 +64,39 @@ class Ware extends CI_Controller{
 
 
   /**
+   * 处理接收程序
+   *
+   **/
+  public function take()
+  {
+    /* 接收数码设备的ID */
+    $id     = empty($this->uri->segment(3))?'':$this->uri->segment(3);
+
+    /* 接收人编号 */
+    $user_id= $this->session->userdata('userid');
+
+    /* 接收时间 */
+    $date   = date('Y-m-d');
+
+    /* id,state,user_id 不能为空 */
+    if(
+      !empty($id) &&
+      !empty($user_id)
+    )
+    {
+      if($this->Wares->take($id,$user_id,$date)){
+
+        tips('接收成功','1');
+      }else{
+        tips('接收不成功');
+      }
+    }else{
+      tips('无权或非法操作');
+    }
+
+  }
+
+  /**
    * 送修厂家
    * 显示所有状态为2的信息
    * 记录送修厂家时间

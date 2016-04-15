@@ -65,7 +65,7 @@ class Admins extends CI_Model
     $data = array(
       'username'  => $this->input->post('username'),
       'nickname'  => $this->input->post('nickname'),
-      'password'  => $this->input->post('password'),
+      'password'  => md5($this->input->post('password')),
       'usertype'  => $this->input->post('usertype'),
       'sector'    => $this->input->post('sector')
     );
@@ -156,8 +156,10 @@ class Admins extends CI_Model
     }
     /* 获取数据*/
     $data = array(
-      'name'  => $this->input->post('storename'),
-      'region'  => $this->input->post('region'),
+      'name'   => $this->input->post('storename'),
+      'region' => $this->input->post('region'),
+      'tel'    => $this->input->post('tel'),
+      'addr'   => $this->input->post('addr'),
     );
 
 
@@ -175,7 +177,7 @@ class Admins extends CI_Model
   public function get_store_info($id)
   {
     if(!empty($id)){
-      $sql = 'SELECT s.id,s.`name`,r.region FROM sector s,region r WHERE s.region = r.id AND s.id = '.$id;
+      $sql = 'SELECT s.id,s.`name`,s.addr,s.tel,r.region FROM sector s,region r WHERE s.region = r.id AND s.id = '.$id;
       $result = $this->db->query($sql)->result();
       return $result;
     }else{

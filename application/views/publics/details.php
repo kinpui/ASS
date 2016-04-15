@@ -97,7 +97,30 @@
       <input type='text' class="input-xlarge  form-control" disabled="true" value='<?=$data->repair_type?>'>
       </div>
     </div>
+    
+    <!-- 判断是否存在报价 -->
+    <?php if(!empty($data->offer)):?>
+      <div class="change-callout col-md-12">
+        <div class="panel-heading bg-danger">报价</div>
+        <div class="panel-body">
+        维修报价:￥<?=$data->offer?>
+        <p class='explain'>报价原因: <?=$data->reason?></p>
+        </div>
+      </div>
+    <?php endif;?>
 
+    <!-- 判断是否存在新字符串 -->
+    <?php if(!empty($data->new_string)):?>
+      <div class="change-callout col-md-12">
+        <div class="panel-heading bg-danger">换新串码</div>
+        <div class="panel-body">
+        新的串码为:<?=$data->new_string?>
+        <p class='explain'>换新串原因: <?=$data->new_string_explain?></p>
+        </div>
+      </div>
+    <?php endif;?>
     </fieldset>
     </form>
+    <div class='pad20'></div>
+
 <?php $this->load->view('publics/progress')?>

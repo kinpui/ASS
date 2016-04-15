@@ -62,7 +62,7 @@
 
 		<div class="dropdown right head-dropdown">
 			<a href="javascript:;" class="under-n head-droplink" id="dropdownMenu1" data-toggle="dropdown" >
-				<i class="fa fa-bell-o head-ico"><span class="badge">4</span></i> 
+				<i class="fa fa-bell-o head-ico"><span class="badge"></span></i> 
 			</a>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 				<span class="fa fa-angle-up"></span>
