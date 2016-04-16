@@ -18,6 +18,13 @@
 						<th>
 						  所属门店
 						</th>
+            
+						<th>
+						  门店地址
+						</th>
+						<th>
+						  门店电话
+						</th>
 						<th>
 							操作
 						</th>
@@ -40,6 +47,12 @@
 
             <td>
               <?php echo $val->sector; ?>
+						</td>
+            <td>
+              <?php echo $val->addr; ?>
+						</td>
+            <td>
+              <?php echo $val->tel; ?>
 						</td>
 
             <td>

@@ -18,7 +18,8 @@ class Admins extends CI_Model
       return false;
     }
     
-    $sql = 'SELECT u.id,u.nickname,u.sector,u.username,j.userjob FROM `user` u, `userjob` j  WHERE u.usertype = j.usertype LIMIT %s,%s';
+    //$sql = 'SELECT u.id,u.nickname,u.sector,u.username,j.userjob FROM `user` u, `userjob` j  WHERE u.usertype = j.usertype LIMIT %s,%s';
+    $sql = 'SELECT u.id, u.username, u.nickname, u.sector,s.addr,s.tel,j.userjob FROM `user` u,userjob j,sector s WHERE u.usertype = j.usertype AND s.`name` = u.sector LIMIT %s,%s';
     return $result = $this->db->query(sprintf($sql,$start,$end))->result();
   }
 

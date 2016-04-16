@@ -34,7 +34,7 @@ Modules - reusable parts of our design
 .cd-container {
   /* this class is used to give a max-width to the element it is applied to, and center it horizontally when it reaches that max-width */
   width: 90%;
-  max-width: 1170px;
+  max-width: 760px;
   margin: 0 auto;
 }
 .cd-container::after {
@@ -283,4 +283,20 @@ a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
 
 span.cd-date {
   width: 100%;
+}
+.invalid{
+  color:#ccc !important;
+}
+section#cd-timeline {
+  margin-top: 0;
+}
+.title {
+  border-bottom: 3px solid #d7e4ed;
+  font-size: 20px;
+  line-height: 50px;
+  margin: 30px 0 0;
+  text-align: center;
+}
+.glyphicon.glyphicon-phone {
+  color: #bbb;
 }

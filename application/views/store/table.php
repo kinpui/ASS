@@ -69,11 +69,10 @@
 	</div>
 </div>
 <div class='btn btn-default print-table'>
-  <a href="javascript:printing()" target="_self">打印表格</a>
+  <button class='print-button' onclick="jQuery('#table').print()" target="_self">打印表格</button>
 </div>
+
 <div class='btn btn-default print-table'>
 <a class='toExcel' href="<?php echo base_url('index.php/export/condition/store');?>" target="_self">导出表格</a>
 </div>
 <?php echo $page;?>
-
-

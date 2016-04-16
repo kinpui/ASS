@@ -46,7 +46,7 @@ class User extends CI_Controller{
         $data['result'] = $result;
         $this->load->view('user/time_axis',$data);
       }else{
-        echo '没有您的送修记录';
+        $this->load->view('user/null');
       }
     }
   }

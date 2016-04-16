@@ -16,7 +16,7 @@
           <p class='input-label'>注意:输入手机号码后点击查询按钮</p>
 					<div class="input-group">
 						<div class="input-group-addon">
-							<i class="fa fa-user"></i>
+							<i class="glyphicon glyphicon-phone"></i>
 						</div>
 						<input type="text" class="form-control" name="phone" placeholder="输入你的手机号码" autocomplete="off" />
 					</div>

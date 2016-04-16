@@ -92,10 +92,15 @@ class Store extends CI_controller {
 
     /* 视图 */
     $search       = get_search_data();
+
+    /* 加载js */
+    $load_js      = get_search_js();//加载search 需要的js
+    array_push($load_js['js_array'],'jquery.print.js');
+
     $search['action']='store/search'; 
     $this->load->view('publics/search',$search);
     $this->load->view('store/table.php',$data);
-    $this->load->view('footer',get_search_js());
+    $this->load->view('footer',$load_js);
   }
 
   /**

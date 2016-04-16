@@ -49,6 +49,7 @@ class Admin extends CI_Controller
       '所有用户',
       $this->menu
     ));
+    //var_dump($data['table']);return false;
 
     $this->load->view('admin/users',$data);
     $this->load->view('footer');
@@ -72,7 +73,7 @@ class Admin extends CI_Controller
 
       $this->load->view('admin/edit',array(
         'table'     => $this->Admins->get_id_info($id)[0],
-        'usertypes'  => $this->Admins->get_user_type(),
+        'usertypes' => $this->Admins->get_user_type(),
         'sectors'   => $this->Admins->get_sector()
       ));
       $this->load->view('footer');
@@ -359,8 +360,11 @@ class Admin extends CI_Controller
 
     $data['table'] = $this->Admins->get_all_table($page_config['nowindex'],$page_config['per_page']);
 
+    $load_js = get_search_js();
+    array_push($load_js['js_array'],'jquery.print.js');
+
     $this->load->view('store/table',$data);
-    $this->load->view('footer',get_search_js());
+    $this->load->view('footer',$load_js);
   }
 
   /**
@@ -638,8 +642,11 @@ class Admin extends CI_Controller
       $this->load->view('publics/search',$search);
       /* 搜索框end */
       $data['table']  = $result;
+
+      $load_js = get_search_js();
+      array_push($load_js['js_array'],'jquery.print.js');
       $this->load->view('publics/search_result',$data);
-      $this->load->view('footer',get_search_js());
+      $this->load->view('footer',$load_js);
       
     }else{
       redirect('admin/');

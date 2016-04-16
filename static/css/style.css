@@ -510,11 +510,23 @@ a.current {
 .print-table a{
   text-decoration:none;
 }
+.print-button{
+  background: transparent;
+  border: 0;
+}
+
 @media print {
 /* 设置打印的样式 */
 
   .no-print{
     display:none;
+  }
+
+  #table tbody tr {
+    border: solid 1px #ccc;
+  }
+  #table tbody tr td{
+    border:solid 1px #ccc;
   }
 }
 /* 打印样式 end*/
