@@ -350,6 +350,4 @@ class Store extends CI_controller {
     }
   }
 
-
-
 }

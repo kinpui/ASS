@@ -35,13 +35,14 @@
   <div class="col-lg-4 pad20">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="输入厂家名称" name='factory'>
+        <input type="text" class="form-control" placeholder="厂家联系方式" name='factory_phone'>
         <span class="input-group-btn">
-          <input class="btn btn-default add_color" type="submit" value='添加厂家' />
+          <input class="btn btn-default add_factory" type="submit" value='添加厂家' />
         </span>
       </div>
   </div>
   <div class="col-lg-4 pad20">
-     <a href="show_factory" class="btn btn-success" role="button">查看所有厂家</a> 
+    <a href="<?=base_url('index.php/publ/admin_factory')?>" class="btn btn-success" role="button">查看所有厂家</a> 
   </div>
   </div> 
 </div>

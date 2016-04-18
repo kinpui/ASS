@@ -605,3 +605,46 @@ a.current {
   padding-top: 10px;
 }
 
+/* 导出按钮及单项按钮 */
+.p-checkbox label::before {
+  background-color: #fff;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  content: "";
+  display: inline-block;
+  height: 17px;
+  left: 0;
+  margin-left: -20px;
+  position: absolute;
+  transition: border 0.15s ease-in-out 0s, color 0.15s ease-in-out 0s;
+  width: 17px;
+}
+.p-checkbox label::after {
+  color: #555555;
+  display: inline-block;
+  font-size: 11px;
+  height: 16px;
+  left: 0;
+  margin-left: -20px;
+  padding-left: 3px;
+  padding-top: 1px;
+  position: absolute;
+  top: 0;
+  width: 16px;
+}
+.p-checkbox label {
+  display: inline-block;
+  padding-left: 5px;
+  position: relative;
+  vertical-align: middle;
+}
+
+.toExcel {
+  background: transparent none repeat scroll 0 0;
+  border: 0 none;
+}
+/*添加厂家通讯录start*/
+.add_factory{
+top: 17px;
+}
+/*添加厂家通讯录end*/

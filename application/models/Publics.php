@@ -121,5 +121,51 @@ class Publics extends CI_Model
     return $this->db->query($sql)->result_array();
 
   }
+
+  /**
+   * 查询需要导出的数据
+   * @param   array   $value 传入的数据id组成的数组
+   **/
+  public function export($value)
+  {
+    $where = '';
+    if(is_array($value))
+    {
+      foreach($value as $key){
+        if($where == ''){
+          $where  = "$key";
+        }else{
+          $where .= ",$key";
+        }
+      }
+
+      $sql = 'SELECT * FROM records r,sector s WHERE r.from_s = s.`name` AND r.id IN('.$where.')';
+
+      return $this->db->query($sql)->result_array();
+    }else{
+      return false;
+    }
+  }
+
+  /* 厂家管理 */
+  /**
+   * 获取所有厂家
+   * @param   $start  开始页数
+   * @param   $end    结束页数
+   *
+   **/
+  public function get_factory($start,$end)
+  {
+    $sql = 'SELECT * FROM factory LIMIT %s,%s;';
+    return $this->db->query(sprintf($sql,$start,$end))->result();
+  }
+
+  /**
+   * 获取厂家数量
+   **/
+  public function get_factory_num()
+  {
+    return $this->db->query("SELECT COUNT(id) FROM factory")->result_array();
+  }
 }
 

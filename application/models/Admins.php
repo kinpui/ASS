@@ -243,15 +243,6 @@ class Admins extends CI_Model
     }
   }
 
-  /* 厂家管理 */
-  /**
-   * 获取所有厂家
-   **/
-  public function get_factory()
-  {
-    $sql = 'SELECT * FROM factory;';
-    return $this->db->query($sql)->result();
-  }
 
   /**
    * 删除厂家
@@ -271,14 +262,15 @@ class Admins extends CI_Model
    **/
   public function add_factory()
   {
-    $factory = $this->input->post('factory');
+    $factory        = $this->input->post('factory');
+    $factory_phone  = $this->input->post('factory_phone');
 
-    if(empty($factory))
+    if(empty($factory) || empty($factory_phone))
     {
       return false;
     }
 
-    $data = array('value'=>$factory);
+    $data = array('value'=>$factory,'phone'=>$factory_phone);
 
     if($this->db->insert('factory',$data)){
       return true;

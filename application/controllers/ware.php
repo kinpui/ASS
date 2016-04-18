@@ -441,5 +441,40 @@ class Ware extends CI_Controller{
     }
   }
 
+  /**
+   * 各通讯录(门店与厂家)
+   **/
+  public function directories()
+  {
+
+    $this->load->view('header',page_header('通讯录','常用通讯录',$this->menu));
+    $this->load->view('ware/directories');
+    $this->load->view('footer');
+  }
+
+  /* 厂家管理 */
+  /**
+   * 查看所有厂家
+   **/
+  public function show_factory()
+  {
+    $this->load->helper('page');
+    $this->load->model('Publics');
+    /* 分页 */
+    $total_rows   = $this->Publics->get_factory_num()[0]['COUNT(id)'];
+    $url          = site_url('ware/show_factory');
+    $page_config  = set_page($url,$total_rows);
+    $data['page'] = $this->pagination->create_links();
+    $this->load->view('header',page_header(
+      '查看厂家信息',
+      '所有厂家列表',
+      $this->menu
+    ));
+
+    $data['table'] = $this->Publics->get_factory($page_config['nowindex'],$page_config['per_page']);
+
+    $this->load->view('publics/factory',$data);
+    $this->load->view('footer');
+  }
 
 }

@@ -42,6 +42,12 @@
 						<p>15天未返回</p>
 					</a>
         </li>
+				<li>
+          <a href="<?php echo base_url('index.php/ware/directories'); ?>">
+						<i class="ico i-nav5"></i>
+						<p>通讯录</p>
+					</a>
+        </li>
       
 			</ul>
 		</div>

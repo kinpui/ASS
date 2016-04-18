@@ -447,25 +447,6 @@ class Admin extends CI_Controller
     }
   }
 
-  /* 厂家管理 */
-
-  /**
-   * 查看所有厂家
-   **/
-  public function show_factory()
-  {
-    $this->load->view('header',page_header(
-      '查看厂家信息',
-      '所有厂家列表',
-      $this->menu
-    ));
-
-    $data['table'] = $this->Admins->get_factory();
-
-    $this->load->view('admin/factory',$data);
-    $this->load->view('footer');
-  }
-
   /**
    * 添加厂家
    **/
