@@ -35,7 +35,7 @@
 				<tbody>
           <?php foreach($table as $val): ?>
 						<td class='no-print'>
-              <p class='p-checkbox'><input type="checkbox" id="checkbox1" name='export[]' value='<?=$val['id']?>'></p>
+              <p class='p-checkbox'><input class='checkbox' type="checkbox" id="checkbox1" name='export[]' value='<?=$val['id']?>'></p>
 						</td>
 						<td>
               <?php echo $val['buy_date']; ?>
@@ -70,7 +70,7 @@
 
 					</tr>
           <?php endforeach; ?>
-          <tr class='no-print'><td><button class='select-all'>全选</button></td></tr>
+          <tr class='no-print'><td class='select-all'>全选</td></tr>
 				</tbody>
 			</table>
 		</div>

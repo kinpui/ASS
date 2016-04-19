@@ -47,7 +47,6 @@ class Export extends CI_Controller
   public function export($data)
   {
 
-
     if(!$data){echo '非法操作';return false;}
 
     /* 根据条件进行查询导出excel */
@@ -69,7 +68,16 @@ class Export extends CI_Controller
     ,"</tr></thead><tbody>";
 
     foreach($data as $val){
-    
+      echo "<tr>
+          <td>$val[start_date]</td>
+          <td>$val[customer_name]</td>
+          <td>$val[customer_phone]</td>
+          <td>$val[brand]</td>
+          <td>$val[fault]</td>
+          <td>$val[string_code]</td>
+          <td>$val[from_s]</td>
+          <td>$val[repair_type]</td>
+        </tr>";
     }
     echo '</tbody></table>';
     exit;
