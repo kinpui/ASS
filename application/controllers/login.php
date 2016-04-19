@@ -83,6 +83,10 @@ class Login extends CI_Controller {
           /* 客服人员 */
           redirect('service');
           break;
+        case '5':
+          /* 小仓库 */
+          redirect('sware');
+          break;
       }
     }
   }

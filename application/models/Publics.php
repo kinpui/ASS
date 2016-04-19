@@ -167,5 +167,32 @@ class Publics extends CI_Model
   {
     return $this->db->query("SELECT COUNT(id) FROM factory")->result_array();
   }
-}
 
+
+
+  /**
+   * 获取门店数量
+   **/
+  public function get_store_num()
+  {
+    return $this->db->query('SELECT COUNT(id) FROM sector;')->result_array();
+  }
+
+  /**
+   * 获取门店信息
+   * return array
+   **/
+  public function get_store($start,$end)
+  {
+    if( $end == ''){
+      die('参数错误');
+    }
+    /* 查询门店与所属区域信息 */
+    $sql = 'SELECT s.*,r.region FROM sector s,region r WHERE s.region = r.id LIMIT %s,%s';
+    return $this->db->query(sprintf($sql,$start,$end))->result();
+  }
+
+
+
+
+}

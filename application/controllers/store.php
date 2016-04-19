@@ -147,7 +147,7 @@ class Store extends CI_controller {
       $this->menu
     ));
     
-    $this->load->view('store/take.php',$data);
+    $this->load->view('sware/take.php',$data);
     $this->load->view('footer');
   }
 
@@ -251,7 +251,6 @@ class Store extends CI_controller {
         'digital_color' => $this->input->post('digital_color'),
         'fault'         => $this->input->post('fault'),
         'remarks'       => $this->input->post('remarks'),
-        'repair_type'   => $this->input->post('repair_type'),
         'repair_type'   => $this->input->post('repair_type'),
         'start_date'    => date('Y-m-d'),
         'state'         => $state,

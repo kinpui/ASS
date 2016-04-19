@@ -15,7 +15,7 @@ class Publ extends CI_Controller
 
     /* 检验访问控制权限 */
     auth($this);
-
+    $this->load->model('Publics');
   }
 
   /**
@@ -51,8 +51,6 @@ class Publ extends CI_Controller
    **/
   public function show_factory($menu,$del = '')
   {
-    $this->load->helper('page');
-    $this->load->model('Publics');
 
     /* 分页 */
     $total_rows   = $this->Publics->get_factory_num()[0]['COUNT(id)'];
@@ -75,5 +73,41 @@ class Publ extends CI_Controller
     $this->load->view('publics/factory',$data);
     $this->load->view('footer');
   }
+
+  /* 门店通讯录 */
+
+  /* 仓库人员 */
+  public function ware_store()
+  {
+    $this->show_store('ware');
+  }
+  /* 门店人员 */
+  public function store_store()
+  {
+    $this->show_store('store');
+  }
+
+  /**
+   * 显示门店通讯录
+   **/
+  public function show_store($menu)
+  {
+    /* 分页 */
+    $total_rows   = $this->Publics->get_store_num()[0]['COUNT(id)'];
+    $url          = site_url('publ/'.$menu.'_store');
+    $page_config  = set_page($url,$total_rows);
+    $data['page'] = $this->pagination->create_links();
+    $this->load->view('header',page_header(
+      '查看厂家信息',
+      '所有厂家列表',
+      $menu
+    ));
+
+    $data['table'] = $this->Publics->get_store($page_config['nowindex'],$page_config['per_page']);
+    $this->load->view('publics/store',$data);
+    $this->load->view('footer');
+  }
+
+
 
 }

@@ -151,20 +151,23 @@ class Admin extends CI_Controller
    **/
   public function store()
   {
+    $this->load->model('Publics');
     /* 分页 */
-    $total_rows   = $this->Admins->get_store_num()[0]['COUNT(id)'];
+    $total_rows   = $this->Publics->get_store_num()[0]['COUNT(id)'];
     $url          = site_url('admin/store');
     $page_config  = set_page($url,$total_rows);
     $data['page'] = $this->pagination->create_links();
-    $data['table']= $this->Admins->get_store($page_config['nowindex'],$page_config['per_page']);
+    $data['table']= $this->Publics->get_store($page_config['nowindex'],$page_config['per_page']);
 
     $this->load->view('header',page_header(
       '门店管理',
       '查看门店信息',
       $this->menu
     ));
+    $data['edit'] = 'ture';
+    $data['add'] = 'ture';
 
-    $this->load->view('admin/store',$data);
+    $this->load->view('publics/store',$data);
     $this->load->view('footer');
   }
 
