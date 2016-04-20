@@ -1,4 +1,5 @@
 <!-- 表格 -->
+<?php echo form_open('export/run/');?>
 <div class="container-fluid" id='table'>
 	<div class="row-fluid">
 		<div class="span12">
@@ -30,6 +31,9 @@
 				</thead>
 				<tbody>
           <?php foreach($table as $val): ?>
+						<td class='no-print'>
+              <p class='p-checkbox'><input class='checkbox' type="checkbox" id="checkbox1" name='export[]' value='<?=$val['id']?>'></p>
+						</td>
 						<td>
               <?php echo $val['buy_date']; ?>
 						</td>
@@ -61,15 +65,18 @@
 
 					</tr>
           <?php endforeach; ?>
+          <tr class='no-print'><td class='select-all'>全选</td></tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
 </div>
+
 <div class='btn btn-default print-table'>
-  <button class='print-button' onclick="jQuery('#table').print()" target="_self">打印表格</button>
-</div>
-<div class='btn btn-default print-table'>
-<a class='toExcel' href="<?php echo base_url('index.php/export/condition/store');?>" target="_self">导出表格</a>
+<input type='submit' class='toExcel' target="_self" name='submit' value='导出表格'>
 </div>
 
+<div class='btn btn-default print-table'>
+  <p class='print-button' onclick="jQuery('#table').print()" target="_self">打印表格</p>
+</div>
+</form>

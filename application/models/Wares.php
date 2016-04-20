@@ -20,11 +20,22 @@ class Wares extends CI_Model
    **/
   public function get_s($start,$end)
   {
+    /* 判断是否经过了搜索 */
+    if($this->uri->segment(3) == 'search')
+    {
+      /* 搜索 */
+      $sql = ' AND r.state=1 ';
+      /* 加载一个publics 模型 */
+      $this->load->model('Publics');
+      /* 运行模型中的基本search 方法 */
+      return $this->Publics->search($sql);
+
+    }
     if($end==''){return false;}
     /* 根据门店进行查询 */
     $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state=1 AND r.state = s.state_code LIMIT %s,%s';
     $query = $this->db->query(sprintf($sql,$start,$end));
-    return $query->result();
+    return $query->result_array();
   }
 
   /**
@@ -33,11 +44,22 @@ class Wares extends CI_Model
    **/
   public function post_m($start,$end)
   {
+    /* 判断是否经过了搜索 */
+    if($this->uri->segment(3) == 'search')
+    {
+      /* 搜索 */
+      $sql = ' AND r.state=2 ';
+      /* 加载一个publics 模型 */
+      $this->load->model('Publics');
+      /* 运行模型中的基本search 方法 */
+      return $this->Publics->search($sql);
+
+    }
     if($end == '' ){return false;}
     /* 根据门店进行查询 */
     $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state=2 AND r.state = s.state_code LIMIT %s,%s';
     $query = $this->db->query(sprintf($sql,$start,$end));
-    return $query->result();
+    return $query->result_array();
   }
 
   /**
@@ -88,11 +110,22 @@ class Wares extends CI_Model
    **/
   public function get_m($start,$end)
   {
+    /* 判断是否经过了搜索 */
+    if($this->uri->segment(3) == 'search')
+    {
+      /* 搜索 */
+      $sql = ' AND r.state=3 ';
+      /* 加载一个publics 模型 */
+      $this->load->model('Publics');
+      /* 运行模型中的基本search 方法 */
+      return $this->Publics->search($sql);
+
+    }
     if($end == ''){return false;}
 
     $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state=3 AND r.state = s.state_code LIMIT %s,%s';
     $query = $this->db->query(sprintf($sql,$start,$end));
-    return $query->result();
+    return $query->result_array();
   } 
 
   /**
@@ -104,10 +137,22 @@ class Wares extends CI_Model
    **/
   public function post_s($start,$end)
   {
+    /* 判断是否经过了搜索 */
+    if($this->uri->segment(3) == 'search')
+    {
+      /* 搜索 */
+      $sql = ' AND r.state=4 ';
+      /* 加载一个publics 模型 */
+      $this->load->model('Publics');
+      /* 运行模型中的基本search 方法 */
+      return $this->Publics->search($sql);
+
+    }
+
     if($end == ''){return false;}
     $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state=4 AND r.state = s.state_code LIMIT %s,%s';
     $query = $this->db->query(sprintf($sql,$start,$end));
-    return $query->result();
+    return $query->result_array();
   }
 
   /**
@@ -196,8 +241,8 @@ class Wares extends CI_Model
     if($day == ''){return false;}
     
     $time = $day*60*60*24;
-    $sql = 'SELECT count(id) FROM records WHERE state <> 6 AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(start_date) >= "%s"';
-    $this->db->query(sprintf($sql,$time))->result_array();
+    $sql = 'SELECT count(id) FROM records WHERE state <> 7 AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(start_date) >= "%s"';
+    return $this->db->query(sprintf($sql,$time))->result_array();
   }
 
 
@@ -250,7 +295,8 @@ class Wares extends CI_Model
    * @param   int   $user_id 用户id
    * @param   date  $date    更新时间   
    **/
-  public function take($id,$user_id,$date){
+  public function take($id,$user_id,$date)
+  {
     if($id !== '' && $user_id !== '' && $date !== '')
     {
       $sql = sprintf(
@@ -270,6 +316,25 @@ class Wares extends CI_Model
       }
     }
   
+  }
+
+  /**
+   * search
+   * @param num $day 查询一定天数范围外的记录
+   **/
+  public function search( $day='' )
+  {
+    $sql = '';
+    if(!empty($day))
+    {
+      $time = $day*60*60*24;
+      $sql .= ' AND r.state < 6 AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(r.start_date) >= '.$time;
+    }
+
+    /* 加载一个publics 模型 */
+    $this->load->model('Publics');
+    /* 运行模型中的基本search 方法 */
+    return $this->Publics->search($sql);
   }
 
 }

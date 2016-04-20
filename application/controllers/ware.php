@@ -12,7 +12,7 @@ class Ware extends CI_Controller{
   public function __construct()
   {
     parent::__construct();
-    $this->load->helper(array('url','publics','header','page'));
+    $this->load->helper(array('url','publics','header','page','search'));
     $this->load->library('session');
 
     /* 检测登录状态 */
@@ -46,6 +46,7 @@ class Ware extends CI_Controller{
    **/
   public function get_s()
   {
+    $this->load->helper('form');
     /* 分页 */
     $total_rows   = $this->Wares->get_num(1)[0]['COUNT(id)'];
     $url          = site_url('ware/get_s');
@@ -58,6 +59,12 @@ class Ware extends CI_Controller{
       '所有门店送修信息',
       $this->menu
     ));
+    $search           = get_search_data();
+    $search['action'] = 'ware/get_s/search';
+
+    $js = get_search_js();
+    array_push($js['js_array'],'jquery.print.js');
+    $this->load->view('publics/search',$search);
     $this->load->view('ware/get_s',$data);
     $this->load->view('footer');
   }
@@ -105,6 +112,7 @@ class Ware extends CI_Controller{
   public function post_m()
   {
 
+    $this->load->helper('form');
     /* 分页 */
     $total_rows   = $this->Wares->get_num(2)[0]['COUNT(id)'];
     $url          = site_url('ware/post_m');
@@ -117,6 +125,12 @@ class Ware extends CI_Controller{
       '仓库中所有待维修产品',
       $this->menu
     ));
+    $search           = get_search_data();
+    $search['action'] = 'ware/post_m/search';
+
+    $js = get_search_js();
+    array_push($js['js_array'],'jquery.print.js');
+    $this->load->view('publics/search',$search);
     $this->load->view('ware/post_m',$data);
     $this->load->view('footer');
   }
@@ -131,6 +145,7 @@ class Ware extends CI_Controller{
   public function get_m()
   {
 
+    $this->load->helper('form');
     /* 分页 */
     $total_rows   = $this->Wares->get_num(3)[0]['COUNT(id)'];
     $url          = site_url('ware/get_m');
@@ -143,6 +158,12 @@ class Ware extends CI_Controller{
       '所有厂家待返回的产品',
       $this->menu
     ));
+    $search           = get_search_data();
+    $search['action'] = 'ware/get_m/search';
+
+    $js = get_search_js();
+    array_push($js['js_array'],'jquery.print.js');
+    $this->load->view('publics/search',$search);
     $this->load->view('ware/get_m',$data);
     $this->load->view('footer');
   }
@@ -157,6 +178,7 @@ class Ware extends CI_Controller{
   public function post_s()
   {
 
+    $this->load->helper('form');
     /* 分页 */
     $total_rows   = $this->Wares->get_num(4)[0]['COUNT(id)'];
     $url          = site_url('ware/post_s');
@@ -169,9 +191,17 @@ class Ware extends CI_Controller{
       '仓库中可返回门店的产品',
       $this->menu
     ));
+
+    $search           = get_search_data();
+    $search['action'] = 'ware/post_s/search';
+
+    $js = get_search_js();
+    array_push($js['js_array'],'jquery.print.js');
+    $this->load->view('publics/search',$search);
     $this->load->view('ware/post_s',$data);
     $this->load->view('footer');
   }
+
 
   /**
    * 显示所有记录
@@ -179,7 +209,7 @@ class Ware extends CI_Controller{
    **/
   public function all_table()
   {
-
+    $this->load->helper('form');
     /* 分页 */
     $total_rows   = $this->Wares->get_num()[0]['COUNT(id)'];
     $url          = site_url('ware/all_table');
@@ -187,13 +217,22 @@ class Ware extends CI_Controller{
     $data['page'] = $this->pagination->create_links();
     $data['table'] = $this->Wares->all_table($page_config['nowindex'],$page_config['per_page']);
 
-    $this->load->view('header',page_header(
+    $header = page_header(
       '所有送修记录',
       '查看所有维修产品',
       $this->menu
-    ));
+    );
+    $header['css'] = get_search_css();
+    $this->load->view('header',$header);
+
+    $search           = get_search_data();
+    $search['action'] = 'ware/search';
+
+    $js = get_search_js();
+    array_push($js['js_array'],'jquery.print.js');
+    $this->load->view('publics/search',$search);
     $this->load->view('ware/all_table',$data);
-    $this->load->view('footer');
+    $this->load->view('footer',$js);
   }
 
   /**
@@ -202,21 +241,29 @@ class Ware extends CI_Controller{
   public function day_7_table()
   {
 
+    $this->load->helper('form');
     /* 分页 */
-    $total_rows   = $this->Wares->get_day_num(7)[0]['COUNT(id)'];
+    $total_rows   = $this->Wares->get_day_num(7)[0]['count(id)'];
     $url          = site_url('ware/day_7_table');
     $page_config  = set_page($url,$total_rows);
     $data['page'] = $this->pagination->create_links();
-    $data['table'] = $this->Wares->day_get(7,$page_config['nowindex'],$page_config['per_page']);
+    $data['table']= $this->Wares->day_get(7,$page_config['nowindex'],$page_config['per_page']);
 
     $this->load->view('header',page_header(
       '7天为返回的送修记录',
       '查看所有7天内未维修完成的产品',
       $this->menu
     ));
+    $search           = get_search_data();
+    $search['action'] = 'ware/search/7';
+
+    $js = get_search_js();
+    array_push($js['js_array'],'jquery.print.js');
+    $this->load->view('publics/search',$search);
     $this->load->view('ware/all_table',$data);
-    $this->load->view('footer');
+    $this->load->view('footer',$js);
   }
+  
     
   /**
    * 显示15天厂家没有返回的设备
@@ -224,8 +271,9 @@ class Ware extends CI_Controller{
   public function day_15_table()
   {
 
+    $this->load->helper('form');
     /* 分页 */
-    $total_rows   = $this->Wares->get_day_num(15)[0]['COUNT(id)'];
+    $total_rows   = $this->Wares->get_day_num(15)[0]['count(id)'];
     $url          = site_url('ware/day_15_table');
     $page_config  = set_page($url,$total_rows);
     $data['page'] = $this->pagination->create_links();
@@ -235,8 +283,14 @@ class Ware extends CI_Controller{
       '查看所有7天内未维修完成的产品',
       $this->menu
     ));
+    $search           = get_search_data();
+    $search['action'] = 'ware/search/15';
+
+    $js = get_search_js();
+    array_push($js['js_array'],'jquery.print.js');
+    $this->load->view('publics/search',$search);
     $this->load->view('ware/all_table',$data);
-    $this->load->view('footer');
+    $this->load->view('footer',$js);
   }
 
   /**
@@ -369,6 +423,54 @@ class Ware extends CI_Controller{
     
   }
 
+  /**
+   * 搜索查询
+   */
+  public function search()
+  {
+
+    $param = $this->uri->segment(3);
+    
+    /* 加载表单处理程序*/
+    $this->load->library('form_validation');
+    if(!empty($param))
+    {
+      $result = $this->Wares->search($param);
+    }else{
+      $result = $this->Wares->search();
+    }
+
+    if($result){
+
+      /* 筛选结果页 */
+
+      $this->load->helper(array('form','search'));
+
+      $header       = page_header(
+                        '筛选结果',
+                        '筛选结果记录',
+                        $this->menu
+                      );
+      $header['css'] = get_search_css();
+
+      $this->load->view('header',$header);
+
+      /* 搜索框start */
+      $search = get_search_data();
+      $search['action'] = 'ware/search';
+      $this->load->view('publics/search',$search);
+      /* 搜索框end */
+      $data['table']  = $result;
+
+      $load_js = get_search_js();
+      array_push($load_js['js_array'],'jquery.print.js');
+      $this->load->view('publics/search_result',$data);
+      $this->load->view('footer',$load_js);
+    }else{
+      //redirect('ware/nosearch');
+      tips('无查询结果');
+    }
+  }
 
   /**
    * 报价

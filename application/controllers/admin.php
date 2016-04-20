@@ -284,7 +284,8 @@ class Admin extends CI_Controller
         '7天未返回的送修记录',
         '查看所有7天内未维修完成的产品',
         $this->menu
-      );
+    );
+
     $header['css']= get_search_css();
 
     /* 分页 */

@@ -36,40 +36,40 @@
 				<tbody>
           <?php foreach($table as $val): ?>
 						<td>
-              <?php echo $val->start_date; ?>
+              <?php echo $val['start_date']; ?>
 						</td>
 
 						<td>
-              <?php echo $val->from_s; ?>
+              <?php echo $val['from_s']; ?>
 						</td>
 
 						<td>
-              <?php echo $val->customer_name; ?>
+              <?php echo $val['customer_name']; ?>
 						</td>
 
             <td>
-              <?php echo $val->customer_phone; ?>
+              <?php echo $val['customer_phone']; ?>
 						</td>
 
             <td>
-              <?php echo $val->brand; ?>
+              <?php echo $val['brand']; ?>
 						</td>
 
             <td>
-              <?php echo $val->digital_type; ?>
+              <?php echo $val['digital_type']; ?>
 						</td>
 
             <td>
-              <?php echo $val->string_code; ?>
+              <?php echo $val['string_code']; ?>
 						</td>
 
             <td>
-              <?php echo $val->state_msg; ?>
+              <?php echo $val['state_msg']; ?>
 						</td>
 
             <td>
-              <a href="<?php echo base_url('index.php/ware/repair/'.$val->id); ?>" class="btn btn-success btn-xs active" role="button">送修厂家</a>
-              <a href="<?php echo base_url('index.php/details/show/'.$val->id.'/ware');?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
+              <a href="<?php echo base_url('index.php/ware/repair/'.$val['id']); ?>" class="btn btn-success btn-xs active" role="button">送修厂家</a>
+              <a href="<?php echo base_url('index.php/details/show/'.$val['id'].'/ware');?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
 						</td>
 
 					</tr>

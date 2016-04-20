@@ -73,7 +73,7 @@ class Publics extends CI_Model
     $end_time     = $this->input->post('end_time');
     $key_word     = $this->input->post('key');
 
-    $sql = 'SELECT r.id,r.buy_date,r.customer_name,r.customer_phone,r.brand,d.`value`,s.state_msg FROM records r, state_code s,region re,sector se,digital_type d WHERE  d.id = r.digital_type AND  re.id = se.region AND se.`name` = r.from_s AND r.state = s.state_code ';
+    $sql = 'SELECT r.*,d.`value`,s.state_msg FROM records r, state_code s,region re,sector se,digital_type d WHERE  d.id = r.digital_type AND  re.id = se.region AND se.`name` = r.from_s AND r.state = s.state_code ';
 
     /* 如果存在需要附加的sql。第一时间加上 */
     if(!empty($additional))
