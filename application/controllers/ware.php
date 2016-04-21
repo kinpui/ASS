@@ -29,12 +29,18 @@ class Ware extends CI_Controller{
    * 仓库售后员首页
    **/
   public function index(){
+    $data = array(
+      'get_s_num'  => $this->get_s_num(), 
+      'get_m_num'  => $this->get_m_num(), 
+      'post_m_num' => $this->post_m_num(), 
+      'post_s_num' => $this->post_s_num(), 
+    );
     $this->load->view('header', page_header(
       '仓库售后员',
       '主页',
       $this->menu
     ));
-    $this->load->view('ware/index');
+    $this->load->view('ware/index',$data);
     $this->load->view('footer');
   }
 
@@ -577,6 +583,47 @@ class Ware extends CI_Controller{
 
     $this->load->view('publics/factory',$data);
     $this->load->view('footer');
+  }
+
+  public function get_s_num()
+  {
+    $num = $this->Wares->get_state_num('1');
+    if($num)
+    {
+      return $num;
+    }else{
+      return '0';
+    }
+  }
+  public function get_m_num()
+  {
+    $num = $this->Wares->get_state_num('2');
+    if($num)
+    {
+      return $num;
+    }else{
+      return '0';
+    }
+  }
+  public function post_m_num()
+  {
+    $num = $this->Wares->get_state_num('3');
+    if($num)
+    {
+      return $num;
+    }else{
+      return '0';
+    }
+  }
+  public function post_s_num()
+  {
+    $num = $this->Wares->get_state_num('4');
+    if($num)
+    {
+      return $num;
+    }else{
+      return '0';
+    }
   }
 
 }

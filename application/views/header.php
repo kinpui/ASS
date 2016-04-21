@@ -50,7 +50,7 @@
 
 		<div class="dropdown right head-dropdown">
 			<a href="javascript:;" class="under-n head-droplink" id="dropdownMenu1" data-toggle="dropdown" >
-				<span class="avtar"><img src="<?php echo base_url('static/images/img/avtar.jpg')?>" ></span>
+				<span class="avtar"><img src="<?php echo base_url('static/images/img/logo.png')?>" ></span>
         <?php echo $this->session->userdata('nickname'); ?>
 				<i class="fa fa-chevron-down"></i> 
 			</a>

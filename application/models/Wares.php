@@ -337,4 +337,15 @@ class Wares extends CI_Model
     return $this->Publics->search($sql);
   }
 
+  /**
+   * 获取门店送修数量
+   * @param   $state    送修途径状态
+   **/
+  public function get_state_num($state)
+  {
+    if(empty($state)){return false;}
+    $sql = 'SELECT COUNT(id) FROM records WHERE state = '.$state;
+    return $this->db->query($sql)->result_array()[0]['COUNT(id)'];
+  }
+
 }
