@@ -18,15 +18,6 @@
       </div>
     </div>
 
-
-    <div class="form-group">
-      <!-- Select Multiple 附带配件 -->
-      <label class="col-sm-1 control-label" for="input01">附带配件</label>
-      <div class="col-sm-4">
-        <input type="text" placeholder="使用 , 区分多个配件 (如：电池,数据线,保卡)" class="input-xlarge  form-control" name='parts'>
-      </div>
-    </div>
-
     <div class="form-group">
       <!-- Select Basic 数码类型下拉选择-->
       <label class="col-sm-1 control-label">数码类型</label>

@@ -8,16 +8,19 @@
 							送修时间
 						</th>
 						<th>
-							顾客姓名
+							串码
 						</th>
 						<th>
-							顾客电话
+							故障原因
 						</th>
 						<th>
 							品牌型号
 						</th>
             <th>
               数码类型
+            </th>
+            <th>
+              串码
             </th>
             <th>
               位置
@@ -30,32 +33,36 @@
 				<tbody>
           <?php foreach($table as $val): ?>
 						<td>
-              <?php echo $val->start_date; ?>
+              <?php echo $val['start_date']; ?>
 						</td>
 
 						<td>
-              <?php echo $val->customer_name; ?>
+              <?php echo $val['string_code']; ?>
 						</td>
 
             <td>
-              <?php echo $val->customer_phone; ?>
+              <?php echo $val['fault']; ?>
 						</td>
 
             <td>
-              <?php echo $val->brand; ?>
+              <?php echo $val['brand']; ?>
+            </td>
+
+            <td>
+              <?php echo $val['string_code']; ?>
 						</td>
 
             <td>
-              <?php echo $val->digital_type; ?>
+              <?php echo $val['value']; ?>
 						</td>
 
             <td>
-              <?php echo $val->state_msg; ?>
+              <?php echo $val['fault']; ?>
 						</td>
 
             <td>
-              <a href="take_h/<?php echo $val->id; ?>" class="btn btn-success btn-xs active" role="button">客户取机</a>
-              <a href="<?php echo base_url('index.php/details/show/'.$val->id.'/store') ?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
+              <a href="take_h/<?php echo $val['id']; ?>" class="btn btn-success btn-xs active" role="button">客户取机</a>
+              <a href="<?php echo base_url('index.php/details/show/'.$val['id'].'/sware') ?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
 						</td>
 
 					</tr>

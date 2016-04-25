@@ -34,10 +34,10 @@ class Stores extends CI_Model
   public function get_wait_table()
   {
     /* 根据门店进行查询 */
-    $sql = 'SELECT r.id, start_date, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM 
-records r,state_code s WHERE r.from_s = "'.$this->session->userdata('sector').'" AND state = 5 AND r.state = s.state_code';
+    $sql = 'SELECT r.*,d.value FROM 
+records r, digital_type d WHERE r.from_s = "'.$this->session->userdata('sector').'" AND r.state = 5 AND r.digital_type = d.id';
     $query = $this->db->query($sql);
-    return $query->result();
+    return $query->result_array();
   }
 
 
@@ -48,10 +48,10 @@ records r,state_code s WHERE r.from_s = "'.$this->session->userdata('sector').'"
   public function get_take_table()
   {
     /* 根据门店进行查询 */
-    $sql = 'SELECT r.id, start_date, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM 
-records r,state_code s WHERE r.from_s = "'.$this->session->userdata('sector').'" AND state = 6 AND r.state = s.state_code';
+    $sql = 'SELECT r.*,d.value FROM 
+records r,digital_type d WHERE r.from_s = "'.$this->session->userdata('sector').'" AND r.state = 6 AND r.digital_type = d.id';
     $query = $this->db->query($sql);
-    return $query->result();
+    return $query->result_array();
   }
 
 
@@ -150,6 +150,15 @@ records r,state_code s WHERE r.from_s = "'.$this->session->userdata('sector').'"
     /* 加载公共model */
     $this->load->model('Publics');
     return $this->Publics->search($sql);
+  }
+
+  /**
+   * 查询所有未返回的设备
+   **/
+  public function not_return()
+  {
+    $sql = 'SELECT r.*,d.`value` FROM records r,digital_type d WHERE r.digital_type = d.id AND r.state < 6 AND from_s = "'.$this->session->userdata('sector').'"';
+    return $this->db->query($sql)->result_array();
   }
 
 }

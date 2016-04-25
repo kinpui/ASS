@@ -72,7 +72,7 @@ class Ware extends CI_Controller{
     array_push($js['js_array'],'jquery.print.js');
     $this->load->view('publics/search',$search);
     $this->load->view('ware/get_s',$data);
-    $this->load->view('footer');
+    $this->load->view('footer',$js);
   }
 
 

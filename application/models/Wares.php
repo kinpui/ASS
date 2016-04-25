@@ -33,9 +33,7 @@ class Wares extends CI_Model
     }
     if($end==''){return false;}
     /* 根据门店进行查询 */
-    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state=1 AND r.state = s.state_code LIMIT %s,%s';
-    $query = $this->db->query(sprintf($sql,$start,$end));
-    return $query->result_array();
+    return $this->select_state('1',$start,$end);
   }
 
   /**
@@ -57,9 +55,8 @@ class Wares extends CI_Model
     }
     if($end == '' ){return false;}
     /* 根据门店进行查询 */
-    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state=2 AND r.state = s.state_code LIMIT %s,%s';
-    $query = $this->db->query(sprintf($sql,$start,$end));
-    return $query->result_array();
+   
+    return $this->select_state('2',$start,$end);
   }
 
   /**
@@ -96,7 +93,7 @@ class Wares extends CI_Model
   {
     if($end == ''){return false;}
 
-    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,d.value,s.state_msg FROM records r,state_code s,digital_type d WHERE r.state = s.state_code AND d.id = r.digital_type LIMIT %s,%s';
+    $sql = 'SELECT r.*,d.value,s.state_msg FROM records r,state_code s,digital_type d WHERE r.state = s.state_code AND d.id = r.digital_type LIMIT %s,%s';
     $query  = $this->db->query(sprintf($sql,$start,$end));
     return $query->result_array();
   }
@@ -122,10 +119,7 @@ class Wares extends CI_Model
 
     }
     if($end == ''){return false;}
-
-    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state=3 AND r.state = s.state_code LIMIT %s,%s';
-    $query = $this->db->query(sprintf($sql,$start,$end));
-    return $query->result_array();
+    return $this->select_state('3',$start,$end);
   } 
 
   /**
@@ -150,9 +144,7 @@ class Wares extends CI_Model
     }
 
     if($end == ''){return false;}
-    $sql = 'SELECT r.id, r.start_date, r.from_s, r.string_code, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM records r,state_code s WHERE r.state=4 AND r.state = s.state_code LIMIT %s,%s';
-    $query = $this->db->query(sprintf($sql,$start,$end));
-    return $query->result_array();
+    return $this->select_state('4',$start,$end);
   }
 
   /**
@@ -348,4 +340,17 @@ class Wares extends CI_Model
     return $this->db->query($sql)->result_array()[0]['COUNT(id)'];
   }
 
+  /**
+   * 根据state 查询数据
+   * @param   $state    设备状态
+   * @param   $start    分页属性
+   * @param   $end      分页属性
+   * return   array     查询结果 
+   **/
+  public function select_state($state,$start,$end)
+  {
+    $sql = 'SELECT r.*,d.value FROM records r,digital_type d WHERE state=%s AND r.digital_type = d.id LIMIT %s,%s';
+    $query = $this->db->query(sprintf($sql,$state,$start,$end));
+    return $query->result_array();
+  }
 }

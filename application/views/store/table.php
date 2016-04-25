@@ -25,6 +25,9 @@
               数码类型
             </th>
             <th>
+              串码
+            </th>
+            <th>
               位置
             </th>
             <th class='no-print'>
@@ -55,6 +58,10 @@
 
             <td>
               <?php echo $val['value']; ?>
+						</td>
+            
+            <td>
+              <?php echo $val['string_code']; ?>
 						</td>
 
             <td>

@@ -16,6 +16,9 @@
 						<th>
 							品牌型号
 						</th>
+						<th>
+							串码
+						</th>
             <th>
               数码类型
             </th>
@@ -30,32 +33,35 @@
 				<tbody>
           <?php foreach($table as $val): ?>
 						<td>
-              <?php echo $val->start_date; ?>
+              <?=$val['start_date']; ?>
 						</td>
 
 						<td>
-              <?php echo $val->customer_name; ?>
+              <?=$val['customer_name']; ?>
 						</td>
 
             <td>
-              <?php echo $val->customer_phone; ?>
+              <?=$val['customer_phone']; ?>
 						</td>
 
             <td>
-              <?php echo $val->brand; ?>
+              <?=$val['brand']; ?>
+						</td>
+            <td>
+              <?=$val['string_code']; ?>
 						</td>
 
             <td>
-              <?php echo $val->digital_type; ?>
+              <?=$val['value']; ?>
 						</td>
 
             <td>
-              <?php echo $val->state_msg; ?>
+              <?=$val['fault']; ?>
 						</td>
 
             <td>
-              <a href="<?php echo base_url('index.php/details/show/'.$val->id.'/store') ?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
-              <a href="receive/<?php echo $val->id; ?>" class="btn btn-success btn-xs active" role="button">接收</a>
+              <a href="<?=base_url('index.php/details/show/'.$val['id'].'/sware') ?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
+              <a href="receive/<?=$val['id']; ?>" class="btn btn-success btn-xs active" role="button">接收</a>
 						</td>
 
 					</tr>

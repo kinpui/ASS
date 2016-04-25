@@ -223,6 +223,30 @@ class Sware extends CI_Controller{
     $this->load->view('footer');
   }
 
+  /**
+   * 所有未返回的设备
+   **/
+  public function not_return()
+  {
+    $this->load->helper('form');
+    $header = page_header(
+      '送修列表',
+      '我的送修记录',
+      $this->menu
+    );
+
+    $this->load->view('header',$header);
+
+    $data['table']= $this->Stores->not_return();
+    if(empty($data['table']))
+    {
+      $data['not'] = 'true';  
+    }
+
+    $this->load->view('sware/table.php',$data);
+    $this->load->view('footer');
+    
+  } 
 
   /**
    * 筛选

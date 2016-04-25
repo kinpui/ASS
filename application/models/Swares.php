@@ -73,11 +73,10 @@ class Swares extends CI_Model
   public function get_wait_table()
   {
     /* 根据门店进行查询 */
-    $sql = 'SELECT r.id, start_date, r.customer_name,r.customer_phone,r.brand,r.digital_type,s.state_msg FROM 
-records r,state_code s WHERE r.from_s = "'.$this->session->userdata('sector').'" AND state = 5 AND r.state = s.state_code';
-echo $sql;
+    $sql = 'SELECT * FROM 
+records WHERE from_s = "'.$this->session->userdata('sector').'" AND state = 5 ';
     $query = $this->db->query($sql);
-    return $query->result();
+    return $query->result_array();
   }
 
 }

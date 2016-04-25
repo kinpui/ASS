@@ -147,7 +147,7 @@ class Store extends CI_controller {
       $this->menu
     ));
     
-    $this->load->view('sware/take.php',$data);
+    $this->load->view('store/take.php',$data);
     $this->load->view('footer');
   }
 

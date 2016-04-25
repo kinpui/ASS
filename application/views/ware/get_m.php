@@ -26,7 +26,7 @@
               设备串码
             </th>
             <th>
-              位置
+              故障原因
             </th>
             <th>
               操作
@@ -56,7 +56,7 @@
 						</td>
 
             <td>
-              <?php echo $val['digital_type']; ?>
+              <?php echo $val['value']; ?>
 						</td>
 
             <td>
@@ -64,7 +64,7 @@
 						</td>
 
             <td>
-              <?php echo $val['state_msg']; ?>
+              <?php echo $val['fault']; ?>
 						</td>
 
             <td>
