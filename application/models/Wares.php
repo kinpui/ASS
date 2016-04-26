@@ -353,4 +353,38 @@ class Wares extends CI_Model
     $query = $this->db->query(sprintf($sql,$state,$start,$end));
     return $query->result_array();
   }
+
+  /**
+   * 根据区域号查询该区域下的所有门店送修信息
+   * @param  $val  num  区域号码
+   **/
+  public function get_region_msg($val)
+  {
+    $sql    = '
+      SELECT rec.from_s,COUNT(rec.from_s) as total ,
+      (SELECT COUNT(*) FROM records WHERE from_s = rec.from_s AND state < 6) as surplus,
+      (SELECT COUNT(*) FROM records WHERE from_s = rec.from_s AND state =6 ) as nottake
+      FROM records rec WHERE from_s in(SELECT `name` FROM sector s,region r WHERE r.id = s.region AND r.id = %s)
+      GROUP BY from_s
+      ';
+    return $this->db->query(sprintf($sql,$val))->result_array();
+  }
+
+  /**
+   * 获取当天送修记录总和
+   * @param  num  $day  日子的数量
+   * @param  bool $re   是否计算返回的数量
+   **/
+  public function get_total($day,$re = '')
+  {
+    $sql = 'SELECT COUNT(*) as num FROM records WHERE UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(start_date) < 86000*'.$day;
+
+    /* 判断是否计算返回的数量 */
+    if(!empty($re))
+    {
+      $sql .= ' AND state >= 6';
+    }
+
+    return $this->db->query(sprintf($sql,$day))->result_array()['0']['num'];
+  }
 }

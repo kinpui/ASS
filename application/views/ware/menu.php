@@ -1,6 +1,12 @@
 		<div class="sidemenu">
 			<ul>
 				<li>
+          <a href="<?php echo base_url('index.php/ware/index'); ?>">
+						<i class="ico i-nav2"></i>
+						<p>主页面</p>
+					</a>
+				</li>
+				<li>
           <a href="<?php echo base_url('index.php/ware/get_s'); ?>">
 						<i class="ico i-nav2"></i>
 						<p>接收门店送修</p>

@@ -34,6 +34,20 @@ class Ware extends CI_Controller{
       'get_m_num'  => $this->get_m_num(), 
       'post_m_num' => $this->post_m_num(), 
       'post_s_num' => $this->post_s_num(), 
+      'chenjiang1' => $this->get_region_msg(1),
+      'chenjiang2' => $this->get_region_msg(2),
+      'huizhou'    => $this->get_region_msg(3),
+      'huiyang'    => $this->get_region_msg(5),
+      'boluo'      => $this->get_region_msg(4),
+      'year'       => date('Y'),
+      'mon'        => date('m'),
+      'day'        => date('Y-m-d'),
+      'day_total'  => $this->Wares->get_total(1),
+      'mon_total'  => $this->Wares->get_total(30),
+      'year_total' => $this->Wares->get_total(365),
+      'day_re'  => $this->Wares->get_total(1,true),
+      'mon_re'  => $this->Wares->get_total(30,true),
+      'year_re' => $this->Wares->get_total(365,true)
     );
     $this->load->view('header', page_header(
       '仓库售后员',
@@ -624,6 +638,17 @@ class Ware extends CI_Controller{
     }else{
       return '0';
     }
+  }
+
+  /**
+   * 获取区域信息
+   * @param   $val    num  区域号
+   **/
+  public function get_region_msg($val)
+  {
+    if(empty($val)){return false;}
+
+    return $this->Wares->get_region_msg($val);
   }
 
 }

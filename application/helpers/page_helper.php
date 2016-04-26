@@ -7,7 +7,7 @@ function set_page($url,$total_rows)
   
   // 分页
   $ci->load->library('pagination');
-  $page_config['per_page']    = 5;   //每页条数
+  $page_config['per_page']    = 15;   //每页条数
   $page_config['total_rows']  = $total_rows;
   $page_config['base_url']    = $url;//url
   $page_config['uri_segment'] =3;//参数取 index.php之后的段数，默认为3，即index.php/control/function/18 这种形式
