@@ -8,11 +8,11 @@
 							送修时间
 						</th>
 						<th>
-							串码
-						</th>
+							顾客姓名
+            </th>
 						<th>
-							故障原因
-						</th>
+							顾客电话
+            </th>
 						<th>
 							品牌型号
 						</th>
@@ -22,9 +22,9 @@
             <th>
               串码
             </th>
-            <th>
-              位置
-            </th>
+						<th>
+							故障原因
+						</th>
             <th>
               操作
             </th>
@@ -37,11 +37,11 @@
 						</td>
 
 						<td>
-              <?php echo $val['string_code']; ?>
+              <?php echo $val['customer_name']; ?>
 						</td>
 
             <td>
-              <?php echo $val['fault']; ?>
+              <?php echo $val['customer_phone']; ?>
 						</td>
 
             <td>
@@ -49,11 +49,11 @@
 						</td>
 
             <td>
-              <?php echo $val['string_code']; ?>
+              <?php echo $val['value']; ?>
 						</td>
 
             <td>
-              <?php echo $val['digital_type']; ?>
+              <?php echo $val['string_code']; ?>
 						</td>
 
             <td>

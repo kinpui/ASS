@@ -98,8 +98,8 @@ class Publ extends CI_Controller
     $page_config  = set_page($url,$total_rows);
     $data['page'] = $this->pagination->create_links();
     $this->load->view('header',page_header(
-      '查看厂家信息',
-      '所有厂家列表',
+      '查看门店信息',
+      '所有门店列表',
       $menu
     ));
 

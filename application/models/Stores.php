@@ -161,4 +161,29 @@ records r,digital_type d WHERE r.from_s = "'.$this->session->userdata('sector').
     return $this->db->query($sql)->result_array();
   }
 
+  /**
+   * 验证修改密码
+   **/
+  Public function verifyPass()
+  {
+    $oldPass = $this->input->post('oldPass');
+    $username= $this->session->userdata('username');
+
+    /* 验证旧密码 */
+    $old = $this->db->query(sprintf('SELECT `password` FROM user WHERE username = "%s"',$username))->result_array()['0']['password'];
+
+    if($old == md5($oldPass))
+    {
+      $newPass = array('password'=>md5($this->input->post('newPass')));
+      if(@$this->db->update('user',$newPass," username = '$username'"))
+      {
+        return true;
+      }else{
+        return false;
+      }
+    }else{
+      return false;
+    }
+  }
+
 }

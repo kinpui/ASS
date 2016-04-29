@@ -47,12 +47,13 @@
             <td>
               <?=$val['brand']; ?>
 						</td>
-            <td>
-              <?=$val['string_code']; ?>
-						</td>
 
             <td>
               <?=$val['value']; ?>
+						</td>
+
+            <td>
+              <?=$val['string_code']; ?>
 						</td>
 
             <td>

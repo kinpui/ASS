@@ -310,6 +310,43 @@ class Store extends CI_controller {
     }
   }
 
+  /**
+   * 修改密码
+   **/
+  public function password()
+  {
+    $this->load->helper('form');
+
+    $this->load->view('header',page_header('修改账号登录密码','修改密码',$this->menu));
+    $this->load->view('store/pass');
+    $this->load->view('footer');
+  }
+
+  /**
+   * 修改密码操作 
+   **/
+  public function changepass()
+  {
+  
+    $this->load->library('form_validation');
+
+    /* 验证部分字段不为空 */
+    $this->form_validation->set_rules('oldPass','OldPass','callback_check_null');  //购买日期
+    $this->form_validation->set_rules('newPass','NewPass','callback_check_null'); //顾客姓名
+
+    if ($this->form_validation->run() == FALSE)
+    {
+      tips('请正确输入旧密码和新密码');
+    }else{
+      if($this->Stores->verifyPass())
+      {
+        tips('您已成功修改密码，请牢记新密码','true');
+      }else{
+        tips('你输入的旧密码有误');
+      }
+    }
+
+  }
 
   /**
    * 筛选
