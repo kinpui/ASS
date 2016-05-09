@@ -26,7 +26,7 @@
       <!-- Text input 品牌型号-->
       <label class="col-sm-1 text-center " for="input01">品牌型号</label>
       <div class="col-sm-4">
-      <input type="text"  class="input-xlarge  form-control" disabled="true" value='<?=$data->brand?>'>
+      <input type="text"  class="input-xlarge  form-control" disabled="true" value='<?=$data->brand.$data->types?>'>
       </div>
     </div>
 

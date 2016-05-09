@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>演示：HTML5+CSS3实现的响应式垂直时间轴</title>
+<title>送修记录查询</title>
 <link rel="stylesheet" href="<?php echo base_url('static/css/time_axis.css')?>" />
 </head>
 
@@ -29,7 +29,7 @@ if($result):
 		</div>
 
 		<div class="cd-timeline-content">
-			<h2>门店送到售后服务中心</h2>
+			<h2>门店送到服务中心</h2>
       <span class="cd-date">时间：<?=$values->s_w_d?></span>
       <span class="cd-date">操作：<?=get_nick($values->s_w_u)?></span>
 		</div>

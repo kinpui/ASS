@@ -26,6 +26,7 @@ class Swares extends CI_Model
     /* 获取数据 */
     $data = array(
       'brand'         => $this->input->post('brand'),
+      'types'         => $this->input->post('types'),
       'string_code'   => $this->input->post('string_code'),
       'parts'         => $this->input->post('parts'),
       'digital_type'  => $this->input->post('digital_type'),

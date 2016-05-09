@@ -1,4 +1,4 @@
-<?php echo form_open('export/run/');?>
+<?= form_open('export/run/');?>
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span12">
@@ -43,39 +43,39 @@
               <p class='p-checkbox'><input class='checkbox' type="checkbox" id="checkbox1" name='export[]' value='<?=$val['id']?>'></p>
 						</td>
 						<td>
-              <?php echo $val['start_date']; ?>
+              <?= $val['start_date']; ?>
 						</td>
 
 						<td>
-              <?php echo $val['from_s']; ?>
+              <?= $val['from_s']; ?>
 						</td>
 
 						<td>
-              <?php echo $val['customer_name']; ?>
+              <?= $val['customer_name']; ?>
 						</td>
 
             <td>
-              <?php echo $val['customer_phone']; ?>
+              <?= $val['customer_phone']; ?>
 						</td>
 
             <td>
-              <?php echo $val['brand']; ?>
+              <?= $val['brand'].$val['types']; ?>
 						</td>
 
             <td>
-              <?php echo $val['value']; ?>
+              <?= $val['value']; ?>
 						</td>
 
             <td>
-              <?php echo $val['string_code']; ?>
+              <?= $val['string_code']; ?>
 						</td>
 
             <td>
-              <?php echo $val['state_msg']; ?>
+              <?= $val['state_msg']; ?>
 						</td>
 
             <td class='no-print'>
-              <a href="<?php echo base_url('index.php/details/show/'.$val['id'].'/ware');?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
+              <a href="<?= base_url('index.php/details/show/'.$val['id'].'/ware');?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
 						</td>
 
 					</tr>
@@ -94,4 +94,4 @@
   <p class='print-button' onclick="jQuery('#table').print()" target="_self">打印表格</p>
 </div>
 </form>
-<?php echo $page;?>
+<?= $page;?>

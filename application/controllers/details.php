@@ -29,7 +29,7 @@ class Details extends CI_Controller
       /* header 信息 */
       $header_data = array(
         'title'       => '送修详细信息',
-        'page_title'  => $detales[0]->customer_name.'的'.$detales[0]->brand.'送修情况',
+        'page_title'  => $detales[0]->customer_name.'的'.$detales[0]->brand.$detales[0]->types.'送修情况',
         'menu_type'   => $menu
       );
 

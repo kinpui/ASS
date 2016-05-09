@@ -510,9 +510,11 @@ a.current {
 .print-table a{
   text-decoration:none;
 }
-.print-button{
-  background: transparent;
-  border: 0;
+.print-button {
+  background: transparent none repeat scroll 0 0;
+  border: 0 none;
+  padding: 3px;
+  width: 100px;
 }
 
 @media print {
@@ -638,13 +640,28 @@ a.current {
   position: relative;
   vertical-align: middle;
 }
-
-.toExcel {
-  background: transparent none repeat scroll 0 0;
-  border: 0 none;
+.day-excel{
+  background:transparent;
+  border:0;
 }
 /*添加厂家通讯录start*/
 .add_factory{
 top: 17px;
 }
 /*添加厂家通讯录end*/
+/* 总仓中批量处理 和 导出 按钮样式设置start */
+
+.toExcel,
+.batch{
+  opacity:0;
+  width:100px;
+}
+
+.toExcel_lab,
+.batch_lab{
+  line-height: 2em;
+  position: absolute;
+  text-align: center;
+}
+
+/* 总仓中批量处理 和 导出 按钮样式设置end */

@@ -51,9 +51,8 @@
 				<li>
           <a href="<?php echo base_url('index.php/ware/directories'); ?>">
 						<i class="ico i-nav5"></i>
-						<p>通讯录</p>
+						<p>系统功能</p>
 					</a>
         </li>
-      
 			</ul>
 		</div>

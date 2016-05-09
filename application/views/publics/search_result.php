@@ -1,11 +1,14 @@
 <!-- 表格 -->
-<?php echo form_open('export/run/');?>
+<?= form_open('export/run/');?>
 <div class="container-fluid" id='table'>
 	<div class="row-fluid">
 		<div class="span12">
 			<table class="table table-bordered table-hover table-striped">
 				<thead>
 					<tr>
+            <th class='no-print'>
+              导出
+            </th>
 						<th>
 							购买时间
 						</th>
@@ -17,6 +20,9 @@
 						</th>
 						<th>
 							品牌型号
+						</th>
+						<th>
+							串码
 						</th>
             <th>
               数码类型
@@ -35,32 +41,33 @@
               <p class='p-checkbox'><input class='checkbox' type="checkbox" id="checkbox1" name='export[]' value='<?=$val['id']?>'></p>
 						</td>
 						<td>
-              <?php echo $val['buy_date']; ?>
+              <?= $val['buy_date']; ?>
 						</td>
 
 						<td>
-              <?php echo $val['customer_name']; ?>
+              <?= $val['customer_name']; ?>
 						</td>
 
             <td>
-              <?php echo $val['customer_phone']; ?>
+              <?= $val['customer_phone']; ?>
 						</td>
 
             <td>
-              <?php echo $val['brand']; ?>
+              <?= $val['brand'].$val['types']; ?>
 						</td>
-
             <td>
-              <?php echo $val['value']; ?>
+              <?= $val['string_code']; ?>
 						</td>
-
             <td>
-              <?php echo $val['state_msg']; ?>
+              <?= $val['value']; ?>
+						</td>
+            <td>
+              <?= $val['state_msg']; ?>
 						</td>
 
             <td class='no-print'>
-              <a href="<?php echo base_url('index.php/details/show/'.$val['id'].'/store') ?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
-              <a href="<?=base_url('index.php/store/del/'.$val['id'])?>" class="btn btn-danger btn-xs active" role="button">删除</a>
+              <a href="<?= base_url('index.php/details/show/'.$val['id'].'/store') ?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
+              <a href="<?=base_url('index.php/'.$this->uri->segment(1).'/del/'.$val['id'])?>" class="btn btn-danger btn-xs active" role="button">删除</a>
 						</td>
 
 					</tr>

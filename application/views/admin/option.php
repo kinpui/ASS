@@ -22,6 +22,31 @@
 <!-- 颜色管理 end  -->
 </form>
 
+<!-- 品牌管理 -->
+<?php echo form_open('admin/add_brand'); ?>
+<!-- 品牌管理 start  -->
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">品牌管理</h3>
+  </div>
+ <div class="row">
+
+  <div class="col-lg-4 pad20">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="输入品牌名称" name='brand'>
+        <span class="input-group-btn">
+          <input class="btn btn-default add_color" type="submit" value='添加品牌' />
+        </span>
+      </div>
+  </div>
+  <div class="col-lg-4 pad20">
+     <a href="show_brand" class="btn btn-success" role="button">查看所有品牌</a> 
+  </div>
+  </div> 
+</div>
+<!-- 品牌管理 end  -->
+</form>
+
 <!-- 厂家管理 -->
 
 <?php echo form_open('admin/add_factory'); ?>
@@ -46,7 +71,7 @@
   </div>
   </div> 
 </div>
-<!-- 颜色管理 end  -->
+<!-- 厂家管理 end  -->
 </form>
 
 

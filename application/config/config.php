@@ -22,6 +22,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | If you need to allow multiple domains, remember that this file is still
 | a PHP script and you can easily do that on your own.
 |
+if(strstr($_SERVER["REMOTE_ADDR"],'192')){
+  $config['base_url'] = '';
+}else{
+  $config['base_url'] = 'http://www.sjyhd.com:88';
+}
 */
 $config['base_url'] = '';
 

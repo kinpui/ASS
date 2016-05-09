@@ -114,7 +114,7 @@ records r,digital_type d WHERE r.from_s = "'.$this->session->userdata('sector').
 
     if($id == '' || !is_numeric($id)){return false;}
 
-    $sql = sprintf('SELECT id FROM records WHERE from_s="%s" AND state < 2 AND id =%s',$this->session->userdata('sector'),$id);
+    $sql = sprintf('SELECT id FROM records WHERE from_s="%s" AND state = 1 or state = 8 AND id =%s',$this->session->userdata('sector'),$id);
 
     return $this->db->query($sql)->result_array();
   }
@@ -157,33 +157,9 @@ records r,digital_type d WHERE r.from_s = "'.$this->session->userdata('sector').
    **/
   public function not_return()
   {
-    $sql = 'SELECT r.*,d.`value` FROM records r,digital_type d WHERE r.digital_type = d.id AND r.state < 6 AND from_s = "'.$this->session->userdata('sector').'"';
+    $sql = 'SELECT r.*,s.state_msg,d.`value` FROM records r,digital_type d,state_code s WHERE s.state_code = r.state AND r.digital_type = d.id AND r.state < 6 AND from_s = "'.$this->session->userdata('sector').'"';
     return $this->db->query($sql)->result_array();
   }
 
-  /**
-   * 验证修改密码
-   **/
-  Public function verifyPass()
-  {
-    $oldPass = $this->input->post('oldPass');
-    $username= $this->session->userdata('username');
-
-    /* 验证旧密码 */
-    $old = $this->db->query(sprintf('SELECT `password` FROM user WHERE username = "%s"',$username))->result_array()['0']['password'];
-
-    if($old == md5($oldPass))
-    {
-      $newPass = array('password'=>md5($this->input->post('newPass')));
-      if(@$this->db->update('user',$newPass," username = '$username'"))
-      {
-        return true;
-      }else{
-        return false;
-      }
-    }else{
-      return false;
-    }
-  }
 
 }

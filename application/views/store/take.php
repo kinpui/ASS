@@ -33,36 +33,36 @@
 				<tbody>
           <?php foreach($table as $val): ?>
 						<td>
-              <?php echo $val['start_date']; ?>
+              <?=$val['start_date']; ?>
 						</td>
 
 						<td>
-              <?php echo $val['customer_name']; ?>
+              <?=$val['customer_name']; ?>
 						</td>
 
             <td>
-              <?php echo $val['customer_phone']; ?>
+              <?=$val['customer_phone']; ?>
 						</td>
 
             <td>
-              <?php echo $val['brand']; ?>
+              <?=$val['brand'].$val['types']; ?>
 						</td>
 
             <td>
-              <?php echo $val['value']; ?>
+              <?=$val['value']; ?>
 						</td>
 
             <td>
-              <?php echo $val['string_code']; ?>
+              <?=$val['string_code']; ?>
 						</td>
 
             <td>
-              <?php echo $val['fault']; ?>
+              <?=$val['fault']; ?>
 						</td>
 
             <td>
-              <a href="take_h/<?php echo $val['id']; ?>" class="btn btn-success btn-xs active" role="button">客户取机</a>
-              <a href="<?php echo base_url('index.php/details/show/'.$val['id'].'/sware') ?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
+              <a href="take_h/<?=$val['id']; ?>" class="btn btn-success btn-xs active" role="button">客户取机</a>
+              <a href="<?=base_url('index.php/details/show/'.$val['id'].'/sware') ?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
 						</td>
 
 					</tr>

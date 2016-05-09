@@ -37,50 +37,50 @@ echo form_open('export/run/');
 				<tbody>
           <?php foreach($table as $val): ?>
 						<td class='no-print'>
-              <p class='p-checkbox'><input type="checkbox" id="checkbox1" name='export[]' value='<?=$val['id']?>'></p>
+              <p class='p-checkbox'><input class='checkbox' type="checkbox" id="checkbox1" name='export[]' value='<?=$val['id']?>'></p>
 						</td>
             <td>
-              <?php echo $val['brand']; ?>
+              <?= $val['brand'].$val['types']; ?>
 						</td>
 
             <td>
-              <?php echo $val['value']; ?>
+              <?= $val['value']; ?>
 						</td>
             <td>
-              <?php echo $val['string_code']; ?>
+              <?= $val['string_code']; ?>
 						</td>
             <td>
-              <?php echo $val['fault']; ?>
+              <?= $val['fault']; ?>
 						</td>
             <td>
-              <?php echo $val['state_msg']; ?>
+              <?= $val['state_msg']; ?>
 						</td>
 
             <td class='no-print'>
-              <a href="<?php echo base_url('index.php/details/show/'.$val['id'].'/sware') ?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
-              <?php echo empty($val['new_string'])?'':'<span class="label label-warning">(新串码)</span>'; ?>
-              <?php echo empty($val['offer'])?'':'<span class="label label-warning">(报价)</span>'; ?>
-              <a href="<?=base_url('index.php/store/del/'.$val['id'])?>" class="btn btn-danger btn-xs actiae right glyphicon glyphicon-trash" role="button"></a>
+              <a href="<?= base_url('index.php/details/show/'.$val['id'].'/sware') ?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
+              <?= empty($val['new_string'])?'':'<span class="label label-warning">(新串码)</span>'; ?>
+              <?= empty($val['offer'])?'':'<span class="label label-warning">(报价)</span>'; ?>
+              <a href="<?=base_url('index.php/sware/del/'.$val['id'])?>" class="btn btn-danger btn-xs actiae right glyphicon glyphicon-trash" role="button"></a>
 						</td>
 
 					</tr>
           <?php endforeach; ?>
-          <tr class='no-print'><td><button class='select-all'>全选</button></td></tr>
+          <tr class='no-print'><td class='select-all'>全选</td></tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
 </div>
 <div class='btn btn-default print-table'>
-<input type='submit' class='toExcel' target="_self" name='submit' value='导出表格'>
+<label for='submit' class='toExcel_lab'>导出操作 》</label>
+<input type='submit' class='toExcel' target="_self" name='submit' value='sware_export'>
 </div>
 
 <div class='btn btn-default print-table'>
-  <p class='print-button' onclick="jQuery('#table').print()" target="_self">打印表格</p>
+  <p class='print-button' onclick="jQuery('#table').print()" target="_self">打印表格 》</p>
 </div>
 </form>
-
 <?php 
 endif;
-empty($page)?'':$page;
+echo empty($page)?'':$page;
 ?>

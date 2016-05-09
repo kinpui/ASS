@@ -50,20 +50,25 @@ function auth($ci)
 
 /**
  * admin 操作出错提示方法
- * @param   $msg    错误信息
- * @param   $status 提示状态: 空->失败；非空->成功
+ * @param   $msg      错误信息
+ * @param   $status   提示状态: 空->失败；非空->成功
+ * @param   $method   跳转方法
  */
-function tips($msg,$status='')
+function tips($method,$msg,$status='')
 {
   $ci = & get_instance();
+  $controller = $ci->uri->segment(1);
 
   $ci->load->view('header',page_header(
-    $status == ''?'操作出错':'操作成功',
-    $status == ''?'操作错误':'恭喜你！操作成功',
-    $ci->uri->segment(1)
+    $status   == ''?'操作出错':'操作成功',
+    $status   == ''?'操作错误':'恭喜你！操作成功',
+    $controller
   ));
 
-  $data = array('msg'=>$msg);
+  $data = array(
+    'msg'       => $msg,
+    'callback'  => base_url("index.php/$controller/$method")
+  );
 
   if(!empty($status))
   {
@@ -71,6 +76,5 @@ function tips($msg,$status='')
   }
 
   $ci->load->view('publics/error',$data);
-
   $ci->load->view('footer');
 }

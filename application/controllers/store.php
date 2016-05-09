@@ -56,6 +56,7 @@ class Store extends CI_controller {
     $this->load->model('Publics');
     $data['digital_type'] = $this->Publics->get_digital_type();
     $data['color'] = $this->Publics->get_color();
+    $data['brand'] = $this->Publics->get_brand();
 
     $this->load->view('store/add',$data);
     $this->load->view('footer');
@@ -161,12 +162,12 @@ class Store extends CI_controller {
     {
       $result = $this->Stores->receive($id);
       if(!$result){
-       tips('接机失败,请重试');
+       tips('wait','接机失败,请重试');
       }else{
-       tips('接收成功','1');
+       tips('wait','接收成功','1');
       }
     }else{
-      tips('非法操作');
+      tips('index','非法操作');
     }
   }
 
@@ -180,12 +181,12 @@ class Store extends CI_controller {
    {
      $result = $this->Stores->take_h($id);
      if($result){
-       tips('接收成功','1');
+       tips('take','客户取机操作成功','1');
      }else{
-       tips('取机失败,请重试');
+       tips('take','取机失败,请重试');
      }
    }else{
-     tips('非法操作');
+     tips('index','非法操作');
    }
   }
 
@@ -222,7 +223,7 @@ class Store extends CI_controller {
     $this->form_validation->set_rules('customer_name','Customer_name','callback_check_null'); //顾客姓名
     $this->form_validation->set_rules('customer_phone','Customer_phone','callback_check_null');  //联系电话
     $this->form_validation->set_rules('brand','Brand','callback_check_null');  //品牌
-    $this->form_validation->set_rules('string_code','String_code','callback_check_null');  //串码
+    //$this->form_validation->set_rules('string_code','String_code','callback_check_null');  //串码
     $this->form_validation->set_rules('remarks','Remarks','callback_check_null');  //故障原因
 
     if ($this->form_validation->run() == FALSE)
@@ -243,6 +244,7 @@ class Store extends CI_controller {
         'customer_name' => $this->input->post('customer_name'),
         'customer_phone'=> $this->input->post('customer_phone'),
         'brand'         => $this->input->post('brand'),
+        'types'         => $this->input->post('types'),
         'string_code'   => $this->input->post('string_code'),
         'appearance'    => $this->input->post('appearance'),
         'screen'        => $this->input->post('screen'),
@@ -260,7 +262,7 @@ class Store extends CI_controller {
 
       /* 插入数据库 */
       if($this->db->insert('records', $data)){
-        tips('送修成功,请持续关注维修状态。给顾客最满意的服务','1');
+        tips('add','送修成功,请持续关注维修状态。给顾客最满意的服务','1');
       }else{
         $this->load->view('store/add_fail');
       }
@@ -292,7 +294,7 @@ class Store extends CI_controller {
     $id = empty($this->uri->segment(3))?'':$this->uri->segment(3);
 
     if($id == ''){
-      tips('非法操作');
+      tips('index','非法操作');
       return false;
     }else{
       /* 获取该记录转态。如果大于等于2。则失败  */
@@ -300,12 +302,12 @@ class Store extends CI_controller {
       {
         if($this->Stores->del_record($id))
         {
-          tips('已经删除','1');
+          tips('table','已经删除','1');
         }else{
-          tips('删除不成功');
+          tips('table','删除不成功');
         }
       }else{
-        tips('已经送出。无法删除');
+        tips('table','已经送出。无法删除');
       }
     }
   }
@@ -318,7 +320,7 @@ class Store extends CI_controller {
     $this->load->helper('form');
 
     $this->load->view('header',page_header('修改账号登录密码','修改密码',$this->menu));
-    $this->load->view('store/pass');
+    $this->load->view('publics/pass');
     $this->load->view('footer');
   }
 
@@ -329,6 +331,7 @@ class Store extends CI_controller {
   {
   
     $this->load->library('form_validation');
+    $this->load->model('Publics');
 
     /* 验证部分字段不为空 */
     $this->form_validation->set_rules('oldPass','OldPass','callback_check_null');  //购买日期
@@ -336,13 +339,13 @@ class Store extends CI_controller {
 
     if ($this->form_validation->run() == FALSE)
     {
-      tips('请正确输入旧密码和新密码');
+      tips('password','请正确输入旧密码和新密码');
     }else{
-      if($this->Stores->verifyPass())
+      if($this->Publics->verifyPass())
       {
-        tips('您已成功修改密码，请牢记新密码','true');
+        tips('index','您已成功修改密码，请牢记新密码','true');
       }else{
-        tips('你输入的旧密码有误');
+        tips('password','你输入的旧密码有误');
       }
     }
 

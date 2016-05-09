@@ -4,7 +4,7 @@
 <title><?php echo $title; ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-
+<link rel="shortcut icon" href="<?=base_url('static/images/favicon.ico')?>" />
 	<!-- Bootstrap -->
   <link href="<?php echo base_url('static/css/bootstrap.min.css') ?>" rel="stylesheet" media="screen">
   <link href="<?php echo base_url('static/css/font-awesome.min.css') ?>" rel="stylesheet" media="screen">
@@ -74,4 +74,3 @@
 	<!--main start-->
 	<div class="main">
   <div class='pad20'>
-    <hr>

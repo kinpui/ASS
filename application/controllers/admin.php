@@ -78,7 +78,7 @@ class Admin extends CI_Controller
       ));
       $this->load->view('footer');
     }else{
-      tips('非法操作');
+      tips('index','非法操作');
     }
   }
 
@@ -119,7 +119,7 @@ class Admin extends CI_Controller
     if($this->form_validation->run() == FALSE)
     {
       /* 添加用户不成功 */
-      tips('添加用户不成功');
+      tips('users','添加用户不成功');
       //sleep(3);
       //redirect('admin/add');
     }else{
@@ -127,18 +127,18 @@ class Admin extends CI_Controller
       if($this->uri->segment(3) == 'edit'){
         //编辑操作
         if($this->Admins->edit_user_handle()){
-          tips('编辑用户信息成功','1');
+          tips('users','编辑用户信息成功','1');
         }else{
-          tips('编辑用户信息过程中出错，请检查无误后重试');
+          tips('users','编辑用户信息过程中出错，请检查无误后重试');
         }
       }else{
         //新增操作
         /* 提交模型处理器处理 */
         if($this->Admins->add_user_handle())
         {
-          tips('添加用户成功','1');
+          tips('users','添加用户成功','1');
         }else{
-          tips('添加用户过程中出错;请重试');
+          tips('users','添加用户过程中出错;请重试');
           //sleep(3);
           //redirect('admin/add1');
         }
@@ -206,24 +206,24 @@ class Admin extends CI_Controller
 
     if($this->form_validation->run() == FALSE)
     {
-      tips('添加门店信息不成功');
+      tips('store','添加门店信息不成功');
     }else{
 
       if($this->uri->segment(3) == 'edit'){
         //编辑操作
         if($this->Admins->edit_store_handle()){
-          tips('编辑门店信息成功','1');
+          tips('store','编辑门店信息成功','1');
         }else{
-          tips('编辑门店信息过程中出错，请检查无误后重试');
+          tips('store','编辑门店信息过程中出错，请检查无误后重试');
         }
       }else{
         //新增操作
         /* 提交模型处理器处理 */
         if($this->Admins->add_store_handle())
         {
-          tips('添加门店成功','1');
+          tips('store','添加门店成功','1');
         }else{
-          tips('添加门店过程中出错;请重试');
+          tips('store','添加门店过程中出错;请重试');
         }
       }
     }
@@ -253,7 +253,7 @@ class Admin extends CI_Controller
       ));
       $this->load->view('footer');
     }else{
-      tips('非法操作');
+      tips('index','非法操作');
     }
   }
 
@@ -406,6 +406,23 @@ class Admin extends CI_Controller
   }
 
   /**
+   * 查看所有品牌
+   **/
+  public function show_brand()
+  {
+    $this->load->view('header',page_header(
+      '查看品牌设置',
+      '所有品牌列表',
+      $this->menu
+    ));
+
+    $data['table'] = $this->Admins->get_brand();
+
+    $this->load->view('admin/brand',$data);
+    $this->load->view('footer');
+  }
+
+  /**
    * 添加颜色
    **/
   public function add_color()
@@ -414,17 +431,17 @@ class Admin extends CI_Controller
     $this->load->library('form_validation');
 
     /* 验证数据不为空，且合法 */
-    $this->form_validation->set_rules('color','Color','callback_check_null');
+    $this->form_validation->set_rules('color','color','callback_check_null');
 
-    if($this->form_validation->run() == FALSE)
+    if($this->form_validation->run() == false)
     {
-      tips('无法正确添加颜色');
+      tips('option','无法正确添加颜色');
     }else{
 
       if($this->Admins->add_color()){
-        tips('颜色添加成功','1');
+        tips('show_color','颜色添加成功','1');
       }else{
-        tips('无法正确添加颜色,请重试');
+        tips('option','无法正确添加颜色,请重试');
       }
     }
     
@@ -441,15 +458,63 @@ class Admin extends CI_Controller
     if(!empty($id) && !empty($user)){
       if($this->Admins->del_color($id))
       {
-        tips('成功删除颜色','1');
+        tips('show_color','成功删除颜色','1');
       }else{
-        tips('无法删除颜色,请重试');
+        tips('option','无法删除颜色,请重试');
       }
     }else{
-      tips('非法操作');
+      tips('index','非法操作');
       exit;
     }
   }
+
+
+  /**
+   * 添加品牌
+   **/
+  public function add_brand()
+  {
+    /* 加载表单处理程序  */
+    $this->load->library('form_validation');
+
+    /* 验证数据不为空，且合法 */
+    $this->form_validation->set_rules('brand','brand','callback_check_null');
+
+    if($this->form_validation->run() == false)
+    {
+      tips('option','无法正确添加品牌信息');
+    }else{
+
+      if($this->Admins->add_brand()){
+        tips('show_brand','品牌信息添加成功','1');
+      }else{
+        tips('option','无法正确添加品牌,请重试');
+      }
+    }
+    
+  }
+
+  /**
+   * 删除品牌
+   **/
+  public function del_brand()
+  {
+    $id   = $this->uri->segment(3);
+    $user = $this->session->userdata('userid');
+
+    if(!empty($id) && !empty($user)){
+      if($this->Admins->del_brand($id))
+      {
+        tips('show_brand','成功删除品牌','1');
+      }else{
+        tips('option','无法删除品牌,请重试');
+      }
+    }else{
+      tips('index','非法操作');
+      exit;
+    }
+  }
+
 
   /**
    * 添加厂家
@@ -464,13 +529,13 @@ class Admin extends CI_Controller
 
     if($this->form_validation->run() == FALSE)
     {
-      tips('无法正确添加颜色');
+      tips('option','无法正确添加厂家');
     }else{
 
       if($this->Admins->add_factory()){
-        tips('厂家添加成功','1');
+        tips('show_factory','厂家添加成功','1');
       }else{
-        tips('无法正确添加厂家,请重试');
+        tips('option','无法正确添加厂家,请重试');
       }
     }
     
@@ -487,12 +552,12 @@ class Admin extends CI_Controller
     if(!empty($id) && !empty($user)){
       if($this->Admins->del_factory($id))
       {
-        tips('成功删除厂家','1');
+        tips('show_factory','成功删除厂家','1');
       }else{
-        tips('无法删除厂家,请重试');
+        tips('option','无法删除厂家,请重试');
       }
     }else{
-      tips('非法操作');
+      tips('index','非法操作');
       exit;
     }
   }
@@ -520,9 +585,9 @@ class Admin extends CI_Controller
   {
     if(!empty($this->session->userdata('userid'))){
       if($this->Admins->edit_clause()){
-        tips('编辑条款成功','1');
+        tips('clause','编辑条款成功','1');
       }else{
-        tips('编辑条款失败');
+        tips('clause','编辑条款失败');
       }
     }
   }
@@ -559,13 +624,13 @@ class Admin extends CI_Controller
 
     if($this->form_validation->run() == FALSE)
     {
-      tips('无法正确添加数码类型');
+      tips('option','无法正确添加数码类型');
     }else{
 
       if($this->Admins->add_digital()){
-        tips('数码类型添加成功','1');
+        tips('show_digital','数码类型添加成功','1');
       }else{
-        tips('无法正确添加数码类型,请重试');
+        tips('option','无法正确添加数码类型,请重试');
       }
     }
     
@@ -582,12 +647,12 @@ class Admin extends CI_Controller
     if(!empty($id) && !empty($user)){
       if($this->Admins->del_digital($id))
       {
-        tips('成功删除数码类型','1');
+        tips('show_digital','成功删除数码类型','1');
       }else{
-        tips('无法删除数码类型,请重试');
+        tips('option','无法删除数码类型,请重试');
       }
     }else{
-      tips('非法操作');
+      tips('index','非法操作');
       exit;
     }
   }

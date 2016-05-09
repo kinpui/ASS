@@ -45,7 +45,7 @@
 						</td>
 
             <td>
-              <?=$val['brand']; ?>
+              <?=$val['brand'].$val['types']; ?>
 						</td>
 
             <td>

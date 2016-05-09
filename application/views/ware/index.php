@@ -10,7 +10,7 @@
 					<div class="stats-panel stats-blue clear">
 						<div class="auto stats-txt">
 							<p>门店送修</p>
-              <p class="stats-num"><a href="#"><?=$get_s_num?></a></p>
+              <p class="stats-num"><?=$get_s_num?></p>
 						</div>
             <a class="more clear" href="<?=base_url('index.php/ware/get_s') ?>"><span class="left">处理</span> <i class="right fa fa-angle-right"></i></a>
 					</div>
@@ -19,7 +19,7 @@
 					<div class="stats-panel stats-red clear">
 						<div class="auto stats-txt">
 							<p>待送修厂家</p>
-              <p class="stats-num"><a href="#"><?=$post_m_num?></a></p>
+              <p class="stats-num"><?=$post_m_num?></p>
 						</div>
             <a class="more clear" href="<?=base_url('index.php/ware/post_m')?>"><span class="left">处理</span> <i class="right fa fa-angle-right"></i></a>
 					</div>
@@ -28,7 +28,7 @@
 					<div class="stats-panel stats-green clear">
 						<div class="auto stats-txt">
 							<p>接收返回</p>
-              <p class="stats-num"><a href="#"><?=$get_m_num?></a></p>
+              <p class="stats-num"><?=$get_m_num?></p>
 						</div>
             <a class="more clear" href="<?=base_url('index.php/ware/get_m')?>"><span class="left">处理</span> <i class="right fa fa-angle-right"></i></a>
 					</div>
@@ -37,7 +37,7 @@
 					<div class="stats-panel stats-purple clear">
 						<div class="auto stats-txt">
 							<p>待返回门店</p>
-              <p class="stats-num"><a href="#"><?=$post_s_num?></a></p>
+              <p class="stats-num"><?=$post_s_num?></p>
 						</div>
             <a class="more clear" href="<?=base_url('index.php/ware/post_s')?>"><span class="left">处理</span> <i class="right fa fa-angle-right"></i></a>
 					</div>
@@ -75,7 +75,7 @@
 											</tr>
 <?php foreach($chenjiang1 as $val):?>
                       <tr>
-                        <td><a href="#"><?=$val['from_s']?></a></td>
+                        <td><?=$val['from_s']?></td>
                         <td><?=$val['total']?></td>
                         <td><?=$val['surplus']?></td>
                         <td><?=$val['nottake']?></td>
@@ -97,7 +97,7 @@
 											</tr>
 <?php foreach($chenjiang2 as $val):?>
                       <tr>
-                        <td><a href="#"><?=$val['from_s']?></a></td>
+                        <td><?=$val['from_s']?></a></td>
                         <td><?=$val['total']?></td>
                         <td><?=$val['surplus']?></td>
                         <td><?=$val['nottake']?></td>
@@ -119,7 +119,7 @@
 											</tr>
 <?php foreach($huizhou as $val):?>
                       <tr>
-                        <td><a href="#"><?=$val['from_s']?></a></td>
+                        <td><?=$val['from_s']?></td>
                         <td><?=$val['total']?></td>
                         <td><?=$val['surplus']?></td>
                         <td><?=$val['nottake']?></td>
@@ -141,7 +141,7 @@
 											</tr>
 <?php foreach($huiyang as $val):?>
                       <tr>
-                        <td><a href="#"><?=$val['from_s']?></a></td>
+                        <td><?=$val['from_s']?></td>
                         <td><?=$val['total']?></td>
                         <td><?=$val['surplus']?></td>
                         <td><?=$val['nottake']?></td>
@@ -163,7 +163,7 @@
 											</tr>
 <?php foreach($boluo as $val):?>
                       <tr>
-                        <td><a href="#"><?=$val['from_s']?></a></td>
+                        <td><?=$val['from_s']?></td>
                         <td><?=$val['total']?></td>
                         <td><?=$val['surplus']?></td>
                         <td><?=$val['nottake']?></td>

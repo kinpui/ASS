@@ -18,7 +18,6 @@ class Admins extends CI_Model
       return false;
     }
     
-    //$sql = 'SELECT u.id,u.nickname,u.sector,u.username,j.userjob FROM `user` u, `userjob` j  WHERE u.usertype = j.usertype LIMIT %s,%s';
     $sql = 'SELECT u.id, u.username, u.nickname, u.sector,s.addr,s.tel,j.userjob FROM `user` u,userjob j,sector s WHERE u.usertype = j.usertype AND s.`name` = u.sector LIMIT %s,%s';
     return $result = $this->db->query(sprintf($sql,$start,$end))->result();
   }
@@ -181,7 +180,7 @@ class Admins extends CI_Model
   public function get_all_table($start,$end)
   {
     
-    $sql = 'SELECT r.id, r.buy_date,r.customer_name,r.customer_phone,r.brand,d.`value`,s.state_msg FROM records r,state_code s,digital_type d WHERE r.state = s.state_code AND d.id = r.digital_type ORDER BY r.start_date DESC LIMIT %s,%s ';
+    $sql = 'SELECT r.*,d.`value`,s.state_msg FROM records r,state_code s,digital_type d WHERE r.state = s.state_code AND d.id = r.digital_type ORDER BY r.start_date DESC LIMIT %s,%s ';
 
     $sql = sprintf($sql,$start,$end);
     return $this->db->query($sql)->result_array();
@@ -197,16 +196,12 @@ class Admins extends CI_Model
   }
 
   /**
-   * 删除颜色
+   * 获取所有品牌
    **/
-  public function del_color($id)
+  public function get_brand()
   {
-    $this->db->query('DELETE FROM `color` WHERE `id`='.$id);
-    if($this->db->affected_rows()){
-      return true;
-    }else{
-      return false;
-    }
+    $sql = 'SELECT * FROM brand;';
+    return $this->db->query($sql)->result();
   }
 
   /**
@@ -230,6 +225,52 @@ class Admins extends CI_Model
     }
   }
 
+  /**
+   * 删除颜色
+   **/
+  public function del_color($id)
+  {
+    $this->db->query('DELETE FROM `color` WHERE `id`='.$id);
+    if($this->db->affected_rows()){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  /**
+   * 添加品牌
+   **/
+  public function add_brand()
+  {
+    $brand = $this->input->post('brand');
+
+    if(empty($brand))
+    {
+      return false;
+    }
+
+    $data = array('value'=>$brand);
+
+    if($this->db->insert('brand',$data)){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  /**
+   * 删除品牌
+   **/
+  public function del_brand($id)
+  {
+    $this->db->query('DELETE FROM `brand` WHERE `id`='.$id);
+    if($this->db->affected_rows()){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
   /**
    * 删除厂家

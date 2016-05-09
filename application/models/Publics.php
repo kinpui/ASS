@@ -49,11 +49,27 @@ class Publics extends CI_Model
   }
 
   /**
+   * 获取门店
+   * return array
+   **/
+  public function get_sector()
+  {
+    return $this->db->query('SELECT * FROM sector')->result_array();
+  }
+
+  /**
    * 获取颜色
    **/
   public function get_color()
   {
     return $this->db->query('SELECT * FROM color')->result_array();
+  }
+  /**
+   * 获取品牌信息
+   **/
+  public function get_brand()
+  {
+    return $this->db->query('SELECT * FROM brand')->result_array();
   }
 
 
@@ -69,6 +85,8 @@ class Publics extends CI_Model
     $digital_type = $this->input->post('digital_type');
     $state        = $this->input->post('state');
     $region       = $this->input->post('region');
+    $sector       = $this->input->post('sector');
+    $brand        = $this->input->post('brand');
     $start_time   = $this->input->post('start_time');
     $end_time     = $this->input->post('end_time');
     $key_word     = $this->input->post('key');
@@ -96,6 +114,16 @@ class Publics extends CI_Model
       $sql .= ' AND re.id = '.$region;
     }
 
+    /* 设置了门店划分 */
+    if(!empty($sector) && $sector !== '0'){
+      $sql .= ' AND r.from_s = "'.$sector.'"';
+    }
+
+    /* 设置了品牌划分 */
+    if(!empty($brand) && $brand !== '0'){
+      $sql .= ' AND r.brand = "'.$brand.'"';
+    }
+
     if(!empty($start_time) && !empty($end_time)){
       /* 如果有开始和结束的时间 */
       $sql .= " AND UNIX_TIMESTAMP('$start_time') <=  UNIX_TIMESTAMP(r.start_date) AND UNIX_TIMESTAMP('$end_time')   >=  UNIX_TIMESTAMP(r.start_date)";
@@ -115,6 +143,7 @@ class Publics extends CI_Model
                     OR	r.customer_name LIKE '%$key_word%'
                     OR	r.fault         LIKE '%$key_word%'
                     OR	r.from_s        LIKE '%$key_word%'
+                    OR	r.string_code   LIKE '%$key_word%'
                     )";
     }
 
@@ -128,23 +157,107 @@ class Publics extends CI_Model
    **/
   public function export($value)
   {
-    $where = '';
-    if(is_array($value))
+    if(!$value){return false;}
+    $where = $this->select_where($value);
+    $sql = 'SELECT * FROM records r,sector s WHERE r.from_s = s.`name` AND r.id IN('.$where.')';
+    return $this->db->query($sql)->result_array();
+  }
+
+  /**
+   * batch_get_s 批量修改送修的状态为仓库接收
+   * @param   $array    $value  门店送修设备的id
+   **/
+  public function batch_get_s($value)
+  {
+    $newMsg = array(
+      'state'=>'2',
+      's_w_d'=>('Y-m-d'),
+      's_w_u'=>$this->session->userdata('userid')
+    );
+    if($this->batch($value,$newMsg))
     {
-      foreach($value as $key){
-        if($where == ''){
-          $where  = "$key";
-        }else{
-          $where .= ",$key";
-        }
-      }
-
-      $sql = 'SELECT * FROM records r,sector s WHERE r.from_s = s.`name` AND r.id IN('.$where.')';
-
-      return $this->db->query($sql)->result_array();
+      return true;
     }else{
       return false;
     }
+  }
+
+  /**
+   * batch_post_m 批量修改送修的状态为送修厂家
+   * @param   $array    $value  门店送修设备的id
+   **/
+  public function batch_post_m($value)
+  {
+    $newMsg = array(
+      'state'=>'3',
+      'w_m_d'=>date('Y-m-d'),
+      'w_m_u'=>$this->session->userdata('userid')
+    );
+    if($this->batch($value,$newMsg))
+    {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  /**
+   * batch_get_m 批量修改送修的状态为仓库从厂家取回
+   * @param   $array    $value  门店送修设备的id
+   **/
+  public function batch_get_m($value)
+  {
+    $newMsg = array(
+      'state'=>'4',
+      'm_w_d'=>date('Y-m-d'),
+      'm_w_u'=>$this->session->userdata('userid')
+    );
+    if($this->batch($value,$newMsg))
+    {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  /**
+   * batch_post_s 批量修改送修的状态为仓库返回到门店去
+   * @param   $array    $value  门店送修设备的id
+   * @param   $array    $value  送修前的状态
+   **/
+  public function batch_post_s($value)
+  {
+    $newMsg = array(
+      'state'=>'5',
+      'w_s_d'=>date('Y-m-d'),
+      'w_s_u'=>$this->session->userdata('userid')
+    );
+    if($this->batch($value,$newMsg))
+    {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  /**
+   * batch 批量修改送修的状态
+   * @param   $array    $value  门店送修设备的id
+   * @param   $array    $newMsg 需要更新的信息
+   **/
+  public function batch($value,$newMsg)
+  {
+    if(!$value or !$newMsg){return false;}
+
+    $where  = 'id IN('.$this->select_where($value).')';
+    
+    if(@$this->db->update('records',$newMsg,$where))
+    {
+      return true;
+    }else{
+      return false;
+    }
+   
   }
 
   /* 厂家管理 */
@@ -192,7 +305,48 @@ class Publics extends CI_Model
     return $this->db->query(sprintf($sql,$start,$end))->result();
   }
 
+  /**
+   * 验证修改密码
+   **/
+  Public function verifyPass()
+  {
+    $oldPass = $this->input->post('oldPass');
+    $username= $this->session->userdata('username');
 
+    /* 验证旧密码 */
+    $old = $this->db->query(sprintf('SELECT `password` FROM user WHERE username = "%s"',$username))->result_array()['0']['password'];
 
+    if($old == md5($oldPass))
+    {
+      $newPass = array('password'=>md5($this->input->post('newPass')));
+      if(@$this->db->update('user',$newPass," username = '$username'"))
+      {
+        return true;
+      }else{
+        return false;
+      }
+    }else{
+      return false;
+    }
+  }
+
+  /**
+   * 生成多值的where 语句
+   **/
+  public function select_where($value)
+  {
+    $where = '';
+    if(is_array($value))
+    {
+      foreach($value as $key){
+        if($where == ''){
+          $where  = "$key";
+        }else{
+          $where .= ",$key";
+        }
+      }
+    }
+    return $where;
+  }
 
 }

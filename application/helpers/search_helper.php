@@ -44,5 +44,11 @@ function get_search_data()
   /* 获取区域信息 */
   $data['region']       = $ci->Publics->get_region();
 
+  /* 获取门店信息 */
+  $data['sector']       = $ci->Publics->get_sector();
+
+  /* 获取品牌信息 */
+  $data['brand']       = $ci->Publics->get_brand();
+
   return $data;
 }

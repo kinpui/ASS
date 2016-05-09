@@ -2,11 +2,11 @@
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span12">
-			<table class="table table-bordered table-hover table-striped">
+			<table class="table table-bordered table-hover table-striped" id='table'>
 				<thead>
 					<tr>
 						<th class='no-print'>
-							选择
+							导出
 						</th>
 						<th>
 						  送修时间
@@ -30,9 +30,9 @@
               设备串码
             </th>
             <th>
-              故障原因
+              位置
             </th>
-            <th>
+            <th class='no-print'>
               操作
             </th>
 					</tr>
@@ -71,15 +71,13 @@
 						</td>
 
             <td>
-              <?= $val['fault']; ?>
+              <?= $val['state_msg']; ?>
 						</td>
 
-            <td>
-            <a href='<?= base_url('index.php/ware/return_w/'.$val['id'].'/3'); ?>' class="btn btn-success btn-xs active" role="button">接收</a>
+            <td class='no-print'>
               <a href="<?= base_url('index.php/details/show/'.$val['id'].'/ware');?>" class="btn btn-info btn-xs active" role="button">查看详细</a>
-              <a href="<?= base_url('index.php/ware/newstring/'.$val['id']);?>" class="btn btn-info btn-xs active" role="button">更新串码</a>
-              <a href="<?= base_url('index.php/ware/offer/'.$val['id']);?>" class="btn btn-info btn-xs active" role="button">报价</a>
 						</td>
+
 					</tr>
           <?php endforeach; ?>
           <tr class='no-print'><td class='select-all'>全选</td></tr>
@@ -89,17 +87,11 @@
 	</div>
 </div>
 <div class='btn btn-default print-table'>
-<label for='submit' class='batch_lab'>批量处理 》</label>
-<input type='submit' class='batch' target="_self" name='submit' value='batch_get_m'>
+<input type='submit' class='day-excel' target="_self" name='submit' value='导出表格'>
 </div>
 
 <div class='btn btn-default print-table'>
-<label for='submit' class='toExcel_lab'>导出操作 》</label>
-<input type='submit' class='toExcel' target="_self" name='submit' value='export'>
-</div>
-
-<div class='btn btn-default print-table'>
-  <p class='print-button' onclick="jQuery('#table').print()" target="_self">打印表格 》</p>
+  <p class='print-button' onclick="jQuery('#table').print()" target="_self">打印表格</p>
 </div>
 </form>
-<?=empty($no_page)?$page:''?>
+<?= $page;?>

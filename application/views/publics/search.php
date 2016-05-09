@@ -56,6 +56,30 @@
 </div>
 <!-- 时间段搜索end -->
 <?php endif;?>
+<?php if(empty($no_sector)):?>
+<!-- 门店搜索start -->
+<div class='btn-group' role="group" >
+  <select class="form-control col-md-12" name='sector'>
+  <option value='0'>门店划分</option>
+<?php foreach($sector as $val):?>
+<option value='<?=$val['name']?>'><?=$val['name']?></option>
+<?php endforeach; ?>
+</select>
+</div>
+
+<!-- 门店搜索end -->
+<?php endif;?>
+
+<!-- 品牌搜索start -->
+<div class='btn-group' role="group" >
+  <select class="form-control col-md-12" name='brand'>
+  <option value='0'>品牌分类</option>
+<?php foreach($brand as $val):?>
+<option value='<?=$val['value']?>'><?=$val['value']?></option>
+<?php endforeach; ?>
+</select>
+</div>
+<!-- 品牌搜索end -->
 
 <!-- 关键词搜索start -->
 <div class='btn-group' role='group'>
@@ -63,12 +87,10 @@
 </div>
 <!-- 关键词搜索end -->
 
-
 <!--提交按钮 start-->
 <div class='btn-group' role='group'>
   <input class='col-md-12 form-control btn btn-success dropdown-toggle' type='submit' value='查询'>
 </div>
 <!--提交按钮end-->
-
 </form>
 </div>

@@ -1,5 +1,5 @@
 <?php if(!empty($add)):?>
-<a href='add_store' class='add-user btn btn-primary btn-lg' role='button'>添加门店</a>
+<a href="<?=base_url('index.php/admin/add_store')?>" class='add-user btn btn-primary btn-lg' role='button'>添加门店</a>
 <hr>
 <?php endif; ?>
 <div class="container-fluid">

@@ -3,7 +3,7 @@
     <div class="progress-bar progress-bar-success" style="width: 25%">
       <span>门店提交送修</span>
       <span class='b_time'>送修时间：<?=$data->start_date?></span>
-      <span class='b_user'>处理人员：门店售后员</span>
+      <span class='b_user'>处理人员：<?=$data->from_s?></span>
     </div>
     <?php if(empty($data->s_w_d)):?>
       <div class="progress-bar progress-bar-dim" style="width: 25%">
@@ -42,9 +42,9 @@
     <div class="progress-bar progress-bar-success" style="width: 25%">
       <span>总售后返回门店(完成)</span>
       <span class='b_time'>门店接收：<?=$data->receive_d?></span>
-      <span class='b_user'>处理人员：门店售后员</span>
+      <span class='b_user'>处理人员：<?=$data->from_s?></span>
       <span class='a_time'>客户取机：<?=$data->take_d?></span>
-      <span class='a_user'>处理人员：门店售后员</span>
+      <span class='a_user'>处理人员：<?=$data->from_s?></span>
     <?php 
       endif;
       endif;

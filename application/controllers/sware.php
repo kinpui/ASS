@@ -61,6 +61,7 @@ class Sware extends CI_Controller{
 
     $data['digital_type'] = $this->Publics->get_digital_type();
     $data['color'] = $this->Publics->get_color();
+    $data['brand'] = $this->Publics->get_brand();
 
     $this->load->view('sware/add',$data);
     $this->load->view('footer');
@@ -77,12 +78,12 @@ class Sware extends CI_Controller{
    {
      $result = $this->Stores->take_h($id);
      if($result){
-       tips('接收成功','1');
+       tips('take','接收成功','1');
      }else{
-       tips('取机失败,请重试');
+       tips('take','取机失败,请重试');
      }
    }else{
-     tips('非法操作');
+     tips('index','非法操作');
    }
   }
 
@@ -109,7 +110,7 @@ class Sware extends CI_Controller{
 
     /* 分页 */
     $total_rows   = $this->Stores->get_table_num()[0]['COUNT(id)'];
-    $url          = site_url('sware/table');
+    $url          = site_url('sware/all_table');
     $page_config  = set_page($url,$total_rows);
     $data['page'] = $this->pagination->create_links();
 
@@ -119,7 +120,7 @@ class Sware extends CI_Controller{
     $search       = get_search_data();
 
     /* 加载js */
-    $load_js      = get_search_js();//加载search 需要的js
+    $load_js = get_search_js();
     array_push($load_js['js_array'],'jquery.print.js');
 
     $search['action']='sware/search'; 
@@ -150,9 +151,9 @@ class Sware extends CI_Controller{
       redirect('sware/add');
     }else{
       if($this->Swares->submit_form()){
-        tips('添加成功',1);
+        tips('add','添加成功',1);
       }else{
-        tips('添加失败。请重新添加');
+        tips('add','添加失败。请重新添加');
       }
     }
   }
@@ -192,12 +193,12 @@ class Sware extends CI_Controller{
     {
       $result = $this->Stores->receive($id);
       if(!$result){
-       tips('接机失败,请重试');
+       tips('wait','接机失败,请重试');
       }else{
-       tips('接收成功','1');
+       tips('wait','接收成功','1');
       }
     }else{
-      tips('非法操作');
+      tips('index','非法操作');
     }
   }
 
@@ -228,7 +229,7 @@ class Sware extends CI_Controller{
    **/
   public function not_return()
   {
-    $this->load->helper('form');
+    $this->load->helper(array('form','search'));
     $header = page_header(
       '送修列表',
       '我的送修记录',
@@ -243,9 +244,12 @@ class Sware extends CI_Controller{
       $data['not'] = 'true';  
     }
 
+    /* 加载js */
+    $load_js = get_search_js();
+    array_push($load_js['js_array'],'jquery.print.js');
+
     $this->load->view('sware/table.php',$data);
-    $this->load->view('footer');
-    
+    $this->load->view('footer',$load_js);
   } 
 
   /**
@@ -279,10 +283,10 @@ class Sware extends CI_Controller{
       $this->load->view('publics/search',$search);
       /* 搜索框end */
       $data['table']  = $result;
-      $this->load->view('publics/search_sware_result',$data);
+      $this->load->view('publics/search_result',$data);
       $this->load->view('footer',get_search_js());
     }else{
-      redirect('sware/');
+      tips('all_table','没有查找到相应的送修记录');
     }
   }
 
@@ -312,6 +316,72 @@ class Sware extends CI_Controller{
       return false;
     }else{
       return true;
+    }
+  }
+
+  /**
+   * 修改密码
+   **/
+  public function password()
+  {
+    $this->load->helper('form');
+
+    $this->load->view('header',page_header('修改账号登录密码','修改密码',$this->menu));
+    $this->load->view('publics/pass');
+    $this->load->view('footer');
+  }
+
+  /**
+   * 修改密码操作 
+   **/
+  public function changepass()
+  {
+  
+    $this->load->library('form_validation');
+    $this->load->model('Publics');
+
+    /* 验证部分字段不为空 */
+    $this->form_validation->set_rules('oldPass','OldPass','callback_check_null');  //购买日期
+    $this->form_validation->set_rules('newPass','NewPass','callback_check_null'); //顾客姓名
+
+    if ($this->form_validation->run() == FALSE)
+    {
+      tips('password','请正确输入旧密码和新密码');
+    }else{
+      if($this->Publics->verifyPass())
+      {
+        tips('index','您已成功修改密码，请牢记新密码','true');
+      }else{
+        tips('password','你输入的旧密码有误');
+      }
+    }
+
+  }
+
+  /**
+   * 删除用户送修记录
+   **/
+  public function del()
+  {
+    $id = empty($this->uri->segment(3))?'':$this->uri->segment(3);
+
+    if($id == ''){
+      tips('all_table','非法操作');
+      return false;
+    }else{
+      $this->load->model('Stores');
+      /* 获取该记录转态。如果大于等于2。则失败  */
+      if($this->Stores->get_record_status($id))
+      {
+        if($this->Stores->del_record($id))
+        {
+          tips('all_table','已经删除','1');
+        }else{
+          tips('all_table','删除不成功');
+        }
+      }else{
+        tips('all_table','已经送出。无法删除');
+      }
     }
   }
 }

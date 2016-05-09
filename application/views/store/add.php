@@ -26,11 +26,24 @@
       </div>
     </div>
 
+
+    <div class="form-group">
+      <!-- Select Basic 下拉选择品牌-->
+      <label class="col-sm-1 control-label">品 牌: </label>
+      <div class="col-sm-4">
+        <select class="input-xlarge  form-control" name='brand'>
+          <?php foreach($brand as $bra): ?>
+          <option value='<?=$bra['value']?>'><?=$bra['value']?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+    </div>
+
     <div class="form-group">
       <!-- Text input 品牌型号-->
-      <label class="col-sm-1 control-label" for="input01">品牌型号</label>
+      <label class="col-sm-1 control-label" for="input01">型号</label>
       <div class="col-sm-4">
-        <input type="text" placeholder="输入数码的品牌和型号" class="input-xlarge  form-control" name='brand' required>
+        <input type="text" placeholder="输入数码的品牌和型号" class="input-xlarge  form-control" name='types' required>
       </div>
     </div>
 
@@ -38,7 +51,7 @@
       <!-- Text input 数码串码-->
       <label class="col-sm-1 control-label" for="input01">串    码</label>
       <div class="col-sm-4">
-        <input type="number" placeholder="输入数码产品全串码" class="input-xlarge  form-control" name='string_code' required>
+        <input type="text" placeholder="输入数码产品全串码" class="input-xlarge  form-control" name='string_code' >
       </div>
     </div>
 

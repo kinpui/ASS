@@ -113,14 +113,34 @@ class Ware extends CI_Controller{
     {
       if($this->Wares->take($id,$user_id,$date)){
 
-        tips('接收成功','1');
+        tips('get_s','接收成功','1');
       }else{
-        tips('接收不成功');
+        tips('get_s','接收不成功');
       }
     }else{
-      tips('无权或非法操作');
+      tips('index','无权或非法操作');
     }
 
+  }
+  /**
+   * 退仓处理
+   **/
+  public function back_s()
+  {
+    /* 数码设备的ID */
+    $id     = empty($this->uri->segment(3))?'':$this->uri->segment(3);
+    
+    if(empty($id)){
+      tips('get_s','操作出现问题');
+    }else{
+
+      if($this->Wares->back_s($id))
+      {
+        tips('get_s','成功退仓','1');
+      }else{
+        tips('get_s','退仓失败，请检查后重试');
+      }
+    }
   }
 
   /**
@@ -140,19 +160,22 @@ class Ware extends CI_Controller{
     $data['page'] = $this->pagination->create_links();
     $data['table'] = $this->Wares->post_m($page_config['nowindex'],$page_config['per_page']);
 
+    $header['css'] = get_search_css();
     $this->load->view('header',page_header(
       '仓库送修到厂家',
       '仓库中所有待维修产品',
       $this->menu
     ));
+
     $search           = get_search_data();
     $search['action'] = 'ware/post_m/search';
-
+    $js = get_search_js();
+    array_push($js['js_array'],'jquery.print.js');
     $js = get_search_js();
     array_push($js['js_array'],'jquery.print.js');
     $this->load->view('publics/search',$search);
     $this->load->view('ware/post_m',$data);
-    $this->load->view('footer');
+    $this->load->view('footer',$js);
   }
 
 
@@ -185,7 +208,7 @@ class Ware extends CI_Controller{
     array_push($js['js_array'],'jquery.print.js');
     $this->load->view('publics/search',$search);
     $this->load->view('ware/get_m',$data);
-    $this->load->view('footer');
+    $this->load->view('footer',$js);
   }
 
 
@@ -219,7 +242,7 @@ class Ware extends CI_Controller{
     array_push($js['js_array'],'jquery.print.js');
     $this->load->view('publics/search',$search);
     $this->load->view('ware/post_s',$data);
-    $this->load->view('footer');
+    $this->load->view('footer',$js);
   }
 
 
@@ -280,7 +303,7 @@ class Ware extends CI_Controller{
     $js = get_search_js();
     array_push($js['js_array'],'jquery.print.js');
     $this->load->view('publics/search',$search);
-    $this->load->view('ware/all_table',$data);
+    $this->load->view('ware/day_table',$data);
     $this->load->view('footer',$js);
   }
   
@@ -309,7 +332,7 @@ class Ware extends CI_Controller{
     $js = get_search_js();
     array_push($js['js_array'],'jquery.print.js');
     $this->load->view('publics/search',$search);
-    $this->load->view('ware/all_table',$data);
+    $this->load->view('ware/day_table',$data);
     $this->load->view('footer',$js);
   }
 
@@ -327,15 +350,15 @@ class Ware extends CI_Controller{
 
       if($this->Wares->repair($id,$userid,$date)){
 
-        tips("送修厂家成功",'1');
+        tips('post_m',"送修厂家成功",'1');
 
       }else{
         
-        tips('送修厂家失败');
+        tips('post_m','送修厂家失败');
       }
     }else{
 
-      tips('非法操作');
+      tips('index','非法操作');
     }
   }
 
@@ -353,12 +376,12 @@ class Ware extends CI_Controller{
 
       /* 操作数据库 */
       if($this->Wares->return_w($id,$userid,$date)){
-        tips('成功返回仓库','1');
+        tips('get_m','成功返回仓库','1');
       }else{
-        tips('无法返回仓库.请重试');
+        tips('get_m','无法返回仓库.请重试');
       }
     }else{
-      tips('非法操作');
+      tips('index','非法操作');
     }
   }
 
@@ -376,13 +399,13 @@ class Ware extends CI_Controller{
 
       /* 操作数据库 */
       if($this->Wares->return_s($id,$userid,$date)){
-        tips('成功返回门店','1');
+        tips('post_s','成功返回门店','1');
       
       }else{
-        tips('无法返回门店.请重试');
+        tips('post_s','无法返回门店.请重试');
       }
     }else{
-      tips('非法操作');
+      tips('index','非法操作');
     }
   }
 
@@ -413,7 +436,7 @@ class Ware extends CI_Controller{
       $this->load->view('footer');
 
     }else{
-      tips('非法操作');
+      tips('index','非法操作');
     }
   }
 
@@ -431,13 +454,13 @@ class Ware extends CI_Controller{
     if ($this->form_validation->run() == FALSE)
     {
       //redirect('ware/get_m');
-      tips('修改出错');
+      tips('get_m','修改出错');
     }else{
       if($this->Wares->newstring())
       {
-        tips('成功修改串码','1');
+        tips('get_m','成功修改串码','1');
       }else{
-        tips('修改串码失败');
+        tips('get_m','修改串码失败');
       }
     }
     
@@ -488,7 +511,7 @@ class Ware extends CI_Controller{
       $this->load->view('footer',$load_js);
     }else{
       //redirect('ware/nosearch');
-      tips('无查询结果');
+      tips('all_table','无查询结果');
     }
   }
 
@@ -518,7 +541,7 @@ class Ware extends CI_Controller{
       $this->load->view('footer');
 
     }else{
-      tips('非法操作');
+      tips('index','非法操作');
     }
   }
 
@@ -535,13 +558,13 @@ class Ware extends CI_Controller{
 
     if ($this->form_validation->run() == FALSE)
     {
-      tips('无法报价');
+      tips('get_s','无法报价');
     }else{
       if($this->Wares->offer())
       {
-        tips('成功报价','1');
+        tips('get_m','成功报价','1');
       }else{
-        tips('无法报价');
+        tips('get_m','无法报价');
       }
     }
     
@@ -650,5 +673,45 @@ class Ware extends CI_Controller{
 
     return $this->Wares->get_region_msg($val);
   }
+
+
+  /**
+   * 修改密码
+   **/
+  public function password()
+  {
+    $this->load->helper('form');
+
+    $this->load->view('header',page_header('修改账号登录密码','修改密码',$this->menu));
+    $this->load->view('publics/pass');
+    $this->load->view('footer');
+  }
+
+  /**
+   * 修改密码操作 
+   **/
+  public function changepass()
+  {
+
+    $this->load->library('form_validation');
+    $this->load->model('Publics');
+
+    /* 验证部分字段不为空 */
+    $this->form_validation->set_rules('oldPass','OldPass','callback_check_null');  //购买日期
+    $this->form_validation->set_rules('newPass','NewPass','callback_check_null'); //顾客姓名
+
+    if ($this->form_validation->run() == FALSE)
+    {
+      tips('password','请正确输入旧密码和新密码');
+    }else{
+      if($this->Publics->verifyPass())
+      {
+        tips('directories','您已成功修改密码，请牢记新密码','true');
+      }else{
+        tips('password','你输入的旧密码有误');
+      }
+    }
+  }
+
 
 }

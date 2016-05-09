@@ -115,8 +115,8 @@ class Wares extends CI_Model
       /* 加载一个publics 模型 */
       $this->load->model('Publics');
       /* 运行模型中的基本search 方法 */
-      return $this->Publics->search($sql);
-
+      $result = $this->Publics->search($sql);
+      return $result;
     }
     if($end == ''){return false;}
     return $this->select_state('3',$start,$end);
@@ -387,4 +387,32 @@ class Wares extends CI_Model
 
     return $this->db->query(sprintf($sql,$day))->result_array()['0']['num'];
   }
+
+  /**
+   * 退仓操作
+   * 将state_code 该为8
+   * @param   $id   需要处理的产品id
+   **/
+  public function back_s($id)
+  {
+
+    if($id !== '')
+    {
+      $sql = sprintf(
+        'UPDATE records SET state=8 WHERE id=%s',
+        $id
+      );
+
+      $this->db->query($sql);
+      $result = $this->db->affected_rows();
+
+      if($result){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+  }
+
 }

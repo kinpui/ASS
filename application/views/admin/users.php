@@ -1,4 +1,4 @@
-<a href='add' class='add-user btn btn-primary btn-lg' role='button'>添加新用户</a>
+<a href="<?=base_url('index.php/admin/add')?>" class='add-user btn btn-primary btn-lg' role='button'>添加新用户</a>
 <hr>
 <div class="container-fluid">
 	<div class="row-fluid">
